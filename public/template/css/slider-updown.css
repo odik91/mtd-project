@@ -1,0 +1,64 @@
+.carousel-inner {
+    background-color: #C1E0FF;
+}
+
+.carousel-caption {
+    font-size: 2em;
+    right: 10%;
+    left: 60%;
+    top: 30%;
+    bottom: 30%;
+    text-align: left;
+    text-shadow: none;
+}
+
+.carousel-indicators {
+    font-size: 2em;
+    bottom: -1%;
+    text-align: left;
+    text-shadow: none;
+}
+
+/***
+ * Bootstrap relies on CSS transitions for animation, which makes it
+ * easy to override.  Just add the vertical class to your carousel:
+ * <div class='carousel vertical'>...</div>
+ ***/
+
+.carousel.vertical .carousel-inner {
+    height: 100%;
+}
+
+.carousel.vertical .item {
+    -webkit-transition: 0.6s ease-in-out top;
+    -moz-transition: 0.6s ease-in-out top;
+    -ms-transition: 0.6s ease-in-out top;
+    -o-transition: 0.6s ease-in-out top;
+    left: 0;
+}
+
+.carousel.vertical .active,
+.carousel.vertical .next.left,
+.carousel.vertical .prev.right {
+    top: 0;
+}
+
+.carousel.vertical .next,
+.carousel.vertical .active.right {
+    top: 100%;
+}
+
+.carousel.vertical .prev,
+.carousel.vertical .active.left {
+    top: -100%;
+}
+
+.carousel h3 {
+    font-size: 20px;
+    font-family: Verdana;
+    color: #515151;
+}
+
+.carousel img {
+    width: 40%;
+}
