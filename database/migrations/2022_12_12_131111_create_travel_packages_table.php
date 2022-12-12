@@ -22,6 +22,8 @@ return new class extends Migration
             $table->enum('is_active', ['active', 'inactive']);
             $table->timestamps();
             $table->softDeletes();
+            // table relation
+            $table->foreign('travel_id')->references('id')->on('travel')->onDelete('cascade');
         });
     }
 

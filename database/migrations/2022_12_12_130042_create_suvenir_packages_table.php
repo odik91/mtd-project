@@ -22,6 +22,8 @@ return new class extends Migration
             $table->enum('is_active', ['active', 'inactive']);
             $table->timestamps();
             $table->softDeletes();
+            // table relation
+            $table->foreign('suvenir_id')->references('id')->on('suvenirs')->onDelete('cascade');
         });
     }
 

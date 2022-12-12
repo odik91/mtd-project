@@ -22,6 +22,7 @@ return new class extends Migration
             $table->enum('is_active', ['active', 'inactive']);
             $table->timestamps();
             $table->softDeletes();
+            $table->foreign('subcategory_id')->references('id')->on('subcategories')->onDelete('cascade');
         });
     }
 
