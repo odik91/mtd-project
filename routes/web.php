@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\admin\dashboardController;
 use App\Http\Controllers\admin\PengaturanHalamanUtama;
+use App\Http\Controllers\admin\SuvenirController;
+use App\Http\Controllers\admin\TourController;
 use App\Http\Controllers\Public\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,10 +24,15 @@ use Illuminate\Support\Facades\Route;
 
 Route::resource('/home', HomeController::class);
 Route::get('/paket-wisata', [HomeController::class, 'travelPackages'])->name('paket-wisata');
-Route::get('/paket-detail', [HomeController::class, 'singlePage'])->name('paket-detail');
+Route::get('/paket-wisata', [HomeController::class, 'singlePage'])->name('paket-detail');
 Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
 
-Route::group(['prefix' => 'admin'], function () {
+Route::group(['prefix' => 'admin', 'middleware' => ['guest']], function () {
     Route::resource('/dashboard', dashboardController::class);
+
     Route::resource('/main-settings', PengaturanHalamanUtama::class);
+
+    Route::resource('/tour-travel', TourController::class);
+
+    Route::resource('/oleh-oleh', SuvenirController::class);
 });
