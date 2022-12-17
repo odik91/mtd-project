@@ -17,8 +17,9 @@ return new class extends Migration
             $table->id();
             $table->string('first_text');
             $table->string('second_text');
-            $table->string('thrid_text');
+            $table->string('third_text');
             $table->string('link')->nullable();
+            $table->string('image');
             $table->enum('is_active', ['active', 'inactive']);
             $table->timestamps();
             $table->softDeletes();

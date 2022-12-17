@@ -35,17 +35,17 @@
         <!-- Add icons to the links using the .nav-icon class
              with font-awesome or any other icon font library -->
         <li class="nav-item">
-          <a href="{{ route('dashboard.index') }}" class="nav-link active">
+          <a href="{{ route('dashboard.index') }}" class="nav-link {{ (isset($title) && $title == 'Dashboard') ? 'active' : '' }}">
             <i class="nav-icon fas fa-tachometer-alt"></i>
             <p>
-              Dashboard 
+              Dashboard
             </p>
           </a>
         </li>
         <li class="nav-header mt-2">PENGATURAN UTAMA</li>
         <li><hr class="bg-secondary mt-0"></li>
         <li class="nav-item">
-          <a href="{{ route('main-settings.index') }}" class="nav-link">
+          <a href="{{ route('main-settings.index') }}" class="nav-link {{ (isset($title) && $title == 'Pengaturan Halaman Utama') ? 'active' : '' }}">
             <i class="nav-icon fas fa-cog"></i>
             <p>
               Halam Utama 

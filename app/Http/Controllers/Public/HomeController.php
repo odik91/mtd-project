@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Public;
 
 use App\Http\Controllers\Controller;
+use App\Models\HomeSlider;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -15,7 +16,8 @@ class HomeController extends Controller
     public function index()
     {
         $title = "MTD | Home";
-        return view('public.index', compact('title'));
+        $mainSliders = HomeSlider::get();
+        return view('public.index', compact('title', 'mainSliders'));
     }
 
     /**
@@ -85,8 +87,8 @@ class HomeController extends Controller
     }
 
     public function travelPackages() {
-        $title = "MTD | Paket Wisata";
-        return view('public.paket-wisata', compact('title'));
+        $title = "MTD | Paket Wisata";        
+        return view('public.paket-wisata', compact('title',));
     }
 
     public function singlePage() {

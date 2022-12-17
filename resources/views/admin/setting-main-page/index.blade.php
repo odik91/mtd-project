@@ -9,7 +9,7 @@
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="#">Pengaturan</a></li>
-            <li class="breadcrumb-item active">Halaman Utama</li>
+            <li class="breadcrumb-item active">{{ ucwords($title) }}</li>
           </ol>
         </div><!-- /.col -->
       </div><!-- /.row -->
@@ -34,44 +34,77 @@
                   <h3 class="card-title text-center">Tambah Slider</h3>
 
                   <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
-                        class="fas fa-minus"></i>
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
                     </button>
                   </div>
                   <!-- /.card-tools -->
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                  <form>
+                  <form method="POST" action="{{ route('main-settings.store') }}" enctype="multipart/form-data">
+                    @csrf
                     <div class="card-body">
                       <div class="form-group">
                         <div class="input-group">
                           <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="exampleInputFile">
-                            <label class="custom-file-label text-muted" for="exampleInputFile">Pilih Background</label>
+                            <input type="file" name="image"
+                              class="custom-file-input @error('image') is-invalid @enderror" id="customFile"
+                              accept="image/*" required>
+                            <label class="custom-file-label" for="customFile">Pilih background (hanya jpg, png dan
+                              bmp)</label>
+                            @error('image')
+                              <span class="error invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                              </span>
+                            @enderror
                           </div>
                         </div>
                       </div>
                       <div class="row">
                         <div class="col-sm col-lg-4 col-md-4 mb-3">
-                          <input type="text" class="form-control" placeholder="Judul">
+                          <input type="text" name="first_text"
+                            class="form-control @error('first_text') is-invalid @enderror" placeholder="Judul" required>
+                          @error('first_text')
+                            <span class="error invalid-feedback" role="alert">
+                              <strong>{{ $message }}</strong>
+                            </span>
+                          @enderror
                         </div>
                         <div class="col-sm col-lg-4 col-md-4 mb-3">
-                          <input type="text" class="form-control" placeholder="Slogan">
+                          <input type="text" name="second_text"
+                            class="form-control @error('second_text') is-invalid @enderror" placeholder="Slogan" required>
+                          @error('second_text')
+                            <span class="error invalid-feedback" role="alert">
+                              <strong>{{ $message }}</strong>
+                            </span>
+                          @enderror
                         </div>
                         <div class="col-sm col-lg-4 col-md-4 mb-3">
-                          <input type="text" class="form-control" placeholder="Ajakan">
+                          <input type="text" name="third_text"
+                            class="form-control @error('third_text') is-invalid @enderror" placeholder="Ajakan" required>
+                          @error('third_text')
+                            <span class="error invalid-feedback" role="alert">
+                              <strong>{{ $message }}</strong>
+                            </span>
+                          @enderror
                         </div>
                       </div>
                       <div class="form-group">
-                        <input type="text" class="form-control" id="link" placeholder="Link halaman web ">
+                        <input type="text" name="link" class="form-control" id="link"
+                          placeholder="Link halaman web (jika tidak ada silakan kosongkan)">
                       </div>
                       <div class="form-group">
-                        <select name="active" id="" class="form-control">
+                        <select name="is_active" id=""
+                          class="form-control @error('is_active') is-invalid @enderror">
                           <option selected disabled>Ditampilkan?</option>
-                          <option value="active">Aktif</option>
-                          <option value="inactive">Tidak Aktif</option>
+                          <option value="active">Ya</option>
+                          <option value="inactive">Tidak</option>
                         </select>
+                        @error('image')
+                          <span class="error invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                          </span>
+                        @enderror
                       </div>
                       <button type="submit" class="btn btn-block btn-primary">Simpan</button>
                     </div>
@@ -79,7 +112,7 @@
                   </form>
                 </div>
                 <!-- /.card-body -->
-              </div>              
+              </div>
               <hr>
               <div class="p-4">
                 <h4 class="text-center mb-2 text-primary">List Slider</h4>
@@ -98,110 +131,166 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>1</td>
-                      <td>
-                        <img src="{{ asset('template/images/slide.jpg') }}" alt="img1" width="70px">
-                      </td>
-                      <td>asdfs</td>
-                      <td>fsdfs</td>
-                      <td>fsdfd</td>
-                      <td>fsdfd</td>
-                      <td>
-                        <select name="" id="" class="form-control">
-                          <option value="active" selected>Ya</option>
-                          <option value="active" selected>Tidak</option>
-                        </select>
-                      </td>
-                      <td>
-                        <a href="#" class="btn btn-sm bg-teal m-1" style="width: 35px" data-toggle="modal"
-                          data-target="#modal-slider-1">
-                          <i class="fas fa-edit"></i>
-                        </a>
-                        <a href="#" class="btn btn-sm btn-danger m-1" style="width: 35px" data-toggle="modal"
-                          data-target="#modal-slider-delete-1">
-                          <i class="fas fa-trash"></i>
-                        </a>
-                        {{-- modal edit slider --}}
-                        <div class="modal fade" id="modal-slider-1" data-backdrop="static" data-keyboard="false"
-                          tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                          <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                              <div class="modal-header">
-                                <h5 class="modal-title" id="staticBackdropLabel">Edit Slider</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                  <span aria-hidden="true">&times;</span>
-                                </button>
-                              </div>
-                              <div class="modal-body">
-                                <form>
-                                  <div class="card-body">
-                                    <div class="form-group">
-                                      <div class="input-group">
-                                        <div class="custom-file">
-                                          <input type="file" class="custom-file-input" id="exampleInputFile">
-                                          <label class="custom-file-label text-muted" for="exampleInputFile">Pilih
-                                            Background</label>
+                    @foreach ($homeSliders as $key => $homeSlider)
+                      <tr>
+                        <td>{{ ++$key }}</td>
+                        <td>
+                          <img src="{{ asset('images/sliders/' . $homeSlider['image']) }}"
+                            alt="{{ $homeSlider['image'] }}" width="70px">
+                        </td>
+                        <td>{{ ucwords($homeSlider['first_text']) }}</td>
+                        <td>{{ ucwords($homeSlider['second_text']) }}</td>
+                        <td>{{ ucwords($homeSlider['third_text']) }}</td>
+                        <td>{{ $homeSlider['link'] }}</td>
+                        <td>
+                          <select name="is_active" class="form-control">
+                            <option value="active" {{ $homeSlider['is_active'] == 'active' ? 'selected' : '' }}>Ya
+                            </option>
+                            <option value="inactive" {{ $homeSlider['is_active'] == 'inactive' ? 'selected' : '' }}>
+                              Tidak</option>
+                          </select>
+                        </td>
+                        <td>
+                          <button class="btn btn-sm bg-teal m-1" style="width: 35px" data-toggle="modal"
+                            data-target="#modal-slider-{{ $homeSlider['id'] }}">
+                            <i class="fas fa-edit"></i>
+                          </button>
+                          {{-- modal edit slider --}}
+                          <div class="modal fade" id="modal-slider-{{ $homeSlider['id'] }}" data-backdrop="static"
+                            data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="staticBackdropLabel">Edit Slider</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <div class="modal-body">
+                                  <div class="text-center">
+                                    <span class="text-muted">Background Lama</span>
+                                    <br>
+                                    <img src="{{ asset('images/sliders/' . $homeSlider['image']) }}"
+                                      alt="{{ $homeSlider['image'] }}" width="150px" id="{{ $homeSlider['id'] }}">
+                                  </div>
+                                  <form method="POST" action="{{ route('main-settings.update', $homeSlider['id']) }}"
+                                    enctype="multipart/form-data">
+                                    @csrf
+                                    @method('PUT')
+                                    <div class="card-body">
+                                      <div class="form-group">
+                                        <div class="input-group">
+                                          <div class="custom-file">
+                                            <input type="file" name="image"
+                                              class="custom-file-input @error('image') is-invalid @enderror"
+                                              id="customFile" accept="image/*">
+                                            <label class="custom-file-label" for="customFile">Pilih background (hanya
+                                              jpg, png dan
+                                              bmp)</label>
+                                            @error('image')
+                                              <span class="error invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                              </span>
+                                            @enderror
+                                          </div>
+                                        </div>
+                                        <span class="text-muted text-sm pl-2">*Background boleh dikosongkan jika tidak ingin diubah</span>
+                                      </div>
+                                      <div class="row">
+                                        <div class="col-sm col-lg-4 col-md-4 mb-3">
+                                          <input type="text" name="first_text"
+                                            class="form-control @error('first_text') is-invalid @enderror"
+                                            placeholder="Judul" required value="{{ $homeSlider['first_text'] }}">
+                                          @error('first_text')
+                                            <span class="error invalid-feedback" role="alert">
+                                              <strong>{{ $message }}</strong>
+                                            </span>
+                                          @enderror
+                                        </div>
+                                        <div class="col-sm col-lg-4 col-md-4 mb-3">
+                                          <input type="text" name="second_text"
+                                            class="form-control @error('second_text') is-invalid @enderror"
+                                            placeholder="Slogan" required value="{{ $homeSlider['second_text'] }}">
+                                          @error('second_text')
+                                            <span class="error invalid-feedback" role="alert">
+                                              <strong>{{ $message }}</strong>
+                                            </span>
+                                          @enderror
+                                        </div>
+                                        <div class="col-sm col-lg-4 col-md-4 mb-3">
+                                          <input type="text" name="third_text"
+                                            class="form-control @error('third_text') is-invalid @enderror"
+                                            placeholder="Ajakan" required value="{{ $homeSlider['third_text'] }}">
+                                          @error('third_text')
+                                            <span class="error invalid-feedback" role="alert">
+                                              <strong>{{ $message }}</strong>
+                                            </span>
+                                          @enderror
                                         </div>
                                       </div>
-                                    </div>
-                                    <div class="row">
-                                      <div class="col-sm col-lg-4 col-md-4 mb-3">
-                                        <input type="text" class="form-control" placeholder="Judul">
+                                      <div class="form-group">
+                                        <input type="text" name="link" class="form-control" id="link"
+                                          placeholder="Link halaman web (jika tidak ada silakan kosongkan)"
+                                          value="{{ $homeSlider['link'] }}">
                                       </div>
-                                      <div class="col-sm col-lg-4 col-md-4 mb-3">
-                                        <input type="text" class="form-control" placeholder="Slogan">
+                                      <div class="form-group">
+                                        <select name="is_active" id=""
+                                          class="form-control @error('is_active') is-invalid @enderror" required>
+                                          <option value="active" {{ $homeSlider['is_active'] == 'active' ? 'selected' : '' }}>Ya</option>
+                                          <option value="inactive" {{ $homeSlider['is_active'] == 'inactive' ? 'selected' : '' }}>Tidak</option>
+                                        </select>
+                                        @error('image')
+                                          <span class="error invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                          </span>
+                                        @enderror
                                       </div>
-                                      <div class="col-sm col-lg-4 col-md-4 mb-3">
-                                        <input type="text" class="form-control" placeholder="Ajakan">
-                                      </div>
+                                      <button type="submit" class="btn btn-block btn-primary">Simpan</button>
                                     </div>
-                                    <div class="form-group">
-                                      <input type="text" class="form-control" id="link"
-                                        placeholder="Link halaman web ">
-                                    </div>
-                                    <div class="form-group">
-                                      <select name="active" id="" class="form-control">
-                                        <option selected disabled>Ditampilkan?</option>
-                                        <option value="active">Aktif</option>
-                                        <option value="inactive">Tidak Aktif</option>
-                                      </select>
-                                    </div>
-                                    <button type="submit" class="btn btn-block btn-primary">Simpan</button>
-                                  </div>
-                                  <!-- /.card-body -->
-                                </form>
+                                    <!-- /.card-body -->
+                                  </form>
+                                </div>
                               </div>
                             </div>
                           </div>
-                        </div>
-                        {{-- modal edit slider --}}
+                          {{-- modal edit slider --}}
 
-                        {{-- modal warning hapus slider --}}
-                        <div class="modal fade" id="modal-slider-delete-1" data-backdrop="static"
-                          data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
-                          aria-hidden="true">
-                          <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                              <div class="modal-header">
-                                <h5 class="modal-title" id="staticBackdropLabel">Hapus Slider</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                  <span aria-hidden="true">&times;</span>
-                                </button>
-                              </div>
-                              <div class="modal-body">
-                                <h3 class="text-center text-danger">Apakah anda yakin ingin menghapus item ini</h3>
-                              </div>
-                              <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                <button type="submit" class="btn btn-danger">Hapus</button>
+                          <button class="btn btn-sm btn-danger m-1" style="width: 35px" data-toggle="modal"
+                            data-target="#modal-slider-delete-{{ $homeSlider['id'] }}">
+                            <i class="fas fa-trash"></i>
+                          </button>
+
+                          {{-- modal warning hapus slider --}}
+                          <div class="modal fade" id="modal-slider-delete-{{ $homeSlider['id'] }}"
+                            data-backdrop="static" data-keyboard="false" tabindex="-1"
+                            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="staticBackdropLabel">Hapus Slider</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <div class="modal-body">
+                                  <h3 class="text-center text-danger">Apakah anda yakin ingin menghapus item ini</h3>
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                                  <form action="{{ route('main-settings.destroy', $homeSlider['id']) }}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger">Hapus</button>
+                                  </form>
+                                </div>
                               </div>
                             </div>
                           </div>
-                        </div>
-                        {{-- modal warning hapus slider --}}
-                      </td>
-                    </tr>
+                          {{-- modal warning hapus slider --}}
+                        </td>
+                      </tr>
+                    @endforeach
                   </tbody>
                 </table>
               </div>
@@ -458,7 +547,8 @@
                       </p>
                       <p class="text-sm">
                         Klik icon yang diinginkan kemudian copy
-                        <b>{{ "<i class='fa-brands fa-accessible-icon'></i>" }}</b>. Setelah di pastekan di form icon font
+                        <b>{{ "<i class='fa-brands fa-accessible-icon'></i>" }}</b>. Setelah di pastekan di form icon
+                        font
                         awesome pastikan <b>{{ "<i class='fa-brands fa-accessible-icon'></i>" }}</b> diubah menjadi
                         <b>fa-brands fa-accessible-icon</b>
                       </p>
@@ -727,15 +817,29 @@
 
 @push('addon-js')
   <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
+  {{-- sweet alert --}}
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <!-- bs-custom-file-input -->
+  <script src="{{ asset('temp-adm/plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
   <script>
-    $("input[data-bootstrap-switch]").each(function() {
-      $(this).bootstrapSwitch('state', $(this).prop('checked'));
-    })
+    @if ($message = Session::get('success'))
+      Swal.fire({
+        icon: 'success',
+        title: 'Success',
+        text: "{!! $message !!}",
+      })
+    @elseif ($message = Session::get('error'))
+      Swal.fire({
+        icon: 'error',
+        title: 'Opps..',
+        text: "{!! $message !!}",
+      })
+    @endif
 
     $(document).ready(function() {
       $('#example').DataTable({
         order: [
-          [3, 'desc']
+          [0, 'asc']
         ],
       });
       $('#services').DataTable({
@@ -758,6 +862,8 @@
           [3, 'desc']
         ],
       });
+
+      bsCustomFileInput.init();
     });
   </script>
 @endpush
