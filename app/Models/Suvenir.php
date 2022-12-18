@@ -12,4 +12,8 @@ class Suvenir extends Model
     use HasFactory, Notifiable, SoftDeletes;
 
     protected $guarded = [];
+
+    public function getCategorySuvenir() {
+        return $this->hasOne(SuvenirCategory::class, 'id', 'suvenir_category_id');
+    }
 }

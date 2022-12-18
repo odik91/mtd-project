@@ -19,10 +19,11 @@ return new class extends Migration
             $table->bigInteger('suvenir_category_id')->unsigned();
             $table->string('first_text');
             $table->string('start_price');
-            $table->string('thumnail');
+            $table->string('thumbnail');
             $table->string('image');
             $table->longText('description');
             $table->enum('is_active', ['active', 'inactive']);
+            $table->string('slug');
             $table->timestamps();
             $table->softDeletes();
             // table relation

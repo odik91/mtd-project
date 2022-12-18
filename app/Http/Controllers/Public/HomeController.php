@@ -7,6 +7,7 @@ use App\Models\ElevatorPitch;
 use App\Models\HomeFirstThreeItem;
 use App\Models\HomeSlider;
 use App\Models\OurService;
+use App\Models\Suvenir;
 use App\Models\Travel;
 use Illuminate\Http\Request;
 
@@ -25,7 +26,8 @@ class HomeController extends Controller
         $elevatorPitch = ElevatorPitch::first();
         $ourServices = OurService::limit(5)->get();
         $travels = Travel::get();
-        return view('public.index', compact('title', 'mainSliders', 'services', 'elevatorPitch', 'ourServices', 'travels'));
+        $suvenirs = Suvenir::get();
+        return view('public.index', compact('title', 'mainSliders', 'services', 'elevatorPitch', 'ourServices', 'travels', 'suvenirs'));
     }
 
     /**

@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('image');
             $table->longText('description');
             $table->enum('is_active', ['active', 'inactive']);
+            $table->string('slug');
             $table->timestamps();
             $table->softDeletes();
             // table relation

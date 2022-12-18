@@ -53,7 +53,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="{{ route('tour-travel.index') }}" class="nav-link">
+          <a href="{{ route('tour-travel.index') }}" class="nav-link {{ (isset($title) && $title == 'Tour & Travel') ? 'active' : '' }}">
             <i class="nav-icon fas fa-cog"></i>
             <p>
               Tour & Travel 
@@ -61,7 +61,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="{{ route('oleh-oleh.index') }}" class="nav-link">
+          <a href="{{ route('oleh-oleh.index') }}" class="nav-link {{ (isset($title) && $title == 'Oleh-oleh') ? 'active' : '' }}">
             <i class="nav-icon fas fa-cog"></i>
             <p>
               Oleh-oleh

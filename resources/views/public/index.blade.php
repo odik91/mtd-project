@@ -35,7 +35,8 @@
         <div class="grid_4">
           <div class="banner"
             style="box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.4); -webkit-box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.4); -moz-box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.4);">
-            <img src="{{ asset('template/images/ban_img1.jpg') }}" alt="{{ $service['image'] }}" style="filter: brightness(75%)">
+            <img src="{{ asset('template/images/ban_img1.jpg') }}" alt="{{ $service['image'] }}"
+              style="filter: brightness(75%)">
             {{-- <img src="{{ asset('images/banner/' . $service['image']) }}" alt=""> --}}
             <div class="label">
               <div class="title" style="color: #f3aa29">{{ strtoupper($service['first_text']) }}</div>
@@ -127,46 +128,16 @@
               <div class="d-flex justify-content-center flex-wrap w-100">
                 @foreach ($travels as $travel)
                   <div class="banner m-2">
-                    <img src="{{ asset('images/destination/' . $travel['thumbnail']) }}" alt="{{$travel['thumbnail']}}" style="filter: brightness(80%);">
+                    <img src="{{ asset('images/destination/' . $travel['thumbnail']) }}"
+                      alt="{{ $travel['thumbnail'] }}" style="filter: brightness(80%);">
                     <div class="label" style="text-shadow: -4px 4px 10px rgba(0,0,0,0.6);">
                       <div class="title" style="color: #ff7300">{{ strtoupper($travel['travel_name']) }}</div>
-                      <div class="price">{{ strtoupper($travel['second_text']) }}<span>{{ $travel['start_price'] }}</span></div>
+                      <div class="price">
+                        {{ strtoupper($travel['second_text']) }}<span>{{ $travel['start_price'] }}</span></div>
                       <a href="#">SELENGKAPNYA</a>
                     </div>
                   </div>
                 @endforeach
-                {{-- <div class="banner m-2">
-                  <img src="{{ asset('template/images/ban_img1.jpg') }}" alt="">
-                  <div class="label">
-                    <div class="title">Barcelona</div>
-                    <div class="price">FROM<span>$ 1000</span></div>
-                    <a href="#">LEARN MORE</a>
-                  </div>
-                </div>
-                <div class="banner m-2">
-                  <img src="{{ asset('template/images/ban_img1.jpg') }}" alt="">
-                  <div class="label">
-                    <div class="title">ITALY</div>
-                    <div class="price">FROM<span>$ 1000</span></div>
-                    <a href="#">LEARN MORE</a>
-                  </div>
-                </div>
-                <div class="banner m-2">
-                  <img src="{{ asset('template/images/ban_img2.jpg') }}" alt="">
-                  <div class="label">
-                    <div class="title">GOA</div>
-                    <div class="price">FROM<span>$ 1.500</span></div>
-                    <a href="#">LEARN MORE</a>
-                  </div>
-                </div>
-                <div class="banner m-2">
-                  <img src="{{ asset('template/images/ban_img3.jpg') }}" alt="">
-                  <div class="label">
-                    <div class="title">PARIS</div>
-                    <div class="price">FROM<span>$ 1.600</span></div>
-                    <a href="#">LEARN MORE</a>
-                  </div>
-                </div> --}}
               </div>
             </div>
           </div>
@@ -184,32 +155,16 @@
       <div>
         <div class="container_12">
           <div class="owl-carousel text-center" id="owl-carousel-1">
-            <div class="mx-3 mb-4 pt-2">
-              <div class="rounded-circle services"
-                style="background-image: url('{{ asset('images/public/luti_gendang.jpg') }}'); background-size: contain;">
+            @foreach ($suvenirs as $suvenir)
+              <div class="mx-3 mb-4 pt-2">
+                <div class="rounded-circle services"
+                  style="background-image: url('{{ asset('images/suvenirs/' . $suvenir['thumbnail']) }}'); background-size: contain;">
+                </div>
+                <h5 class="text-center" style="margin-top: -100px;">
+                  <a href="#">{{ strtoupper($suvenir['suvenir_name']) }}</a>
+                </h5>
               </div>
-              <h5 class="text-center" style="margin-top: -110px;">
-                <a href="#">Luti Gendang</a>
-              </h5>
-            </div>
-            <div class="mx-3 mb-4 pt-2">
-              <div class="rounded-circle services"
-                style="background-image: url('{{ asset('images/public/bolu_lapis.jpg') }}'); background-size: contain;">
-              </div>
-              <h5 class="text-center" style="margin-top: -110px;"><a href="#">Bolu Lapis Marmer</a></h5>
-            </div>
-            <div class="mx-3 mb-4 pt-2">
-              <div class="rounded-circle services"
-                style="background-image: url('{{ asset('images/public/molen-bilis.jpeg') }}'); background-size: contain;">
-              </div>
-              <h5 class="text-center" style="margin-top: -110px;"><a href="#">Molen Bilis</a></h5>
-            </div>
-            <div class="mx-3 mb-4 pt-2">
-              <div class="rounded-circle services"
-                style="background-image: url('{{ asset('images/public/kaos.jpeg') }}'); background-size: contain;">
-              </div>
-              <h5 class="text-center" style="margin-top: -110px;"><a href="#">Kaos</a></h5>
-            </div>
+            @endforeach
           </div>
         </div>
       </div>

@@ -332,7 +332,8 @@ class PengaturanHalamanUtama extends Controller
         return redirect()->route('main-settings.index');
     }
 
-    public function EditOurService(Request $request, $id) {
+    public function EditOurService(Request $request, $id)
+    {
         $this->validate(
             $request,
             [
@@ -368,7 +369,8 @@ class PengaturanHalamanUtama extends Controller
         return redirect()->route('main-settings.index');
     }
 
-    public function DeleteOurService($id) {
+    public function DeleteOurService($id)
+    {
         $service = OurService::find($id);
         $servicename = $service['service_name'];
 
