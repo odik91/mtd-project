@@ -28,10 +28,9 @@
           </div>
           <div class="px-4">
             <ul class="list-group list-group-flush">
-              <li class="list-group-item" style="background-color: #001c35"><i class="fa-solid fa-pen px-2 py-1"></i> Tiket Pesawat</li>
-              <li class="list-group-item" style="background-color: #001c35"><i class="fa-solid fa-pen px-2 py-1"></i> Tiket Kapal</li>
-              <li class="list-group-item" style="background-color: #001c35"><i class="fa-solid fa-pen px-2 py-1"></i> Paket Wisata</li>
-              <li class="list-group-item" style="background-color: #001c35"><i class="fa-solid fa-pen px-2 py-1"></i> Oleh-oleh</li>
+              @foreach (App\Models\OurService::get() as $service)
+              <li class="list-group-item" style="background-color: #001c35"><i class="fa-solid fa-pen px-2 py-1"></i> {{ ucwords($service['service_name']) }}</li>
+              @endforeach
             </ul>
           </div>
         </div>

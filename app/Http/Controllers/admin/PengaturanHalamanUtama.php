@@ -249,7 +249,7 @@ class PengaturanHalamanUtama extends Controller
             $image = time() . $request['image']->hashName();
             $pathImage = public_path('/images/banner');
             $resizeImage = Image::make($request['image']->path());
-            $resizeImage->resize(300, 364, function ($const) {
+            $resizeImage->resize(364, 364, function ($const) {
                 $const->aspectRatio();
             })->save($pathImage . '/' . $image);
         }

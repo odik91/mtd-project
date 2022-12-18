@@ -30,6 +30,7 @@ Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
 Route::group(['prefix' => 'admin', 'middleware' => ['guest']], function () {
     Route::resource('/dashboard', dashboardController::class);
 
+    // main settings
     Route::resource('/main-settings', PengaturanHalamanUtama::class);
     Route::match(['PUT', 'PATCH'], 'edit/services/main-setting/{id}', [PengaturanHalamanUtama::class, 'editMainServices'])->name('main-settings.edit-services');
     Route::match(['PUT', 'PATCH'], 'edit/evlevator/{id}', [PengaturanHalamanUtama::class, 'editElevatorPitch'])->name('main-settings.edit-ev');
@@ -37,7 +38,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['guest']], function () {
     Route::match(['PUT', 'PATCH'], 'edit/our-service/{id}', [PengaturanHalamanUtama::class, 'EditOurService'])->name('main-settings.edit-our-service');
     Route::delete('edit/our-service/{id}', [PengaturanHalamanUtama::class, 'DeleteOurService'])->name('main-settings.delete-our-service');
 
+    // travel package
     Route::resource('/tour-travel', TourController::class);
+    Route::post('/add-tour', [TourController::class, 'addTravelPackage'])->name('tour-travel.add-package');
+    Route::match(['PUT', 'PATCH'], '/add-tour/{id}', [TourController::class, 'editTravelPackage'])->name('tour-travel.edit-package');
+    Route::delete('/add-tour/{id}', [TourController::class, 'deleteTravelPackage'])->name('tour-travel.delete-package');
 
     Route::resource('/oleh-oleh', SuvenirController::class);
 });

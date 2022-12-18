@@ -33,12 +33,14 @@
     <div class="container_12">
       @foreach ($services as $service)
         <div class="grid_4">
-          <div class="banner" style="box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.4); -webkit-box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.4); -moz-box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.4);">
-            <img src="{{ asset('template/images/ban_img1.jpg') }}" alt="">
+          <div class="banner"
+            style="box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.4); -webkit-box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.4); -moz-box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.4);">
+            <img src="{{ asset('template/images/ban_img1.jpg') }}" alt="{{ $service['image'] }}" style="filter: brightness(75%)">
             {{-- <img src="{{ asset('images/banner/' . $service['image']) }}" alt=""> --}}
             <div class="label">
-              <div class="title">{{ strtoupper($service['first_text']) }}</div>
-              <div class="price">{{ strtoupper($service['second_text']) }}<span>{{ strtoupper($service['third_text']) }}</span></div>
+              <div class="title" style="color: #f3aa29">{{ strtoupper($service['first_text']) }}</div>
+              <div class="price">
+                {{ strtoupper($service['second_text']) }}<span>{{ strtoupper($service['third_text']) }}</span></div>
               <a href="{{ !empty($service['link']) ? $service['link'] : '#' }}">LEARN MORE</a>
             </div>
           </div>
@@ -79,7 +81,8 @@
     {{-- section elevator pitch --}}
     <div>
       <div class="container_12 shadow-sm">
-        <div class="grid_12" style="background-color: #fff3e6; padding: 30px; box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3); -webkit-box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3); -moz-box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3);">
+        <div class="grid_12"
+          style="background-color: #fff3e6; padding: 30px; box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3); -webkit-box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3); -moz-box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3);">
           <h3 class="head1" style="text-align: center; color: #f3aa29; text-shadow: -4px 4px 10px rgba(0,0,0,0.2);">
             {{ strtoupper($elevatorPitch['title']) }}
           </h3>
@@ -96,14 +99,15 @@
       <h3 class="text-center mx-2"><u>Our Services</u></h3>
       <div class="d-flex justify-content-center d-flex justify-content-center flex-wrap">
         @foreach ($ourServices as $ourService)
-        <div class="mx-3 mb-4">
-          <div class="rounded-circle services">
-            <div class="align-middle text-center text-white">
-              <i class="{{ $ourService['icon'] }}" style="font-size: 75px;"></i>
+          <div class="mx-3 mb-4">
+            <div class="rounded-circle services">
+              <div class="align-middle text-center text-white">
+                <i class="{{ $ourService['icon'] }}" style="font-size: 75px;"></i>
+              </div>
             </div>
+            <h5 class="text-center" style="margin-top: -100px; color: #f3aa29;">
+              {{ ucwords($ourService['service_name']) }}</h5>
           </div>
-          <h5 class="text-center" style="margin-top: -100px; color: #f3aa29;">{{ ucwords($ourService['service_name']) }}</h5>
-        </div>
         @endforeach
       </div>
     </div>
@@ -112,15 +116,26 @@
     {{-- destinasi wisata --}}
     <div>
       <div class="container_12">
-        <div class="grid_12" style="background-color: #fff3e6; padding: 30px; box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3); -webkit-box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3); -moz-box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3);">
+        <div class="grid_12"
+          style="background-color: #fff3e6; padding: 30px; box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3); -webkit-box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3); -moz-box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3);">
           <h3 class="head1" style="text-align: center; color: #f3aa29; margin-top: -15px">
             PAKET WISATA
           </h3>
           <br>
           <div class="container">
             <div class="row">
-              <div class="d-flex justify-content-center flex-wrap">
-                <div class="banner m-2">
+              <div class="d-flex justify-content-center flex-wrap w-100">
+                @foreach ($travels as $travel)
+                  <div class="banner m-2">
+                    <img src="{{ asset('images/destination/' . $travel['thumbnail']) }}" alt="{{$travel['thumbnail']}}" style="filter: brightness(80%);">
+                    <div class="label" style="text-shadow: -4px 4px 10px rgba(0,0,0,0.6);">
+                      <div class="title" style="color: #ff7300">{{ strtoupper($travel['travel_name']) }}</div>
+                      <div class="price">{{ strtoupper($travel['second_text']) }}<span>{{ $travel['start_price'] }}</span></div>
+                      <a href="#">SELENGKAPNYA</a>
+                    </div>
+                  </div>
+                @endforeach
+                {{-- <div class="banner m-2">
                   <img src="{{ asset('template/images/ban_img1.jpg') }}" alt="">
                   <div class="label">
                     <div class="title">Barcelona</div>
@@ -151,11 +166,11 @@
                     <div class="price">FROM<span>$ 1.600</span></div>
                     <a href="#">LEARN MORE</a>
                   </div>
-                </div>
+                </div> --}}
               </div>
             </div>
           </div>
-          <div class="label text-center">
+          <div class="label text-center mb-4">
             <a href="#" class="btn-cta-link">LIHAT SEMUA PAKET</a>
           </div>
         </div>
@@ -204,7 +219,8 @@
     {{-- section testimoni --}}
     <div>
       <div class="container_12">
-        <div class="grid_12" style="background-color: #fff3e6; padding: 0 10px; box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3); -webkit-box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3); -moz-box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3);">
+        <div class="grid_12"
+          style="background-color: #fff3e6; padding: 0 10px; box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3); -webkit-box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3); -moz-box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3);">
           <h3 class="head1" style="text-align: center; color: #f3aa29;">
             Testimoni Pelanggan
           </h3>

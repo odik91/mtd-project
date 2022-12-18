@@ -3,7 +3,12 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Travel;
+use App\Models\TravelPackage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+use Intervention\Image\Facades\Image;
+use Illuminate\Support\Str;
 
 class TourController extends Controller
 {
@@ -15,7 +20,10 @@ class TourController extends Controller
     public function index()
     {
         $title = 'Tour & Travel';
-        return view('admin.tour-travel.index', compact('title'));
+        $travels = Travel::get();
+        $selectTravels = Travel::orderBy('travel_name', 'asc')->get();
+        $travelPackages = TravelPackage::get();
+        return view('admin.tour-travel.index', compact('title', 'travels', 'selectTravels', 'travelPackages'));
     }
 
     /**
@@ -28,6 +36,16 @@ class TourController extends Controller
         //
     }
 
+    private function _resizeImage($requestImage, $resX, $resY, $path)
+    {
+        $imageName = time() . $requestImage->hashName();
+        $pathImage = public_path($path);
+        $resizeImage = Image::make($requestImage->path());
+        $resizeImage->resize($resX, $resY, function ($const) {
+            $const->aspectRatio();
+        })->save($pathImage . '/' . $imageName);
+        return $imageName;
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -42,8 +60,8 @@ class TourController extends Controller
                 'travel_name' => 'required|min:3|max:20',
                 'second_text' => 'required|min:3|max:30',
                 'start_price' => 'required',
-                'country' => 'required',
-                'region' => 'required',
+                'country' => 'required|min:3|',
+                'region' => 'required|min:3|',
                 'thumbnail' => 'required|mimes:jpg,bmp,png',
                 'image' => 'required|mimes:jpg,bmp,png',
                 'description' => 'required',
@@ -66,6 +84,46 @@ class TourController extends Controller
                 'is_active.required' => 'Status pilihan ditampilkan wajib diisi'
             ]
         );
+
+        $thumbnail = null;
+        $image = null;
+
+        if ($request->hasFile('thumbnail')) {
+            // $thumbnail = time() . $request['thumbnail']->hashName();
+            // $pathImage = public_path('/images/destination');
+            // $resizeImage = Image::make($request['thumbnail']->path());
+            // $resizeImage->resize(1280, 1280, function ($const) {
+            //     $const->aspectRatio();
+            // })->save($pathImage . '/' . $thumbnail);
+            $thumbnail = $this->_resizeImage($request['thumbnail'], 364, 364, '/images/destination');
+        }
+
+        if ($request->hasFile('image')) {
+            $image = $this->_resizeImage($request['image'], 1280, 1280, '/images/destination');
+        }
+
+        $data = [
+            'travel_name' => $request['travel_name'],
+            'second_text' => $request['second_text'],
+            'start_price' => $request['start_price'],
+            'country' => $request['country'],
+            'region' => $request['region'],
+            'thumbnail' => $thumbnail,
+            'image' => $image,
+            'description' => $request['description'],
+            'is_active' => $request['is_active'],
+            'slug' => Str::slug($request['travel_name'])
+        ];
+
+        $create = Travel::create($data);
+
+        if ($create) {
+            Session::flash('success', "Destinasi wisata berhasil ditambahkan");
+        } else {
+            Session::flash('error', "Destinasi wisata gagal ditambahkan");
+        }
+
+        return redirect()->route('tour-travel.index');
     }
 
     /**
@@ -99,7 +157,75 @@ class TourController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate(
+            $request,
+            [
+                'edit_travel_name' => 'required|min:3|max:20',
+                'edit_second_text' => 'required|min:3|max:30',
+                'edit_start_price' => 'required',
+                'edit_country' => 'required|min:3|',
+                'edit_region' => 'required|min:3|',
+                'edit_thumbnail' => 'mimes:jpg,bmp,png',
+                'edit_image' => 'mimes:jpg,bmp,png',
+                'edit_description' => 'required',
+                'edit_is_active' => 'required',
+            ],
+            [
+                'edit_travel_name.required' => 'Nama paket travel tidak boleh kosong',
+                'edit_travel_name.min' => 'Nama paket travel minimal 3 karakter',
+                'edit_travel_name.max' => 'Nama paket travel melebihi jumlah karakter yang diperbolehkan',
+                'edit_second_text.required' => 'Middle text tidak boleh kosong',
+                'edit_second_text.min' => 'Middle text minimal 3 karakter',
+                'edit_second_text.max' => 'Middle text melebihi jumlah karakter yang diperbolehkan',
+                'edit_country.required' => 'Negara tidak boleh kosong',
+                'edit_region.required' => 'Region tidak boleh kosong',
+                'edit_thumbnail.mimes' => 'Format thumbnail tidak sesuai',
+                'edit_image.mimes' => 'Format background tidak sesuai',
+                'edit_description.required' => 'Deskripsi tidak boleh kosong',
+                'edit_is_active.required' => 'Status pilihan ditampilkan wajib diisi'
+            ]
+        );
+
+        $travel = Travel::find($id);
+        $thumbnail = $travel['thumbnail'];
+        $image = $travel['image'];
+
+        if ($request->hasFile('edit_thumbnail')) {
+            if (file_exists(public_path('images/destination/' . $thumbnail))) {
+                unlink(public_path('images/destination/' . $thumbnail));
+            }
+            $thumbnail = $this->_resizeImage($request['edit_thumbnail'], 364, 364, '/images/destination');
+        }
+
+        if ($request->hasFile('edit_image')) {
+            if (file_exists(public_path('images/destination/' . $image))) {
+                unlink(public_path('images/destination/' . $image));
+            }
+            $image = $this->_resizeImage($request['edit_image'], 1280, 1280, '/images/destination');
+        }
+
+        $data = [
+            'travel_name' => $request['edit_travel_name'],
+            'second_text' => $request['edit_second_text'],
+            'start_price' => $request['edit_start_price'],
+            'country' => $request['edit_country'],
+            'region' => $request['edit_region'],
+            'thumbnail' => $thumbnail,
+            'image' => $image,
+            'description' => $request['edit_description'],
+            'is_active' => $request['edit_is_active'],
+            'slug' => Str::slug($request['edit_travel_name'])
+        ];
+
+        $update = $travel->update($data);
+
+        if ($update) {
+            Session::flash('success', "Destinasi wisata berhasil diedit");
+        } else {
+            Session::flash('error', "Destinasi wisata gagal diedit");
+        }
+
+        return redirect()->route('tour-travel.index');
     }
 
     /**
@@ -110,6 +236,111 @@ class TourController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $travel = Travel::find($id);
+        $travelName = $travel['travel_name'];
+        $delete = $travel->delete();
+
+        if ($delete) {
+            Session::flash('success', "Destinasi wisata $travelName berhasil dihapus");
+        } else {
+            Session::flash('error', "Destinasi wisata $travelName gagal dihapus");
+        }
+
+        return redirect()->route('tour-travel.index');
+    }
+
+    public function addTravelPackage(Request $request)
+    {
+        $this->validate(
+            $request,
+            [
+                'travel_id' => 'required',
+                'package_name' => 'required|min:3|max:50',
+                'package_price' => 'required|min:3|max:30',
+                'package_description' => 'required|min:3',
+                'package_active' => 'required',
+            ],
+            [
+                'travel_id.required' => 'Mohon pilih destinasi wisata',
+                'package_name.required' => 'Mohon isi nama paket',
+                'package_name.min' => 'Nama paket minimal 3 karakter',
+                'package_name.max' => 'Nama paket maksimal 50 karakter',
+                'package_price.min' => 'Panjang karakter minimal 3 karakter',
+                'package_price.max' => 'Panjang karakter maksimal 30 karakter',
+                'package_active.required' => 'Mohon pilih apakah paket aktif'
+            ]
+        );
+
+        $data = [
+            'travel_id' => $request['travel_id'],
+            'package_name' => $request['package_name'],
+            'price' => $request['package_price'],
+            'description' => $request['package_description'],
+            'is_active' => $request['package_active'],
+        ];
+
+        $create = TravelPackage::create($data);
+        if ($create) {
+            Session::flash('success', "Paket wisata $request->package_name berhasil ditambahkan");
+        } else {
+            Session::flash('error', "Paket wisata $request->package_name gagal ditambahkan");
+        }
+
+        return redirect()->route('tour-travel.index');
+    }
+
+    public function editTravelPackage(Request $request, $id) {
+        $this->validate(
+            $request,
+            [
+                'edit_travel_id' => 'required',
+                'edit_package_name' => 'required|min:3|max:50',
+                'edit_package_price' => 'required|min:3|max:30',
+                'edit_package_description' => 'required|min:3',
+                'edit_package_active' => 'required',
+            ],
+            [
+                'edit_travel_id.required' => 'Mohon pilih destinasi wisata',
+                'edit_package_name.required' => 'Mohon isi nama paket',
+                'edit_package_name.min' => 'Nama paket minimal 3 karakter',
+                'edit_package_name.max' => 'Nama paket maksimal 50 karakter',
+                'edit_package_price.min' => 'Panjang karakter minimal 3 karakter',
+                'edit_package_price.max' => 'Panjang karakter maksimal 30 karakter',
+                'edit_package_active.required' => 'Mohon pilih apakah paket aktif'
+            ]
+        );
+
+        $travelPackage = TravelPackage::find($id);
+
+        $data = [
+            'travel_id' => $request['edit_travel_id'],
+            'package_name' => $request['edit_package_name'],
+            'price' => $request['edit_package_price'],
+            'description' => $request['edit_package_description'],
+            'is_active' => $request['edit_package_active'],
+        ];
+
+        $update = $travelPackage->update($data);
+        if ($update) {
+            Session::flash('success', "Paket wisata $request->edit_package_name berhasil diedit");
+        } else {
+            Session::flash('error', "Paket wisata $request->edit_package_name gagal diedit");
+        }
+
+        return redirect()->route('tour-travel.index');
+    }
+
+    public function deleteTravelPackage($id) {
+        $travelPackage = TravelPackage::find($id);
+        $packageName = $travelPackage['package_name'];
+
+        $delete = $travelPackage->delete();
+        if ($delete) {
+            Session::flash('success', "Paket wisata $packageName berhasil dihapus");
+        } else {
+            Session::flash('error', "Paket wisata $packageName gagal dihapus");
+        }
+
+        return redirect()->route('tour-travel.index');
     }
 }

@@ -12,4 +12,8 @@ class TravelPackage extends Model
     use HasFactory, Notifiable, SoftDeletes;
 
     protected $guarded = [];
+
+    public function getDestination() {
+        return $this->hasOne(Travel::class, 'id', 'travel_id');
+    }
 }

@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Home</title>
+  <title>MTD | {{ $title ? $title : 'Home'}}</title>
   <meta charset="utf-8">
   <meta name="format-detection" content="telephone=no" />
   <link rel="icon" href="{{ asset('template/images/favicon.ico') }}">

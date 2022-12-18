@@ -7,6 +7,7 @@ use App\Models\ElevatorPitch;
 use App\Models\HomeFirstThreeItem;
 use App\Models\HomeSlider;
 use App\Models\OurService;
+use App\Models\Travel;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -18,12 +19,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $title = "MTD | Home";
+        $title = "Home";
         $mainSliders = HomeSlider::get();
         $services = HomeFirstThreeItem::get();
         $elevatorPitch = ElevatorPitch::first();
         $ourServices = OurService::limit(5)->get();
-        return view('public.index', compact('title', 'mainSliders', 'services', 'elevatorPitch', 'ourServices'));
+        $travels = Travel::get();
+        return view('public.index', compact('title', 'mainSliders', 'services', 'elevatorPitch', 'ourServices', 'travels'));
     }
 
     /**
@@ -93,17 +95,17 @@ class HomeController extends Controller
     }
 
     public function travelPackages() {
-        $title = "MTD | Paket Wisata";        
+        $title = "Paket Wisata";        
         return view('public.paket-wisata', compact('title',));
     }
 
     public function singlePage() {
-        $title = "MTD | Page Detail";
+        $title = "Page Detail";
         return view('public.single-page', compact('title'));
     }
 
     public function contact() {
-        $title = "MTD | Contact";
+        $title = "Contact";
         return view('public.contact', compact('title'));
     }
 }
