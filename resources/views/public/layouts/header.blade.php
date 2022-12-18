@@ -26,11 +26,11 @@
           <div class="collapse navbar-collapse justify-content-md-center" id="navbarsExample10">
             <ul class="navbar-nav">
               <li class="nav-item active">
-                <a class="nav-link text-light custom-nav px-2 current" href="#">Home <span
+                <a class="nav-link text-light custom-nav px-2 current" href="{{ route('home.index') }}">Home <span
                     class="sr-only">(current)</span></a>
               </li>
               <li class="nav-item">
-                <a class="nav-link text-light custom-nav px-2" href="#">Tour & Travel</a>
+                <a class="nav-link text-light custom-nav px-2" href="{{ route('paket-wisata') }}">Tour & Travel</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link text-light custom-nav px-2" href="#">Oleh-oleh</a>

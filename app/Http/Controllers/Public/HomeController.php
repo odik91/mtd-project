@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Public;
 
 use App\Http\Controllers\Controller;
+use App\Models\ElevatorPitch;
+use App\Models\HomeFirstThreeItem;
 use App\Models\HomeSlider;
+use App\Models\OurService;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -17,7 +20,10 @@ class HomeController extends Controller
     {
         $title = "MTD | Home";
         $mainSliders = HomeSlider::get();
-        return view('public.index', compact('title', 'mainSliders'));
+        $services = HomeFirstThreeItem::get();
+        $elevatorPitch = ElevatorPitch::first();
+        $ourServices = OurService::limit(5)->get();
+        return view('public.index', compact('title', 'mainSliders', 'services', 'elevatorPitch', 'ourServices'));
     }
 
     /**

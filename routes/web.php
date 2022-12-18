@@ -24,13 +24,18 @@ use Illuminate\Support\Facades\Route;
 
 Route::resource('/home', HomeController::class);
 Route::get('/paket-wisata', [HomeController::class, 'travelPackages'])->name('paket-wisata');
-Route::get('/paket-wisata', [HomeController::class, 'singlePage'])->name('paket-detail');
+Route::get('/paket-detail', [HomeController::class, 'singlePage'])->name('paket-detail');
 Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
 
 Route::group(['prefix' => 'admin', 'middleware' => ['guest']], function () {
     Route::resource('/dashboard', dashboardController::class);
 
     Route::resource('/main-settings', PengaturanHalamanUtama::class);
+    Route::match(['PUT', 'PATCH'], 'edit/services/main-setting/{id}', [PengaturanHalamanUtama::class, 'editMainServices'])->name('main-settings.edit-services');
+    Route::match(['PUT', 'PATCH'], 'edit/evlevator/{id}', [PengaturanHalamanUtama::class, 'editElevatorPitch'])->name('main-settings.edit-ev');
+    Route::post('/main-setting', [PengaturanHalamanUtama::class, 'OurServices'])->name('main-settings.OurService');
+    Route::match(['PUT', 'PATCH'], 'edit/our-service/{id}', [PengaturanHalamanUtama::class, 'EditOurService'])->name('main-settings.edit-our-service');
+    Route::delete('edit/our-service/{id}', [PengaturanHalamanUtama::class, 'DeleteOurService'])->name('main-settings.delete-our-service');
 
     Route::resource('/tour-travel', TourController::class);
 

@@ -36,7 +36,36 @@ class TourController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate(
+            $request,
+            [
+                'travel_name' => 'required|min:3|max:20',
+                'second_text' => 'required|min:3|max:30',
+                'start_price' => 'required',
+                'country' => 'required',
+                'region' => 'required',
+                'thumbnail' => 'required|mimes:jpg,bmp,png',
+                'image' => 'required|mimes:jpg,bmp,png',
+                'description' => 'required',
+                'is_active' => 'required',
+            ],
+            [
+                'travel_name.required' => 'Nama paket travel tidak boleh kosong',
+                'travel_name.min' => 'Nama paket travel minimal 3 karakter',
+                'travel_name.max' => 'Nama paket travel melebihi jumlah karakter yang diperbolehkan',
+                'second_text.required' => 'Middle text tidak boleh kosong',
+                'second_text.min' => 'Middle text minimal 3 karakter',
+                'second_text.max' => 'Middle text melebihi jumlah karakter yang diperbolehkan',
+                'country.required' => 'Negara tidak boleh kosong',
+                'region.required' => 'Region tidak boleh kosong',
+                'thumbnail.required' => 'Thumbnail tidak boleh kosong',
+                'thumbnail.mimes' => 'Format thumbnail tidak sesuai',
+                'image.required' => 'Background tidak boleh kosong',
+                'image.mimes' => 'Format background tidak sesuai',
+                'description.required' => 'Deskripsi tidak boleh kosong',
+                'is_active.required' => 'Status pilihan ditampilkan wajib diisi'
+            ]
+        );
     }
 
     /**

@@ -21,47 +21,30 @@
               <p>{{ ucfirst($mainSlider['second_text']) }}</p>
               <span>{{ strtoupper($mainSlider['third_text']) }}</span>
             </div>
-            <a href="{{ !empty($mainSlider['link']) ? $mainSlider['third_text'] : '#' }}">LEARN MORE</a>
+            <a href="{{ !empty($mainSlider['link']) ? $mainSlider['third_text'] : '#' }}">KEPOIN YUK...</a>
           </div>
         </div>
       @endforeach
-      {{-- <div data-src="{{ asset('template/images/img-01.jpg') }}">
-      <div class="caption fadeIn">
-        <h2 class="header-title">Tour & Travel</h2>
-        <div class="price">
-          Di sini aja
-          <span>MAME TIRTA DEWATA TOUR & TRAVEL</span>
-        </div>
-        <a href="#">LEARN MORE</a>
-      </div>
-    </div>
-    <div data-src="{{ asset('template/images/slide1.jpg') }}">
-      <div class="caption fadeIn">
-        <h2 class="header-title">PUSAT OLEH-OLEH BATAM</h2>
-        <div class="price">
-          Jalan jalan ga lengkap tanpa oleh-oleh
-          <span>Yuk liat-liat di sini</span>
-        </div>
-        <a href="#">LEARN MORE</a>
-      </div>
-    </div>
-    <div data-src="{{ asset('template/images/slide2.jpg') }}">
-      <div class="caption fadeIn">
-        <h2 class="header-title">TIKET PESAWAT & KAPAL</h2>
-        <div class="price">
-          READY....
-          <span>MARI</span>
-        </div>
-        <a href="#">LEARN MORE</a>
-      </div>
-    </div> --}}
     </div>
   </div>
   <!--==============================Content=================================-->
   <div class="content">
     {{-- <div class="ic">More Website Templates @ TemplateMonster.com - February 10, 2014!</div> --}}
     <div class="container_12">
-      <div class="grid_4">
+      @foreach ($services as $service)
+        <div class="grid_4">
+          <div class="banner" style="box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.4); -webkit-box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.4); -moz-box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.4);">
+            <img src="{{ asset('template/images/ban_img1.jpg') }}" alt="">
+            {{-- <img src="{{ asset('images/banner/' . $service['image']) }}" alt=""> --}}
+            <div class="label">
+              <div class="title">{{ strtoupper($service['first_text']) }}</div>
+              <div class="price">{{ strtoupper($service['second_text']) }}<span>{{ strtoupper($service['third_text']) }}</span></div>
+              <a href="{{ !empty($service['link']) ? $service['link'] : '#' }}">LEARN MORE</a>
+            </div>
+          </div>
+        </div>
+      @endforeach
+      {{-- <div class="grid_4">
         <div class="banner">
           <img src="{{ asset('template/images/ban_img1.jpg') }}" alt="">
           <div class="label">
@@ -90,22 +73,18 @@
             <a href="#">LEARN MORE</a>
           </div>
         </div>
-      </div>
+      </div> --}}
     </div>
 
     {{-- section elevator pitch --}}
     <div>
-      <div class="container_12">
-        <div class="grid_12" style="background-color: #fff3e6; padding: 30px;">
-          <h3 class="head1" style="text-align: center; color: #f3aa29;">
-            MAMAE TIRTA DEWATA TOUR & TRAVEL
+      <div class="container_12 shadow-sm">
+        <div class="grid_12" style="background-color: #fff3e6; padding: 30px; box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3); -webkit-box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3); -moz-box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3);">
+          <h3 class="head1" style="text-align: center; color: #f3aa29; text-shadow: -4px 4px 10px rgba(0,0,0,0.2);">
+            {{ strtoupper($elevatorPitch['title']) }}
           </h3>
           <div style="text-align: center; margin-top: -20px; margin-bottom: 40px;">
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-            ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-            nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
-            anim id est laborum."
+            {{ $elevatorPitch['content'] }}
           </div>
         </div>
       </div>
@@ -116,38 +95,16 @@
     <div class="container_12 my-4">
       <h3 class="text-center mx-2"><u>Our Services</u></h3>
       <div class="d-flex justify-content-center d-flex justify-content-center flex-wrap">
+        @foreach ($ourServices as $ourService)
         <div class="mx-3 mb-4">
           <div class="rounded-circle services">
             <div class="align-middle text-center text-white">
-              <i class="fa-solid fa-plane" style="font-size: 75px;"></i>
+              <i class="{{ $ourService['icon'] }}" style="font-size: 75px;"></i>
             </div>
           </div>
-          <h5 class="text-center" style="margin-top: -110px;">Tiket Pesawat</h5>
+          <h5 class="text-center" style="margin-top: -100px; color: #f3aa29;">{{ ucwords($ourService['service_name']) }}</h5>
         </div>
-        <div class="mx-3 mb-4">
-          <div class="rounded-circle services">
-            <div class="align-middle text-center text-white">
-              <i class="fa-solid fa-ship" style="font-size: 75px;"></i>
-            </div>
-          </div>
-          <h5 class="text-center" style="margin-top: -110px;">Tiket Kapal</h5>
-        </div>
-        <div class="mx-3 mb-4">
-          <div class="rounded-circle services">
-            <div class="align-middle text-center text-white">
-              <i class="fa-solid fa-suitcase-rolling" style="font-size: 75px;"></i>
-            </div>
-          </div>
-          <h5 class="text-center" style="margin-top: -110px;">Paket Wisata</h5>
-        </div>
-        <div class="mx-3 mb-4">
-          <div class="rounded-circle services">
-            <div class="align-middle text-center text-white">
-              <i class="fa-solid fa-gift" style="font-size: 75px;"></i>
-            </div>
-          </div>
-          <h5 class="text-center" style="margin-top: -110px;">Oleh-oleh</h5>
-        </div>
+        @endforeach
       </div>
     </div>
     {{-- end our services --}}
@@ -155,7 +112,7 @@
     {{-- destinasi wisata --}}
     <div>
       <div class="container_12">
-        <div class="grid_12" style="background-color: #fff3e6; padding: 30px;">
+        <div class="grid_12" style="background-color: #fff3e6; padding: 30px; box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3); -webkit-box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3); -moz-box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3);">
           <h3 class="head1" style="text-align: center; color: #f3aa29; margin-top: -15px">
             PAKET WISATA
           </h3>
@@ -247,7 +204,7 @@
     {{-- section testimoni --}}
     <div>
       <div class="container_12">
-        <div class="grid_12" style="background-color: #fff3e6; padding: 0 10px;">
+        <div class="grid_12" style="background-color: #fff3e6; padding: 0 10px; box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3); -webkit-box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3); -moz-box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3);">
           <h3 class="head1" style="text-align: center; color: #f3aa29;">
             Testimoni Pelanggan
           </h3>

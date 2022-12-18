@@ -41,32 +41,49 @@
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                  <form>
+                  <form method="POST" action="{{ route('tour-travel.store') }}" enctype="multipart/form-data">
+                    @csrf
                     <div class="card-body">
-                      <div class="form-group">
-                        <div class="input-group">
-                          <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="exampleInputFile">
-                            <label class="custom-file-label text-muted" for="exampleInputFile">Pilih Background</label>
-                          </div>
+                      <div class="row">
+                        <div class="col-sm col-lg-4 col-md-4 mb-3">
+                          <input type="text" name="travel_name" class="form-control @error('travel_name') is-invalid @enderror" placeholder="Destinasi" required>
+                        </div>
+                        <div class="col-sm col-lg-4 col-md-4 mb-3">
+                          <input type="text" name="second_text" class="form-control @error('second_text') is-invalid @enderror" placeholder="Middle Text" required>
+                        </div>
+                        <div class="col-sm col-lg-4 col-md-4 mb-3">
+                          <input type="text" name="start_price" class="form-control @error('start_price') is-invalid @enderror" placeholder="Harga mulai..." required>
                         </div>
                       </div>
                       <div class="row">
-                        <div class="col-sm col-lg-4 col-md-4 mb-3">
-                          <input type="text" class="form-control" placeholder="Destinasi">
+                        <div class="col-sm col-lg-6 col-md-6 mb-3">
+                          <input type="text" name="country" class="form-control @error('country') is-invalid @enderror" placeholder="Negara tujuan..." required>
                         </div>
-                        <div class="col-sm col-lg-4 col-md-4 mb-3">
-                          <input type="text" class="form-control" placeholder="Middle Text">
-                        </div>
-                        <div class="col-sm col-lg-4 col-md-4 mb-3">
-                          <input type="text" class="form-control" placeholder="Harga mulai...">
+                        <div class="col-sm col-lg-6 col-md-6 mb-3">
+                          <input type="text" name="region" class="form-control @error('region') is-invalid @enderror" placeholder="Daerah tujuan.." required>
                         </div>
                       </div>
                       <div class="form-group">
-                        <textarea id="summernote"></textarea>
+                        <div class="input-group">
+                          <div class="custom-file">
+                            <input type="file" class="custom-file-input @error('thumbnail') is-invalid @enderror" id="thumbnail" name="thumbnail" accept="image/*" required>
+                            <label class="custom-file-label text-muted" for="thumbnail">Pilih Thumbnail</label>
+                          </div>
+                        </div>
                       </div>
                       <div class="form-group">
-                        <select name="active" id="" class="form-control">
+                        <div class="input-group">
+                          <div class="custom-file">
+                            <input type="file" class="custom-file-input @error('image') is-invalid @enderror" id="image" name="image" accept="image/*" required>
+                            <label class="custom-file-label text-muted" for="image">Pilih Gambar</label>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <textarea id="summernote" name="description" class="@error('description') is-invalid @enderror" required></textarea>
+                      </div>
+                      <div class="form-group">
+                        <select name="is_active" class="form-control @error('is_active') is-invalid @enderror" required>
                           <option selected disabled>Ditampilkan?</option>
                           <option value="active">Ya</option>
                           <option value="inactive">Tidak</option>
