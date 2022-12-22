@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\admin\AboutController;
 use App\Http\Controllers\admin\dashboardController;
 use App\Http\Controllers\admin\PengaturanHalamanUtama;
 use App\Http\Controllers\admin\SuvenirController;
 use App\Http\Controllers\admin\TourController;
 use App\Http\Controllers\Public\HomeController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,16 +20,26 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    return redirect()->route('home.index');
+});
 
 Route::resource('/home', HomeController::class);
 Route::get('/paket-wisata', [HomeController::class, 'travelPackages'])->name('paket-wisata');
 Route::get('/paket-detail', [HomeController::class, 'singlePage'])->name('paket-detail');
 Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
+Route::get('/detail-wisata/{slug}', [HomeController::class, 'travelDetail'])->name('detail-wisata');
 
-Route::group(['prefix' => 'admin', 'middleware' => ['guest']], function () {
+// oleh-oleh
+Route::get('/oleh-oleh', [HomeController::class, 'suvenirs'])->name('oleh-oleh');
+Route::get('/oleh-oleh/{slug}', [HomeController::class, 'detailSuvenir'])->name('oleh-oleh.single');
+
+
+Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
+    Route::get('/', function () {
+        return redirect()->route('dashboard.index');
+    });
+
     Route::resource('/dashboard', dashboardController::class);
 
     // main settings
@@ -49,4 +61,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['guest']], function () {
     Route::post('/oleh-olehnya', [SuvenirController::class, 'addSuvenirItem'])->name('oleh-oleh.add-item');
     Route::match(['PUT', 'PATCH'], '/oleh-olehnya/{id}', [SuvenirController::class, 'editSuvenirItem'])->name('oleh-oleh.edit-item');
     Route::delete('/oleh-olehnya/{id}', [SuvenirController::class, 'deleteSuvenirItem'])->name('oleh-oleh.delete-item');
+
+    // about
+    Route::resource('about', AboutController::class);
 });
+
+Auth::routes();
+
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

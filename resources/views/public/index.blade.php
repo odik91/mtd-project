@@ -134,7 +134,7 @@
                       <div class="title" style="color: #ff7300">{{ strtoupper($travel['travel_name']) }}</div>
                       <div class="price">
                         {{ strtoupper($travel['second_text']) }}<span>{{ $travel['start_price'] }}</span></div>
-                      <a href="#">SELENGKAPNYA</a>
+                      <a href="{{ route('detail-wisata', $travel['slug']) }}">SELENGKAPNYA</a>
                     </div>
                   </div>
                 @endforeach
@@ -142,7 +142,7 @@
             </div>
           </div>
           <div class="label text-center mb-4">
-            <a href="#" class="btn-cta-link">LIHAT SEMUA PAKET</a>
+            <a href="{{ route('paket-wisata') }}" class="btn-cta-link">LIHAT SEMUA PAKET</a>
           </div>
         </div>
       </div>
@@ -184,7 +184,8 @@
               <div class="container bg-light p-4">
                 <div class="rounded-circle testimoni">
                   <div class="align-middle text-center text-white">
-                    <i class="fa-solid fa-user" style="font-size: 50px;"></i>
+                    {{-- <i class="fa-solid fa-user" style="font-size: 40px;"></i> --}}
+                    <img src="{{ asset('images/suvenirs/1671369288VC673mHGzhq2y62qIgc9783EXC6g2X9ldOzYgahu.jpg') }}" alt="">
                   </div>
                 </div>
                 <h5 class="text-center" style="margin-top: -50px">John Doe</h5>
@@ -211,32 +212,31 @@
     {{-- end section testimoni --}}
 
     {{-- form testimoni --}}
-    <div class="container_12">
-      <div class="grid_12">
+    <div class="container_12 mt-4">
+      <div class="grid_12" style="background-color: #fff3e6; padding: 0 10px; box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3); -webkit-box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3); -moz-box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3);">
         <div class="container">
           <div class="row">
             <div class="col">
-              <h3 class="text-center">TULIS TESTIMONI ANDA</h3>
+              <h3 class="text-center mt-4 pt-4">TULIS TESTIMONI ANDA</h3>
               <form>
                 <div class="form-row">
                   <div class="form-group col-md-6">
-                    <label for="inputEmail4">Email</label>
                     <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
                   </div>
                   <div class="form-group col-md-6">
-                    <label for="nama">Password</label>
                     <input type="text" class="form-control" id="nama" placeholder="Nama">
                   </div>
                 </div>
-                <div class="custom-file">
+                <div class="custom-file mb-3">
                   <input type="file" class="custom-file-input" id="validatedCustomFile" required>
                   <label class="custom-file-label" for="validatedCustomFile">Pilih avatar</label>
                 </div>
                 <div class="form-group mt-1">
-                  <label for="testimoni">Testimoni</label>
-                  <textarea class="form-control" id="isi" rows="6"></textarea>
+                  <textarea class="form-control" id="isi" rows="6" placeholder="Tulis testimoni anda"></textarea>
                 </div>
-                <button type="submit" class="btn-cta-link">Buat Testimoni</button>
+                <button type="submit" class="btn-cta-link mb-4">Buat Testimoni</button>
+                <br>
+                <br>
               </form>
             </div>
           </div>

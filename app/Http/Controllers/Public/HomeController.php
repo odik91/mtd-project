@@ -8,7 +8,9 @@ use App\Models\HomeFirstThreeItem;
 use App\Models\HomeSlider;
 use App\Models\OurService;
 use App\Models\Suvenir;
+use App\Models\SuvenirCategory;
 use App\Models\Travel;
+use App\Models\TravelPackage;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -97,8 +99,14 @@ class HomeController extends Controller
     }
 
     public function travelPackages() {
-        $title = "Paket Wisata";        
-        return view('public.paket-wisata', compact('title',));
+        $title = "Paket Wisata";
+        $destinations = Travel::where('is_active', 'active')->get();
+        return view('public.paket-wisata', compact('title', 'destinations'));
+    }
+
+    public function travelPackageDetail($slug) {
+        $destination = Travel::where('slug', $slug)->first();
+        $title = $destination['travel_name'];
     }
 
     public function singlePage() {
@@ -107,7 +115,30 @@ class HomeController extends Controller
     }
 
     public function contact() {
-        $title = "Contact";
+        $title = "About";        
         return view('public.contact', compact('title'));
+    }
+
+    public function travelDetail($slug) {
+        $travel = Travel::where('slug', $slug)->first();
+        $sugests = Travel::whereNotIn('slug', [$slug])->inRandomOrder()->limit(4)->get();
+        $packages = TravelPackage::where('travel_id', $travel['id'])->get();
+        $title = ucwords($travel['travel_name']);
+        return view('public.detail-wisata', compact('title', 'travel', 'packages', 'sugests'));
+    }
+
+    public function suvenirs() {
+        $title = 'Oleh-oleh';
+        $suvenirs = Suvenir::where('is_active', 'active')->get();
+        $suvenirCategories = SuvenirCategory::get();
+
+        return view('public.suvenir', compact('title', 'suvenirs', 'suvenirCategories'));
+    }
+
+    public function detailSuvenir($slug) {
+        $suvenir = Suvenir::where('slug', $slug)->first();
+        $title = 'Oleh-oleh';
+        $suvenirCategories = SuvenirCategory::get();
+        return view('public.detail-suvenir', compact('title', 'suvenir', 'suvenirCategories'));
     }
 }

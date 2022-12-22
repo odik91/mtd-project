@@ -12,4 +12,8 @@ class Travel extends Model
     use HasFactory, Notifiable, SoftDeletes;
 
     protected $guarded = [];
+
+    public function paketWisata() {
+        return $this->belongsTo(TravelPackage::class);
+    }
 }

@@ -12,67 +12,63 @@
   </div>
 
   {{-- detail wisata --}}
-  <div class="container_12">
-    <div class="grid_5">
-      <h3>CONTACT INFO</h3>
-      <img src="{{ asset('template/images/logo-mtd.png') }}" alt="Your Happy Family"> 
-      <div class="map">
-        <p><span class="blog">Maecenas vehicula egestas venenatis. Duis massa elit, auctor non pellentesque vel aliquet
-            sit amet erat. Nullam eget dignissim nisi, aliquam feugiat nibh. </span></p>
-        <div class="clear"></div>
-        <figure class="">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7978.073743136394!2d104.09675885390627!3d1.134014!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31d98629440c5757%3A0x7e57149ff963910c!2sPuri%20Selebriti%201!5e0!3m2!1sen!2sid!4v1670749845476!5m2!1sen!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </figure>
-        <address>
-          <dl>
-            <dt>The Company Name Inc. <br>
-              8901 Marmora Road,<br>
-              Glasgow, D04 89GR.
-            </dt>
-            <dd><span>Freephone:</span>+1 800 559 6580</dd>
-            <dd><span>Telephone:</span>+1 800 603 6035</dd>
-            <dd><span>FAX:</span>+1 800 889 9898</dd>
-            <dd>E-mail: <a href="#" class="col1">mail@demolink.org</a></dd>
-          </dl>
-        </address>
-      </div>
+  <div class="container_12">    
+    <div class="text-center mt-4">
+      <img src="{{ asset('template/images/mtd-color.png') }}" alt="mtd-color.png" style="width: 200px">
     </div>
-    <div class="grid_6 prefix_1">
-      <h3>GET IN TOUCH</h3>
-      <form id="form">
-        <div class="success_wrapper">
-          <div class="success-message">Contact form submitted</div>
-        </div>
-        <label class="name">
-          <input type="text" placeholder="Name:" />
-          <span class="empty-message">*This field is required.</span>
-          <span class="error-message">*This is not a valid name.</span>
-        </label>
-        <label class="email">
-          <input type="text" placeholder="Email:" />
-          <span class="empty-message">*This field is required.</span>
-          <span class="error-message">*This is not a valid email.</span>
-        </label>
-        <label class="country">
-          <input type="text" placeholder="Country:" />
-          <span class="empty-message">*This field is required.</span>
-          <span class="error-message">*This is not a valid phone.</span>
-        </label>
-        <label class="message">
-          <textarea placeholder="Message:"></textarea>
-          <span class="empty-message">*This field is required.</span>
-          <span class="error-message">*The message is too short.</span>
-        </label>
-        <div>
-          <div class="clear"></div>
-          <div class="btns">
-            <a href="#" data-type="reset" class="btn">Clear</a>
-            <a href="#" data-type="submit" class="btn">Submit</a>
-          </div>
-        </div>
-      </form>
+    <h2 class="text-center pt-4 m-0 text-shadow text-warning">PT MAME TIRTA DEWATA</h2>
+    <div class="map">
+      <p><span class="blog">Maecenas vehicula egestas venenatis. Duis massa elit, auctor non pellentesque vel aliquet
+          sit amet erat. Nullam eget dignissim nisi, aliquam feugiat nibh. </span></p>
+      <div class="clear"></div>
+      <figure class="">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7978.073743136394!2d104.09675885390627!3d1.134014!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31d98629440c5757%3A0x7e57149ff963910c!2sPuri%20Selebriti%201!5e0!3m2!1sen!2sid!4v1670749845476!5m2!1sen!2sid"
+          width="600" height="500" style="border:0;" allowfullscreen="" loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </figure>
+      <address>
+        <dl>
+          <dt>Ruko Puri Selebriti 1 Blok B No 79<br>
+            Batu Besar Nongsa Batam,<br>
+            Kepulauan Riau
+          </dt>
+          <dd><span>Handphone:</span>+1 800 559 6580</dd>
+          <dd><span>WA:</span>+62 813 7788 7790</dd>
+          <dd>E-mail: <a href="#" class="col1">mametirtadewata90@gmail.com</a></dd>
+        </dl>
+      </address>
     </div>
   </div>
+  <br>
 
   {{-- end detail wisata --}}
 @endsection
+
+@push('addon-css')
+  <style>
+    .std-shadow {
+      box-shadow: -1px 1px 28px 0px rgba(0, 0, 0, 0.2);
+      -webkit-box-shadow: -1px 1px 28px 0px rgba(0, 0, 0, 0.2);
+      -moz-box-shadow: -1px 1px 28px 0px rgba(0, 0, 0, 0.2);
+    }
+
+    .link-style {
+      color: #0087e0;
+      text-align: left;
+      padding-left: 0px;
+      padding-right: 0px;
+    }
+
+    .text-shadow {
+      text-shadow: -4px 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    @media screen and (max-width: 575px) {
+      .link-style {
+        text-align: center;
+      }
+    }
+  </style>
+@endpush
+

@@ -13,7 +13,7 @@
         <img src="{{asset('temp-adm/dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
       </div>
       <div class="info">
-        <a href="#" class="d-block">Alexander Pierce</a>
+        <a href="#" class="d-block">{{ ucwords( Auth::user()->name) }}</a>
       </div>
     </div>
 
@@ -69,18 +69,10 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="{{ route('main-settings.index') }}" class="nav-link">
+          <a href="{{ route('about.index') }}" class="nav-link {{ (isset($title) && $title == 'About') ? 'active' : '' }}">
             <i class="nav-icon fas fa-cog"></i>
             <p>
               About
-            </p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="{{ route('main-settings.index') }}" class="nav-link">
-            <i class="nav-icon fas fa-cog"></i>
-            <p>
-              Alamat & Contact
             </p>
           </a>
         </li>

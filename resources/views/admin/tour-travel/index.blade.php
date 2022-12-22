@@ -218,7 +218,7 @@
                           <div class="modal fade" id="modal-travel-edit-{{ $travel['id'] }}" data-backdrop="static"
                             data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
                             aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-dialog modal-lg modal-dialog-centered">
                               <div class="modal-content">
                                 <div class="modal-header">
                                   <h5 class="modal-title" id="staticBackdropLabel">Edit Tour</h5>
