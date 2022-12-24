@@ -12,20 +12,27 @@
   </div>
 
   {{-- detail wisata --}}
-  <div class="container_12">    
+  <div class="container_12">
     <div class="text-center mt-4">
       <img src="{{ asset('template/images/mtd-color.png') }}" alt="mtd-color.png" style="width: 200px">
     </div>
     <h2 class="text-center pt-4 m-0 text-shadow text-warning">PT MAME TIRTA DEWATA</h2>
     <div class="map">
-      <p><span class="blog">Maecenas vehicula egestas venenatis. Duis massa elit, auctor non pellentesque vel aliquet
-          sit amet erat. Nullam eget dignissim nisi, aliquam feugiat nibh. </span></p>
+      <div class="mb-4 text-center">
+        <span class="blog">
+          {{ $elevatorPitch['content'] }}
+        </span>
+      </div>
       <div class="clear"></div>
       <figure class="">
-        <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7978.073743136394!2d104.09675885390627!3d1.134014!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31d98629440c5757%3A0x7e57149ff963910c!2sPuri%20Selebriti%201!5e0!3m2!1sen!2sid!4v1670749845476!5m2!1sen!2sid"
-          width="600" height="500" style="border:0;" allowfullscreen="" loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"></iframe>
+        @if (empty($about['maps']))
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7978.073743136394!2d104.09675885390627!3d1.134014!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31d98629440c5757%3A0x7e57149ff963910c!2sPuri%20Selebriti%201!5e0!3m2!1sen!2sid!4v1670749845476!5m2!1sen!2sid"
+            width="600" height="500" style="border:0;" allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
+        @else
+          {!! $about['maps'] !!}
+        @endif
       </figure>
       <address>
         <dl>
@@ -71,4 +78,3 @@
     }
   </style>
 @endpush
-

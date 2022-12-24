@@ -15,7 +15,11 @@
     </div><!-- /.row -->
   </div><!-- /.container-fluid -->
 </div>
-<section class="content">
+<div class="text-center">
+  <h1>Welcome</h1>
+  <h2>{{ ucwords( Auth::user()->name) }}</h2>
+</div>
+{{-- <section class="content">
   <div class="container-fluid">
     <!-- Small boxes (Stat box) -->
     <div class="row">
@@ -595,5 +599,5 @@
     </div>
     <!-- /.row (main row) -->
   </div><!-- /.container-fluid -->
-</section>
+</section> --}}
 @endsection

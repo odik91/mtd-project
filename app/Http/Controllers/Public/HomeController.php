@@ -115,8 +115,9 @@ class HomeController extends Controller
     }
 
     public function contact() {
-        $title = "About";        
-        return view('public.contact', compact('title'));
+        $title = "About";  
+        $elevatorPitch = ElevatorPitch::first();      
+        return view('public.contact', compact('title', 'elevatorPitch'));
     }
 
     public function travelDetail($slug) {

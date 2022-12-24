@@ -31,12 +31,20 @@
   <div class="content">
     {{-- <div class="ic">More Website Templates @ TemplateMonster.com - February 10, 2014!</div> --}}
     <div class="container_12">
-      @foreach ($services as $service)
+      @foreach ($services as $key => $service)
         <div class="grid_4">
           <div class="banner"
             style="box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.4); -webkit-box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.4); -moz-box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.4);">
-            <img src="{{ asset('template/images/ban_img1.jpg') }}" alt="{{ $service['image'] }}"
-              style="filter: brightness(75%)">
+            @if ($key == 0)
+              <img src="{{ asset('template/images/bc01.jpg') }}" alt="{{ $service['image'] }}"
+                style="filter: brightness(50%)">
+            @elseif($key == 1)
+              <img src="{{ asset('template/images/bc02.jpg') }}" alt="{{ $service['image'] }}"
+                style="filter: brightness(50%)">
+            @else
+              <img src="{{ asset('template/images/bc03.jpg') }}" alt="{{ $service['image'] }}"
+                style="filter: brightness(50%)">
+            @endif
             {{-- <img src="{{ asset('images/banner/' . $service['image']) }}" alt=""> --}}
             <div class="label">
               <div class="title" style="color: #f3aa29">{{ strtoupper($service['first_text']) }}</div>
@@ -185,7 +193,8 @@
                 <div class="rounded-circle testimoni">
                   <div class="align-middle text-center text-white">
                     {{-- <i class="fa-solid fa-user" style="font-size: 40px;"></i> --}}
-                    <img src="{{ asset('images/suvenirs/1671369288VC673mHGzhq2y62qIgc9783EXC6g2X9ldOzYgahu.jpg') }}" alt="">
+                    <img src="{{ asset('images/suvenirs/1671369288VC673mHGzhq2y62qIgc9783EXC6g2X9ldOzYgahu.jpg') }}"
+                      alt="">
                   </div>
                 </div>
                 <h5 class="text-center" style="margin-top: -50px">John Doe</h5>
@@ -213,7 +222,8 @@
 
     {{-- form testimoni --}}
     <div class="container_12 mt-4">
-      <div class="grid_12" style="background-color: #fff3e6; padding: 0 10px; box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3); -webkit-box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3); -moz-box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3);">
+      <div class="grid_12"
+        style="background-color: #fff3e6; padding: 0 10px; box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3); -webkit-box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3); -moz-box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3);">
         <div class="container">
           <div class="row">
             <div class="col">

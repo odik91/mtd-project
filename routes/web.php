@@ -66,6 +66,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
     Route::resource('about', AboutController::class);
 });
 
-Auth::routes();
+Auth::routes([
+    // 'register' => false
+]);
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
