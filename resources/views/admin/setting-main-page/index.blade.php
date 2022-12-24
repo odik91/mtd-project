@@ -359,7 +359,7 @@
                                       @csrf
                                       @method('PUT')
                                       <div class="card-body">
-                                        <div class="form-group">
+                                        {{-- <div class="form-group">
                                           <div class="input-group">
                                             <div class="custom-file">
                                               <input type="file" name="image" class="custom-file-input"
@@ -369,7 +369,7 @@
                                                 for="exampleInputFile">Pilih Background</label>
                                             </div>
                                           </div>
-                                        </div>
+                                        </div> --}}
                                         <div class="row">
                                           <div class="col-sm col-lg-4 col-md-4 mb-3">
                                             <input type="text" name="first_text" class="form-control"
@@ -386,7 +386,7 @@
                                           </div>
                                         </div>
                                         <div class="form-group">
-                                          <input type="text" class="form-control" id="link"
+                                          <input type="text" class="form-control" id="link" name="link"
                                             value="{{ $mainService['link'] }}" placeholder="Link halaman web ">
                                         </div>
                                         <button type="submit" class="btn btn-block btn-primary">Simpan</button>
