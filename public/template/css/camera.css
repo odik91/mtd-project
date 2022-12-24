@@ -23,6 +23,7 @@
 
 .camera_wrap img {
     max-width: 10000px;
+    filter: brightness(65%);
 }
 
 .camera_fakehover {

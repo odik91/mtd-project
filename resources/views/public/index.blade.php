@@ -92,10 +92,13 @@
       <div class="container_12 shadow-sm">
         <div class="grid_12"
           style="background-color: #fff3e6; padding: 30px; box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3); -webkit-box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3); -moz-box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3);">
-          <h3 class="head1" style="text-align: center; color: #f3aa29; text-shadow: -4px 4px 10px rgba(0,0,0,0.2);">
+          <div class="text-center">
+            <img src="{{ asset('template/images/mtd-color.png') }}" alt="mtd-color.png" style="width: 100px">
+          </div>
+          <h3 class="head1" style="text-align: center; margin-top: -20px; color: #f3aa29; text-shadow: -4px 4px 10px rgba(0,0,0,0.2);">
             {{ strtoupper($elevatorPitch['title']) }}
           </h3>
-          <div style="text-align: center; margin-top: -20px; margin-bottom: 40px;">
+          <div style="text-align: center; margin-top: -25px; margin-bottom: 40px;">
             {{ $elevatorPitch['content'] }}
           </div>
         </div>

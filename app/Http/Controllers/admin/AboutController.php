@@ -4,7 +4,10 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\About;
+use App\Models\ElevatorPitch;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+use Intervention\Image\Facades\Image;
 
 class AboutController extends Controller
 {
@@ -17,7 +20,8 @@ class AboutController extends Controller
     {
         $title = 'About';
         $about = About::first();
-        return view('admin.about.index', compact('title', 'about'));
+        $elevatorPitch = ElevatorPitch::first();
+        return view('admin.about.index', compact('title', 'about', 'elevatorPitch'));
     }
 
     /**
@@ -115,18 +119,61 @@ class AboutController extends Controller
 
         $oldAbout=About::find($id);
 
-        // if 
+        $logo_about = $oldAbout['logo_about'];
+        $logo_slider = $oldAbout['logo_slider'];
+        $logo_footer = $oldAbout['logo_footer'];
 
-        $map = $request['gmap'] == '' ? $oldAbout['mpas'] : $request['gmap'];
-        $logo_about = $request['gmap'] == '' ? $oldAbout['mpas'] : $request['gmap'];
-        $map = $request['gmap'] == '' ? $oldAbout['mpas'] : $request['gmap'];
-        $map = $request['gmap'] == '' ? $oldAbout['mpas'] : $request['gmap'];
+        if ($request->hasFile('logo_about')) {
+            if (isset($oldAbout['logo_about']) && file_exists(public_path('images/logo/' . $oldAbout['logo_about']))) {
+                unlink(public_path('images/logo/' . $oldAbout['logo_about']));
+            }
+
+            $logo_about = time() . $request['logo_about']->hashName();
+            $pathImage = public_path('/images/logo');
+            $resizeImage = Image::make($request['logo_about']->path());
+            $resizeImage->resize(500, 500, function ($const) {
+                $const->aspectRatio();
+            })->save($pathImage . '/' . $logo_about);
+        }
+
+        if ($request->hasFile('logo_slider')) {
+            if (isset($oldAbout['logo_slider']) && file_exists(public_path('images/logo/' . $oldAbout['logo_slider']))) {
+                unlink(public_path('images/logo/' . $oldAbout['logo_slider']));
+            }
+
+            $logo_slider = time() . $request['logo_slider']->hashName();
+            $pathImage = public_path('/images/logo');
+            $resizeImage = Image::make($request['logo_slider']->path());
+            $resizeImage->resize(500, 500, function ($const) {
+                $const->aspectRatio();
+            })->save($pathImage . '/' . $logo_slider);
+        }
+
+        if ($request->hasFile('logo_footer')) {
+            if (isset($oldAbout['logo_footer']) && file_exists(public_path('images/logo/' . $oldAbout['logo_footer']))) {
+                unlink(public_path('images/logo/' . $oldAbout['logo_footer']));
+            }
+
+            $logo_footer = time() . $request['logo_footer']->hashName();
+            $pathImage = public_path('/images/logo');
+            $resizeImage = Image::make($request['logo_footer']->path());
+            $resizeImage->resize(500, 500, function ($const) {
+                $const->aspectRatio();
+            })->save($pathImage . '/' . $logo_footer);
+        }
+
+        $map = $request['gmap'] == '' ? $oldAbout['maps'] : $request['gmap'];
+        $alamat = $request['alamat'] == '' ? $oldAbout['alamat'] : $request['alamat'];
+        $kelurahan = $request['kelurahan'] == '' ? $oldAbout['kelurahan'] : $request['kelurahan'];
+        $kecamatan = $request['kecamatan'] == '' ? $oldAbout['kecamatan'] : $request['kecamatan'];
+        $kabupaten = $request['kabupaten'] == '' ? $oldAbout['kabupaten'] : $request['kabupaten'];
+        $provinsi = $request['provinsi'] == '' ? $oldAbout['provinsi'] : $request['provinsi'];
 
         $data = [
-            'maps' => null,
-            'logo_about' => null,
-            'logo_slider' => null,
-            'logo_footer' => null,
+            'maps' => $map,
+            'logo_about' => $logo_about,
+            'logo_slider' => $logo_slider,
+            'logo_footer' => $logo_footer,
             'alamat' => $request['alamat'],
             'kelurahan' => $request['kelurahan'],
             'kecamatan' => $request['kecamatan'],
@@ -134,7 +181,14 @@ class AboutController extends Controller
             'provinsi' => $request['provinsi'],
         ];
 
-        // About::create($data);
+        $update = $oldAbout->update($data);
+
+        if ($update) {
+            Session::flash('success', "Informasi about berhasil ditambahkan");
+        } else {
+            Session::flash('error', "Informasi about gagal ditambahkan");
+        }
+        
         return redirect()->route('about.index');
     }
 

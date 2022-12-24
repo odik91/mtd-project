@@ -27,6 +27,21 @@
               </h3>
             </div>
             <div class="card-body">
+              <div class="callout callout-danger">
+                <h6>Info Elevator Pitch</h6>
+                <p class="text-muted">
+                  Text yang muncul pada elevator pitch di pengaturan ini sama dengan yang ada pada pengaturan halaman
+                  utama. Jika anda ingin mengganti informasi tentang elevator pich silakan klik di <a
+                    href="{{ route('main-settings.index') }}">sini</a>
+                </p>
+              </div>
+              <div class="text-center">
+                <img src="{{ asset('template/images/mtd-color.png') }}" alt="mtd-color.png" style="width: 180px">
+                <br>
+                <div class="mt-2 mb-4">
+                  {{ $elevatorPitch['content'] }}
+                </div>
+              </div>
               <figure class="" id="maps">
                 @if (empty($about['maps']))
                   <iframe
@@ -37,107 +52,171 @@
                   {!! $about['maps'] !!}
                 @endif
               </figure>
-              <form action="{{ route('about.store', $about['id']) }}" method="post" enctype="multipart/form-data">
-                @csrf
-                @method('PUT')
-                <div class="form-body mb-3">
-                  <label for="gmap">Masukkan frame peta dari google map</label>
-                  <textarea id="gmap" name="gmap" class="form-control" cols="30" rows="10"
-                    placeholder="Masukkan frame peta dari google map <iframe src='https://www.google.com/maps/embed?>....</iframe>"></textarea>
+              <h4 class="text-center">Alamat</h4>
+              <div class="callout callout-danger">
+                <h6>Info Alamat</h6>
+                <p class="text-muted">Pengaturan alamat juga akan berpengaruh pada alamat yang ditampilkan di footer setiap halaman publik website</p>
+              </div>
+              <div class="my-4 text-center">
+                <p>
+                  <b>{{ ucwords($about['alamat']) . ' ' . ucwords($about['kelurahan']) . ' ' . ucwords($about['kecamatan']) . ' ' . ucwords($about['kabupaten']) . ' ' . ucwords($about['provinsi']) }}
+                  </b>
+                </p>
+              </div>
+              <div class="my-2 bg-secondary p-4 rounded text-center">
+                <div class="mb-3">
+                  <h5 class="text-warning">Logo About
+                  </h5>
+                  @if (isset($about['logo_about']))
+                  <img src="{{ asset('images/' . $about['logo_about']) }}" alt="logo about" height="50px">
+                  @else
+                  <img src="{{ asset('template/images/mtd-color.png') }}" alt="logo about" height="50px">   
+                  @endif
                 </div>
-                <div class="form-group mb-3">
-                  <div class="input-group">
-                    <div class="custom-file">
-                      <input type="file" class="custom-file-input @error('logo_about') is-invalid @enderror"
-                        name="logo_about" id="logo_about" accept="image/*" name="logo_about" required>
-                      <label class="custom-file-label text-muted" for="logo_about-01">Logo utama halaman about</label>
-                      @error('logo_about')
-                        <span class="error invalid-feedback" role="alert">
-                          <strong>{{ $message }}</strong>
-                        </span>
-                      @enderror
+                <hr>
+                <div class="mb-3">
+                  <h5 class="text-warning">Logo Header
+                  </h5>
+                  @if (isset($about['logo_slider']))
+                  <img class="slide-top" src="{{ asset('images/' . $about['logo_slider']) }}" alt="logo slider" height="50px">
+                  @else
+                  <img class="slide-top" src="{{ asset('template/images/logo-mtd.png') }}" alt="logo slider" height="50px">
+                  @endif
+                </div>
+                <hr>
+                <div class="mb-3">
+                  <h5 class="text-warning">Logo Footer
+                  </h5>
+                  @if ($about['logo_footer'])
+                  <img src="{{ asset('images/' . $about['logo_footer']) }}" alt="Your Happy Family" height="50px">
+                  @else
+                  <img src="{{ asset('template/images/logo-mtd-logo.png') }}" alt="Your Happy Family" height="50px">
+                  @endif
+                </div>
+              </div>
+              <div class="card-body pad table-responsive">
+                <div class="card card-warning card-outline collapsed-card">
+                  <div class="card-header bg-dark">
+                    <h3 class="card-title text-center">Edit Informasi Halamn About</h3>
+                    <div class="card-tools">
+                      <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                      </button>
                     </div>
+                    <!-- /.card-tools -->
                   </div>
+                  <!-- /.card-header -->
+                  <div class="card-body">
+                    <form action="{{ route('about.update', $about['id']) }}" method="post" enctype="multipart/form-data">
+                      @csrf
+                      @method('PUT')
+                      <div class="form-body mb-3">
+                        <textarea id="gmap" name="gmap" class="form-control" cols="30" rows="10"
+                          placeholder="Masukkan frame peta dari google map <iframe src='https://www.google.com/maps/embed?>....</iframe>">{!! $about['maps'] !!}</textarea>
+                      </div>
+                      <div class="form-group mb-3">
+                        <div class="input-group">
+                          <div class="custom-file">
+                            <input type="file" class="custom-file-input @error('logo_about') is-invalid @enderror"
+                              name="logo_about" id="logo_about" accept="image/*" name="logo_about">
+                            <label class="custom-file-label text-muted" for="logo_about-01">{{ !empty($about['logo_about']) ? $about['logo_about'] : 'Logo utama halaman
+                              about' }}</label>
+                            @error('logo_about')
+                              <span class="error invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                              </span>
+                            @enderror
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group mb-3">
+                        <div class="input-group">
+                          <div class="custom-file">
+                            <input type="file" class="custom-file-input @error('logo_slider') is-invalid @enderror"
+                              name="logo_slider" id="thumnail-01" accept="image/*" name="logo_slider">
+                            <label class="custom-file-label text-muted" for="logo_slider">{{ !empty($about['logo_slider']) ? $about['logo_slider'] : 'Logo header setiap
+                              halaman' }}</label>
+                          </div>
+                          @error('logo_slider')
+                            <span class="error invalid-feedback" role="alert">
+                              <strong>{{ $message }}</strong>
+                            </span>
+                          @enderror
+                        </div>
+                      </div>
+                      <div class="form-group mb-3">
+                        <div class="input-group">
+                          <div class="custom-file">
+                            <input type="file" class="custom-file-input @error('logo_footer') is-invalid @enderror"
+                              name="logo_footer" id="logo_footer" accept="image/*" name="logo_footer">
+                            <label class="custom-file-label text-muted" for="logo_footer">{{ !empty($about['logo_footer']) ? $about['logo_footer'] : 'Logo footer setiap
+                              halaman' }}</label>
+                            @error('logo_footer')
+                              <span class="error invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                              </span>
+                            @enderror
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm col-lg-6 col-md-6 mb-3">
+                          <input type="text" name="alamat"
+                            class="form-control @error('alamat') is-invalid @enderror" placeholder="Alamat" value="{{ $about['alamat'] }}" required>
+                          @error('alamat')
+                            <span class="error invalid-feedback" role="alert">
+                              <strong>{{ $message }}</strong>
+                            </span>
+                          @enderror
+                        </div>
+                        <div class="col-sm col-lg-6 col-md-6 mb-3">
+                          <input type="text" name="kelurahan"
+                            class="form-control @error('kelurahan') is-invalid @enderror" placeholder="Kelurahan" value="{{ $about['kelurahan'] }}"
+                            required>
+                          @error('kelurahan')
+                            <span class="error invalid-feedback" role="alert">
+                              <strong>{{ $message }}</strong>
+                            </span>
+                          @enderror
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm col-lg-4 col-md-4 mb-3">
+                          <input type="text" name="kecamatan"
+                            class="form-control @error('kecamatan') is-invalid @enderror" placeholder="Kecamatan" value="{{ $about['kecamatan'] }}"
+                            required>
+                          @error('kecamatan')
+                            <span class="error invalid-feedback" role="alert">
+                              <strong>{{ $message }}</strong>
+                            </span>
+                          @enderror
+                        </div>
+                        <div class="col-sm col-lg-4 col-md-4 mb-3">
+                          <input type="text" name="kabupaten"
+                            class="form-control @error('kabupaten') is-invalid @enderror" placeholder="Kota" value="{{ $about['kabupaten'] }}" required>
+                          @error('kabupaten')
+                            <span class="error invalid-feedback" role="alert">
+                              <strong>{{ $message }}</strong>
+                            </span>
+                          @enderror
+                        </div>
+                        <div class="col-sm col-lg-4 col-md-4 mb-3">
+                          <input type="text" name="provinsi"
+                            class="form-control @error('provinsi') is-invalid @enderror" placeholder="Provinsi" value="{{ $about['provinsi'] }}"
+                            required>
+                          @error('provinsi')
+                            <span class="error invalid-feedback" role="alert">
+                              <strong>{{ $message }}</strong>
+                            </span>
+                          @enderror
+                        </div>
+                      </div>
+                      <button type="submit" class="btn btn-block btn-outline-info mt-2">Terapkan</button>
+                    </form>
+                  </div>
+                  <!-- /.card-body -->
                 </div>
-                <div class="form-group mb-3">
-                  <div class="input-group">
-                    <div class="custom-file">
-                      <input type="file" class="custom-file-input @error('logo_slider') is-invalid @enderror"
-                        name="logo_slider" id="thumnail-01" accept="image/*" name="logo_slider" required>
-                      <label class="custom-file-label text-muted" for="logo_slider">Logo header setiap halaman</label>
-                    </div>
-                    @error('logo_slider')
-                      <span class="error invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                      </span>
-                    @enderror
-                  </div>
-                </div>
-                <div class="form-group mb-3">
-                  <div class="input-group">
-                    <div class="custom-file">
-                      <input type="file" class="custom-file-input @error('logo_footer') is-invalid @enderror"
-                        name="logo_footer" id="thumnail-01" accept="image/*" name="logo_footer" required>
-                      <label class="custom-file-label text-muted" for="thumnail-01">Logo footer setiap halaman</label>
-                      @error('logo_footer')
-                        <span class="error invalid-feedback" role="alert">
-                          <strong>{{ $message }}</strong>
-                        </span>
-                      @enderror
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-sm col-lg-6 col-md-6 mb-3">
-                    <input type="text" name="alamat" class="form-control @error('alamat') is-invalid @enderror"
-                      placeholder="Alamat" required>
-                    @error('alamat')
-                      <span class="error invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                      </span>
-                    @enderror
-                  </div>
-                  <div class="col-sm col-lg-6 col-md-6 mb-3">
-                    <input type="text" name="kelurahan" class="form-control @error('kelurahan') is-invalid @enderror"
-                      placeholder="Kelurahan" required>
-                    @error('kelurahan')
-                      <span class="error invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                      </span>
-                    @enderror
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-sm col-lg-4 col-md-4 mb-3">
-                    <input type="text" name="kecamatan" class="form-control @error('kecamatan') is-invalid @enderror"
-                      placeholder="Kecamatan" required>
-                    @error('kecamatan')
-                      <span class="error invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                      </span>
-                    @enderror
-                  </div>
-                  <div class="col-sm col-lg-4 col-md-4 mb-3">
-                    <input type="text" name="kabupaten"
-                      class="form-control @error('kabupaten') is-invalid @enderror" placeholder="Kota" required>
-                    @error('kabupaten')
-                      <span class="error invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                      </span>
-                    @enderror
-                  </div>
-                  <div class="col-sm col-lg-4 col-md-4 mb-3">
-                    <input type="text" name="provinsi" class="form-control @error('provinsi') is-invalid @enderror"
-                      placeholder="Provinsi" required>
-                    @error('provinsi')
-                      <span class="error invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                      </span>
-                    @enderror
-                  </div>
-                </div>
-                <button type="submit" class="btn btn-block btn-outline-info mt-2">Terapkan</button>
-              </form>
+
+              </div>
             </div>
           </div>
         </div>
@@ -173,4 +252,13 @@
       bsCustomFileInput.init();
     });
   </script>
+@endpush
+@push('addon-css')
+
+<style>
+  iframe {
+    width: 100%
+  }
+</style>
+    
 @endpush
