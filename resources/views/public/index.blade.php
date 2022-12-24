@@ -21,7 +21,7 @@
               <p>{{ ucfirst($mainSlider['second_text']) }}</p>
               <span>{{ strtoupper($mainSlider['third_text']) }}</span>
             </div>
-            <a href="{{ !empty($mainSlider['link']) ? $mainSlider['third_text'] : '#' }}">KEPOIN YUK...</a>
+            <a href="{{ !empty($mainSlider['link']) ? $mainSlider['link'] : '#' }}">KEPOIN YUK...</a>
           </div>
         </div>
       @endforeach
