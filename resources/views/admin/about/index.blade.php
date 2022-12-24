@@ -31,14 +31,15 @@
                 @if (empty($about['maps']))
                   <iframe
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7978.073743136394!2d104.09675885390627!3d1.134014!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31d98629440c5757%3A0x7e57149ff963910c!2sPuri%20Selebriti%201!5e0!3m2!1sen!2sid!4v1670749845476!5m2!1sen!2sid"
-                    width="600" height="500" style="border:0;" allowfullscreen="" loading="lazy"
+                    width="100%" height="500" style="border:0;" allowfullscreen="" loading="lazy"
                     referrerpolicy="no-referrer-when-downgrade"></iframe>
                 @else
                   {!! $about['maps'] !!}
                 @endif
               </figure>
-              <form action="{{ route('about.store') }}" method="post" enctype="multipart/form-data">
+              <form action="{{ route('about.store', $about['id']) }}" method="post" enctype="multipart/form-data">
                 @csrf
+                @method('PUT')
                 <div class="form-body mb-3">
                   <label for="gmap">Masukkan frame peta dari google map</label>
                   <textarea id="gmap" name="gmap" class="form-control" cols="30" rows="10"

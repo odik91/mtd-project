@@ -99,12 +99,43 @@ class AboutController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
-            'gmap' => 'required',
-            'logo_about' => 'mimes:jpg,bmp,png',
-            'logo_slider' => 'mimes:jpg,bmp,png',
-            'logo_footer' => 'mimes:jpg,bmp,png',
-        ]);
+        $this->validate(
+            $request,
+            [
+                'logo_about' => 'mimes:jpg,bmp,png',
+                'logo_slider' => 'mimes:jpg,bmp,png',
+                'logo_footer' => 'mimes:jpg,bmp,png',
+            ],
+            [
+                'logo_about.mimes' => 'Gambar yang diperbolehkan hanya berformat jpg, bmp dan png',
+                'logo_slider.mimes' => 'Gambar yang diperbolehkan hanya berformat jpg, bmp dan png',
+                'logo_footer.mimes' => 'Gambar yang diperbolehkan hanya berformat jpg, bmp dan png',
+            ]
+        );
+
+        $oldAbout=About::find($id);
+
+        // if 
+
+        $map = $request['gmap'] == '' ? $oldAbout['mpas'] : $request['gmap'];
+        $logo_about = $request['gmap'] == '' ? $oldAbout['mpas'] : $request['gmap'];
+        $map = $request['gmap'] == '' ? $oldAbout['mpas'] : $request['gmap'];
+        $map = $request['gmap'] == '' ? $oldAbout['mpas'] : $request['gmap'];
+
+        $data = [
+            'maps' => null,
+            'logo_about' => null,
+            'logo_slider' => null,
+            'logo_footer' => null,
+            'alamat' => $request['alamat'],
+            'kelurahan' => $request['kelurahan'],
+            'kecamatan' => $request['kecamatan'],
+            'kabupaten' => $request['kabupaten'],
+            'provinsi' => $request['provinsi'],
+        ];
+
+        // About::create($data);
+        return redirect()->route('about.index');
     }
 
     /**

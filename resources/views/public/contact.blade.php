@@ -36,11 +36,11 @@
       </figure>
       <address>
         <dl>
-          <dt>Ruko Puri Selebriti 1 Blok B No 79<br>
-            Batu Besar Nongsa Batam,<br>
-            Kepulauan Riau
+          <dt>{{ ucwords($about['alamat']) }}<br>
+            {{ ucwords($about['kelurahan']) }} {{ ucwords($about['kecamatan']) }} {{ ucwords($about['kabupaten']) }}<br>
+            {{ ucwords($about['provinsi']) }}
           </dt>
-          <dd><span>Handphone:</span>+1 800 559 6580</dd>
+          <dd><span>Handphone:</span>+62 813 7788 7790 </dd>
           <dd><span>WA:</span>+62 813 7788 7790</dd>
           <dd>E-mail: <a href="#" class="col1">mametirtadewata90@gmail.com</a></dd>
         </dl>

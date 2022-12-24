@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Public;
 
 use App\Http\Controllers\Controller;
+use App\Models\About;
 use App\Models\ElevatorPitch;
 use App\Models\HomeFirstThreeItem;
 use App\Models\HomeSlider;
@@ -115,9 +116,10 @@ class HomeController extends Controller
     }
 
     public function contact() {
-        $title = "About";  
+        $title = "About"; 
+        $about = About::first(); 
         $elevatorPitch = ElevatorPitch::first();      
-        return view('public.contact', compact('title', 'elevatorPitch'));
+        return view('public.contact', compact('title', 'elevatorPitch', 'about'));
     }
 
     public function travelDetail($slug) {

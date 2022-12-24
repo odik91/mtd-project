@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('kabupaten');
             $table->string('provinsi');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
