@@ -126,7 +126,7 @@
                               for="logo_about-01">{{ !empty($about['logo_about'])
                                   ? $about['logo_about']
                                   : 'Logo utama halaman
-                                                                                                                                                                                    about' }}</label>
+                                                                                                                                                                                                                                                                              about' }}</label>
                             @error('logo_about')
                               <span class="error invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -144,7 +144,7 @@
                               for="logo_slider">{{ !empty($about['logo_slider'])
                                   ? $about['logo_slider']
                                   : 'Logo header setiap
-                                                                                                                                                                                    halaman' }}</label>
+                                                                                                                                                                                                                                                                              halaman' }}</label>
                           </div>
                           @error('logo_slider')
                             <span class="error invalid-feedback" role="alert">
@@ -162,7 +162,7 @@
                               for="logo_footer">{{ !empty($about['logo_footer'])
                                   ? $about['logo_footer']
                                   : 'Logo footer setiap
-                                                                                                                                                                                    halaman' }}</label>
+                                                                                                                                                                                                                                                                              halaman' }}</label>
                             @error('logo_footer')
                               <span class="error invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -400,8 +400,8 @@
                               </div>
                               {{-- modal --}}
 
-                              <button class="btn btn-sm btn-danger m-1" style="width: 35px" title="Hapus kontak" data-toggle="modal"
-                              data-target="#modal-contact-delete-{{ $contact['id'] }}">
+                              <button class="btn btn-sm btn-danger m-1" style="width: 35px" title="Hapus kontak"
+                                data-toggle="modal" data-target="#modal-contact-delete-{{ $contact['id'] }}">
                                 <i class="fas fa-trash"></i>
                               </button>
 
@@ -437,6 +437,189 @@
                             </td>
                           </tr>
                         @endforeach
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card card-primary card-outline">
+            <div class="card-header">
+              <h3 class="card-title">
+                <i class="fas fa-edit"></i>
+                Pengaturan Sosial Media
+              </h3>
+            </div>
+            <div class="card-body">
+              <div class="card box-shadow">
+                <div class="card-header">
+                  <h4 class="card-title text-center">Tambah Sosial Media</h4>
+                </div>
+                <div class="card-body">
+                  <form action="{{ route('about.add-sosmed') }}" method="post">
+                    @csrf
+                    <div class="form-group">
+                      <label for="social_meidia">Tipe Sosial Media</label>
+                      <select name="social_media" id="social_media"
+                        class="form-control @error('social_media') is-invalid @enderror" required>
+                        <option selected disabled>-- Pilih kategori sosial media --</option>
+                        <option value="fb" {{ old('social_meida') == 'fb' ? 'selected' : '' }}>Facebook</option>
+                        <option value="ig" {{ old('social_meida') == 'ig' ? 'selected' : '' }}>Instagram</option>
+                        <option value="tiktok" {{ old('social_meida') == 'tiktok' ? 'selected' : '' }}>Tiktok</option>
+                        <option value="twitter" {{ old('social_meida') == 'twitter' ? 'selected' : '' }}>Twitter
+                        </option>
+                      </select>
+                      @error('social_media')
+                        <span class="error invalid-feedback" role="alert">
+                          <strong>{{ $message }}</strong>
+                        </span>
+                      @enderror
+                    </div>
+                    <div class="form-group">
+                      <label for="link_social_media">Link Sosial Media</label>
+                      <input type="text" name="link_social_media" id="link_social_media"
+                        class="form-control @error('link_social_media') is-invalid @enderror" placeholder="Link..." value="{{ old('link_social_media') }}"
+                        required>
+                      @error('link_social_media')
+                        <span class="error invalid-feedback" role="alert">
+                          <strong>{{ $message }}</strong>
+                        </span>
+                      @enderror
+                    </div>
+                    <button type="submit" class="btn btn-block btn-outline-info mt-2">Simpan</button>
+                  </form>
+                </div>
+              </div>
+              <div class="card box-shadow">
+                <div class="card-header">
+                  <h4 class="card-title text-center">List Sosial Media</h4>
+                </div>
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>Sosial Media</th>
+                          <th>Link</th>
+                          <th>Aksi</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        @if (sizeof($socialMedias) > 0)
+                          @foreach ($socialMedias as $key => $socialMedia)
+                            <tr>
+                              <td>{{ ++$key }}</td>
+                              <td>{{ strtoupper($socialMedia['name']) }}</td>
+                              <td>{{ $socialMedia['link'] }}</td>
+                              <td>
+                                <button class="btn btn-sm bg-teal m-1" style="width: 35px" title="Edit kontak"
+                                  data-toggle="modal" data-target="#modal-social-{{ $socialMedia['id'] }}">
+                                  <i class="fas fa-edit"></i>
+                                </button>
+
+                                {{-- modal --}}
+                                <div class="modal fade" id="modal-social-{{ $socialMedia['id'] }}" data-backdrop="static"
+                                  data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+                                  aria-hidden="true">
+                                  <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <h5 class="modal-title" id="staticBackdropLabel">Edit Sosial Media</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                        </button>
+                                      </div>
+                                      <div class="modal-body">
+                                        {{-- form --}}
+                                        <form action="{{ route('about.edit-sosmed', $socialMedia['id']) }}" method="post">
+                                          @csrf
+                                          @method('PUT')
+                                          <div class="form-group">
+                                            <label for="social_meidia_edit">Tipe Sosial Media</label>
+                                            <select name="social_media_edit" id="social_media_edit"
+                                              class="form-control @error('social_media_edit') is-invalid @enderror" required>
+                                              <option value="fb"
+                                                {{ $socialMedia['name'] == 'fb' ? 'selected' : '' }}>Facebook</option>
+                                              <option value="ig"
+                                                {{ $socialMedia['name'] == 'ig' ? 'selected' : '' }}>Instagram</option>
+                                              <option value="tiktok"
+                                                {{ $socialMedia['name'] == 'tiktok' ? 'selected' : '' }}>Tiktok</option>
+                                              <option value="twitter"
+                                                {{ $socialMedia['name'] == 'twitter' ? 'selected' : '' }}>Twitter
+                                              </option>
+                                            </select>
+                                            @error('social_media_edit')
+                                              <span class="error invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                              </span>
+                                            @enderror
+                                          </div>
+                                          <div class="form-group">
+                                            <label for="link_social_media_edit">Link Sosial Media</label>
+                                            <input type="text" name="link_social_media_edit" id="link_social_media_edit"
+                                              class="form-control @error('link_social_media_edit') is-invalid @enderror"
+                                              placeholder="Link..." value="{{ $socialMedia['link'] }}" required>
+                                            @error('link_social_media_edit')
+                                              <span class="error invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                              </span>
+                                            @enderror
+                                          </div>
+                                          <button type="submit"
+                                            class="btn btn-block btn-outline-info mt-2">Simpan</button>
+                                        </form>
+                                        {{-- form --}}
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                {{-- modal --}}
+
+                                <button class="btn btn-sm btn-danger m-1" style="width: 35px" title="Hapus kontak"
+                                  data-toggle="modal" data-target="#modal-sosmed-delete-{{ $socialMedia['id'] }}">
+                                  <i class="fas fa-trash"></i>
+                                </button>
+
+                                {{-- modal --}}
+                                <div class="modal fade" id="modal-sosmed-delete-{{ $socialMedia['id'] }}"
+                                  data-backdrop="static" data-keyboard="false" tabindex="-1"
+                                  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                  <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <h5 class="modal-title" id="staticBackdropLabel">Hapus Sosial Media</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                        </button>
+                                      </div>
+                                      <div class="modal-body">
+                                        <h3 class="text-center text-danger">Apakah anda yakin ingin menghapus item ini
+                                        </h3>
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                          data-dismiss="modal">Batal</button>
+                                        <form action="{{ route('about.delete-sosmed', $socialMedia['id']) }}"
+                                          method="POST">
+                                          @csrf
+                                          @method('DELETE')
+                                          <button type="submit" class="btn btn-danger">Hapus</button>
+                                        </form>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                {{-- modal --}}
+                              </td>
+                            </tr>
+                          @endforeach
+                        @else
+                          <tr>
+                            <td colspan="4" class="text-center">Belm ada data</td>
+                          </tr>
+                        @endif
                       </tbody>
                     </table>
                   </div>

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\About;
 use App\Models\ContactPerson;
 use App\Models\ElevatorPitch;
+use App\Models\SocialMedia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Intervention\Image\Facades\Image;
@@ -23,7 +24,8 @@ class AboutController extends Controller
         $about = About::first();
         $elevatorPitch = ElevatorPitch::first();
         $contacts = ContactPerson::get();
-        return view('admin.about.index', compact('title', 'about', 'elevatorPitch', 'contacts'));
+        $socialMedias = SocialMedia::get();
+        return view('admin.about.index', compact('title', 'about', 'elevatorPitch', 'contacts', 'socialMedias'));
     }
 
     /**
@@ -277,7 +279,8 @@ class AboutController extends Controller
         return redirect()->route('about.index');
     }
 
-    public function deleteContact($id) {
+    public function deleteContact($id)
+    {
         $contact = ContactPerson::find($id);
         $contactInfo = $contact['contact'];
 
@@ -287,6 +290,95 @@ class AboutController extends Controller
             Session::flash('success', "Kontak $contactInfo berhasil dihapus");
         } else {
             Session::flash('error', "Kontak $contactInfo gagal dihapus");
+        }
+
+        return redirect()->route('about.index');
+    }
+
+    public function addSocialMedia(Request $request)
+    {
+        $this->validate(
+            $request,
+            [
+                'social_media' => 'required',
+                'link_social_media' => 'required|min:3|max:100'
+            ],
+            [
+                'social_media.required' => 'Pilih salah satu media sosial',
+                'link_social_media.required' => 'Mohon isi link sosial media ',
+                'link_social_media.required' => 'Mohon isi link sosial media ',
+                'link_social_media.min' => 'Panjang link minimal 3 karakter',
+                'link_social_media.max' => 'Panjang link maksimal 100 karakter',
+            ]
+        );
+
+        $data = [
+            'name' => $request['social_media'],
+            'link' => $request['link_social_media']
+        ];
+
+        $check = SocialMedia::where('name', $request['social_media'])->first();
+
+        if ($check) {
+            Session::flash('error', "Sosial media dengan tipe yang sama sudah ada, silakan edit");
+        } else {
+            $create = SocialMedia::create($data);
+
+            if ($create) {
+                Session::flash('success', "Sosial media berhasil ditambahkan");
+            } else {
+                Session::flash('error', "Sosial media gagal ditambahkan");
+            }
+        }
+
+        return redirect()->route('about.index');
+    }
+
+    public function editSocialMedia(Request $request, $id)
+    {
+        $this->validate(
+            $request,
+            [
+                'social_media_edit' => 'required',
+                'link_social_media_edit' => 'required|min:3|max:100'
+            ],
+            [
+                'social_media_edit.required' => 'Pilih salah satu media sosial',
+                'link_social_media_edit.required' => 'Mohon isi link sosial media ',
+                'link_social_media_edit.required' => 'Mohon isi link sosial media ',
+                'link_social_media_edit.min' => 'Panjang link minimal 3 karakter',
+                'link_social_media_edit.max' => 'Panjang link maksimal 100 karakter',
+            ]
+        );
+
+        $socialMedia = SocialMedia::find($id);
+
+        $data = [
+            'name' => $request['social_media_edit'],
+            'link' => $request['link_social_media_edit']
+        ];
+
+        $update = $socialMedia->update($data);
+
+        if ($update) {
+            Session::flash('success', "Sosial media berhasil diedit");
+        } else {
+            Session::flash('error', "Sosial media gagal diedit");
+        }
+
+        return redirect()->route('about.index');
+    }
+
+    public function deleteSocialMedia($id) {
+        $socialMedia = SocialMedia::find($id);
+        $name = $socialMedia['name'];
+
+        $delete = $socialMedia->delete();
+
+        if ($delete) {
+            Session::flash('success', "Sosial media $name berhasil dihapus");
+        } else {
+            Session::flash('error', "Sosial media $name gagal dihapus");
         }
 
         return redirect()->route('about.index');

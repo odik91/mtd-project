@@ -67,6 +67,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
     Route::post('add-contact', [AboutController::class, 'saveContact'])->name('about.add-contact');
     Route::match(['PUT', 'PATCH'],'edit-contact/{id}', [AboutController::class, 'editContact'])->name('about.edit-contact');
     Route::delete('delete-contact/{id}', [AboutController::class, 'deleteContact'])->name('about.delete-contact');
+
+    Route::post('add-social-media', [AboutController::class, 'addSocialMedia'])->name('about.add-sosmed');
+    Route::match(['PUT', 'PATCH'],'edit-social-media/{id}', [AboutController::class, 'editSocialMedia'])->name('about.edit-sosmed');
+    Route::delete('delete-social-media/{id}', [AboutController::class, 'deleteSocialMedia'])->name('about.delete-sosmed');
 });
 
 Auth::routes([
