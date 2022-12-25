@@ -49,8 +49,13 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
     Route::post('/main-setting', [PengaturanHalamanUtama::class, 'OurServices'])->name('main-settings.OurService');
     Route::match(['PUT', 'PATCH'], 'edit/our-service/{id}', [PengaturanHalamanUtama::class, 'EditOurService'])->name('main-settings.edit-our-service');
     Route::delete('edit/our-service/{id}', [PengaturanHalamanUtama::class, 'DeleteOurService'])->name('main-settings.delete-our-service');
-    Route::match(['PUT', 'PATCH'], '/main-settings/satatus-testimoni/{id}', [PengaturanHalamanUtama::class, 'setActivaionTestimoni'])->name('ajax.status-testimoni');
-
+    Route::put('satatus-testimoni/{id}', [PengaturanHalamanUtama::class, 'setActivaionTestimoni'])->name('ajax.status-testimoni');
+    Route::delete('satatus-testimoni/{id}', [PengaturanHalamanUtama::class, 'deleteTestimoni'])->name('delete.status-testimoni');
+    Route::put('satatus-suvenir/{id}', [PengaturanHalamanUtama::class, 'setActivationSuvenir'])->name('ajax.status-suvenir');
+    Route::put('satatus-wisata/{id}', [PengaturanHalamanUtama::class, 'setWisataActivation'])->name('ajax.status-wisata');
+    Route::put('satatus-service/{id}', [PengaturanHalamanUtama::class, 'setServiceActivation'])->name('ajax.status-service');
+    Route::put('satatus-slider/{id}', [PengaturanHalamanUtama::class, 'setSliderActivation'])->name('ajax.status-slider');
+    
     // travel package
     Route::resource('/tour-travel', TourController::class);
     Route::post('/add-tour', [TourController::class, 'addTravelPackage'])->name('tour-travel.add-package');

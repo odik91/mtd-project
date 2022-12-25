@@ -26,13 +26,13 @@ class HomeController extends Controller
     public function index()
     {
         $title = "Home";
-        $mainSliders = HomeSlider::get();
+        $mainSliders = HomeSlider::where('is_active', 'active')->get();
         $services = HomeFirstThreeItem::get();
         $elevatorPitch = ElevatorPitch::first();
-        $ourServices = OurService::limit(5)->get();
-        $travels = Travel::get();
-        $suvenirs = Suvenir::get();
-        $testimonies = Testimoni::get();
+        $ourServices = OurService::where('is_active', 'active')->limit(5)->get();
+        $travels = Travel::where('is_active', 'active')->get();
+        $suvenirs = Suvenir::where('is_active', 'active')->get();
+        $testimonies = Testimoni::where('publish', 'yes')->get();
         return view('public.index', compact('title', 'mainSliders', 'services', 'elevatorPitch', 'ourServices', 'travels', 'suvenirs', 'testimonies'));
     }
 

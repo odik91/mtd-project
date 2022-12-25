@@ -13,6 +13,7 @@ use App\Models\Travel;
 use Intervention\Image\Facades\Image;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 
 class PengaturanHalamanUtama extends Controller
 {
@@ -385,9 +386,222 @@ class PengaturanHalamanUtama extends Controller
         return redirect()->route('main-settings.index');
     }
 
-    public function setActivaionTestimoni(Request $request, $id) {
-        return response()->json([
-            'message' => 'ok'
-        ], 200);
+    public function setActivaionTestimoni(Request $request, $id)
+    {
+
+        $validate = Validator::make(
+            $request->all(),
+            [
+                'id' => 'required',
+                'publish' => 'required',
+            ],
+            [
+                'id.required' => 'Illegal actions',
+                'publish.required' => 'Illegal actions',
+            ]
+        );
+
+        if ($validate->fails()) {
+            $message = $this->validation_message($validate->errors()->messages());
+            return response()->json([
+                'error' => $message
+            ], 422);
+        }
+
+        $testimoni = Testimoni::find($id);
+
+        if ($testimoni) {
+            $data = [
+                'publish' => $request['publish'],
+            ];
+
+            $update = $testimoni->update($data);
+
+            if ($update) {
+                return response()->json([
+                    'message' => "Testimoni berhasil diupdate"
+                ], 201);
+            } else {
+                return response()->json([
+                    'message' => "Testimoni gagal diupdate"
+                ], 422);
+            }
+        }        
+    }
+
+    public function deleteTestimoni($id) {
+        $testimoni = Testimoni::find($id);
+        $delete = $testimoni->delete();
+        
+        if ($delete) {
+            Session::flash('success', "Testimoni berhasil dihapus");
+        } else {
+            Session::flash('error', "Testimoni gagal dihapus");
+        }
+
+        return redirect()->route('main-settings.index');
+    }
+
+    public function setActivationSuvenir(Request $request, $id) {
+        $validate = Validator::make(
+            $request->all(),
+            [
+                'id' => 'required',
+                'is_active' => 'required',
+            ],
+            [
+                'id.required' => 'Illegal actions',
+                'is_active.required' => 'Illegal actions',
+            ]
+        );
+
+        if ($validate->fails()) {
+            $message = $this->validation_message($validate->errors()->messages());
+            return response()->json([
+                'error' => $message
+            ], 422);
+        }
+
+        $suvenir = Suvenir::find($id);
+
+        if ($suvenir) {
+            $data = [
+                'is_active' => $request['is_active']
+            ];
+            $update = $suvenir->update($data);
+
+            if ($update) {
+                return response()->json([
+                    'message' => "Suvenir berhasil diupdate"
+                ], 201);
+            } else {
+                return response()->json([
+                    'message' => "Suvenir gagal diupdate"
+                ], 422);
+            }
+        }
+    }
+
+    public function setWisataActivation(Request $request, $id) {
+        $validate = Validator::make(
+            $request->all(),
+            [
+                'id' => 'required',
+                'publish' => 'required',
+            ],
+            [
+                'id.required' => 'Illegal actions',
+                'publish.required' => 'Illegal actions',
+            ]
+        );
+
+        if ($validate->fails()) {
+            $message = $this->validation_message($validate->errors()->messages());
+            return response()->json([
+                'error' => $message
+            ], 422);
+        }
+
+        $wisata = Travel::find($id);
+
+        if ($wisata) {
+            $data = [
+                'is_active' => $request['publish']
+            ];
+
+            $update = $wisata->update($data);
+
+            if ($update) {
+                return response()->json([
+                    'message' => "Destinasi wisata berhasil diupdate"
+                ], 201);
+            } else {
+                return response()->json([
+                    'message' => "Destinasi wisata gagal diupdate"
+                ], 422);
+            }
+        }
+    }
+
+    public function setServiceActivation(Request $request, $id) {
+        $validate = Validator::make(
+            $request->all(),
+            [
+                'id' => 'required',
+                'publish' => 'required',
+            ],
+            [
+                'id.required' => 'Illegal actions',
+                'publish.required' => 'Illegal actions',
+            ]
+        );
+
+        if ($validate->fails()) {
+            $message = $this->validation_message($validate->errors()->messages());
+            return response()->json([
+                'error' => $message
+            ], 422);
+        }
+
+        $service = OurService::find($id);
+
+        if ($service) {
+            $data = [
+                'is_active' => $request['publish']
+            ];
+
+            $update = $service->update($data);
+
+            if ($update) {
+                return response()->json([
+                    'message' => "Status servis berhasil diupdate"
+                ], 201);
+            } else {
+                return response()->json([
+                    'message' => "Status servis gagal diupdate"
+                ], 422);
+            }
+        }
+    }
+
+    public function setSliderActivation(Request $request, $id) {
+        $validate = Validator::make(
+            $request->all(),
+            [
+                'id' => 'required',
+                'publish' => 'required',
+            ],
+            [
+                'id.required' => 'Illegal actions',
+                'publish.required' => 'Illegal actions',
+            ]
+        );
+
+        if ($validate->fails()) {
+            $message = $this->validation_message($validate->errors()->messages());
+            return response()->json([
+                'error' => $message
+            ], 422);
+        }
+
+        $slider = HomeSlider::find($id);
+
+        if ($slider) {
+            $data = [
+                'is_active' => $request['publish']
+            ];
+
+            $update = $slider->update($data);
+
+            if ($update) {
+                return response()->json([
+                    'message' => "Status slider berhasil diupdate"
+                ], 201);
+            } else {
+                return response()->json([
+                    'message' => "Status slider gagal diupdate"
+                ], 422);
+            }
+        }
     }
 }

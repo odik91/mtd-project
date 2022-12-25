@@ -144,7 +144,10 @@
                         <td>{{ ucwords($homeSlider['third_text']) }}</td>
                         <td>{{ $homeSlider['link'] }}</td>
                         <td>
-                          {{ $homeSlider['is_active'] == 'active' ? 'Ya' : 'Tidak' }}
+                          <select class="form-control" name="select_slider[]">
+                            <option value="active,{{ $homeSlider['id'] }}" {{ $homeSlider['is_active'] == 'active' ? 'selected' : '' }}>Ya</option>
+                            <option value="inactive,{{ $homeSlider['id'] }}" {{ $homeSlider['is_active'] == 'inactive' ? 'selected' : '' }}>Tidak</option>
+                          </select>
                         </td>
                         <td>
                           <button class="btn btn-sm bg-teal m-1" style="width: 35px" data-toggle="modal"
@@ -589,12 +592,11 @@
                       <td>{{ ++$key }}</td>
                       <td>{{ $ourService['icon'] }}</td>
                       <td>{{ ucwords($ourService['service_name']) }}</td>
-                      <td>
-                        {{ $ourService['is_active'] == 'active' ? 'Ya' : 'Tidak' }}
-                        {{-- <select name="" id="" class="form-control">
-                          <option value="active" selected>Ya</option>
-                          <option value="active" selected>Tidak</option>
-                        </select> --}}
+                      <td>                        
+                        <select name="select_service[]" class="form-control">
+                          <option value="active,{{ $ourService['id'] }}" {{ $ourService['is_active'] == 'active' ? 'selected' : '' }}>Ya</option>
+                          <option value="inactive,{{ $ourService['id'] }}" {{ $ourService['is_active'] == 'inactive' ? 'selected' : '' }}>Tidak</option>
+                        </select>
                       </td>
                       <td>
                         <button class="btn btn-sm bg-teal m-1" style="width: 35px" data-toggle="modal"
@@ -746,11 +748,11 @@
                       <td>{{ ++$key }}</td>
                       <td><img src="{{ asset('images/destination/' . $travel['thumbnail']) }}" alt="img1"
                           width="70px"></td>
-                      <td>Test</td>
+                      <td>{{ ucwords($travel['travel_name']) }}</td>
                       <td>
-                        <select name="" class="form-control">
-                          <option value="active" selected>Ya</option>
-                          <option value="active" selected>Tidak</option>
+                        <select name="select_wisata[]" class="form-control">
+                          <option value="active,{{ $travel['id'] }}" {{ $travel['is_active'] == 'active' ? 'selected' : '' }}>Ya</option>
+                          <option value="inactive,{{ $travel['id'] }}" {{ $travel['is_active'] == 'inactive' ? 'selected' : '' }}>Tidak</option>
                         </select>
                       </td>
                     </tr>
@@ -790,18 +792,19 @@
                         <img src="{{ asset('images/suvenirs/' . $suvenirs['thumbnail']) }}"
                           alt="{{ $suvenirs['thumbnail'] }}" width="70px">
                       </td>
-                      <td>Test</td>
+                      <td>{{ ucwords($suvenirs['suvenir_name']) }}</td>
                       <td>
-                        <select name="" id="" class="form-control">
-                          <option value="active" selected>Ya</option>
-                          <option value="active" selected>Tidak</option>
+                        <select name="select_suvenir[]" class="form-control">
+                          <option value="active,{{ $suvenirs['id'] }}"
+                            {{ $suvenirs['is_active'] == 'active' ? 'selected' : '' }}>Ya</option>
+                          <option value="inactive,{{ $suvenirs['id'] }}"
+                            {{ $suvenirs['is_active'] == 'inactive' ? 'selected' : '' }}>Tidak</option>
                         </select>
                       </td>
                     </tr>
                   @endforeach
                 </tbody>
               </table>
-              <button class="btn btn-outline-info btn-block mt-2">Terapkan</button>
             </div>
             <!-- /.card -->
           </div>
@@ -837,10 +840,10 @@
                       <td>{{ $testimoni['content'] }}</td>
                       <td>
                         <select class="form-control" name="select_testi[]">
-                          <option value="active,{{ $testimoni['id'] }}"
-                            {{ $testimoni['is_active'] == 'active' ? 'selected' : '' }}>Ya</option>
-                          <option value="inactive,{{ $testimoni['id'] }}"
-                            {{ $testimoni['is_active'] == 'inactive' ? 'selected' : '' }}>Tidak</option>
+                          <option value="yes,{{ $testimoni['id'] }}"
+                            {{ $testimoni['publish'] == 'yes' ? 'selected' : '' }}>Ya</option>
+                          <option value="no,{{ $testimoni['id'] }}"
+                            {{ $testimoni['publish'] == 'no' ? 'selected' : '' }}>Tidak</option>
                         </select>
                       </td>
                       <td>
@@ -848,6 +851,33 @@
                           data-target="#modal-testimoni-delete-{{ $testimoni['id'] }}" title="Hapus">
                           <i class="fas fa-trash"></i>
                         </button>
+                        <div class="modal fade" id="modal-testimoni-delete-{{ $testimoni['id'] }}"
+                          data-backdrop="static" data-keyboard="false" tabindex="-1"
+                          aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                          <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="staticBackdropLabel">Hapus Testimoni</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              <div class="modal-body">
+                                <h3 class="text-center text-danger">Apakah anda yakin ingin menghapus testimoni dari
+                                  {{ ucwords($testimoni['name']) }}</h3>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                                <form action="{{ route('delete.status-testimoni', $testimoni['id']) }}"
+                                  method="POST">
+                                  @csrf
+                                  @method('DELETE')
+                                  <button type="submit" class="btn btn-danger">Hapus</button>
+                                </form>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       </td>
                     </tr>
                   @endforeach
@@ -918,42 +948,124 @@
       bsCustomFileInput.init();
     });
 
-    // slect option  
+    let changeStatus = (elem, gurl) => {
+      for (let a = 0; a < elem.length; a++) {
+        elem.eq(a).on('change', (e) => {
+
+          let elemVal = elem.eq(a).val()
+          elemVal = elemVal.split(",")
+
+          let getId = elemVal[elemVal.length - 1]
+
+          let url = gurl + getId
+
+          $.ajaxSetup({
+            headers: {
+              "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+          });
+
+          let csrf_token = $('meta[name="_token"]').attr("content")
+
+          $.ajax({
+            url: url,
+            type: 'POST',
+            data: {
+              _method: "PUT",
+              _token: csrf_token,
+              id: getId,
+              publish: elemVal[0],
+            },
+            success: function(data) {
+              Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: data.message,
+              })
+            },
+            error: function(data) {
+              Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: data.responseJSON.error,
+              })
+            },
+          })
+        })
+      }
+    }
+
+    // ajax testimoni 
     let testiElement = $('select[name="select_testi[]"]')
+    let origin = window.location.origin
+    let target = origin + '/admin/satatus-testimoni/'
+    changeStatus(testiElement, target)    
 
-    for (let a = 0; a < testiElement.length; a++) {
-      testiElement.eq(a).on('change', (e) => {
-        console.log('clicked')
-        console.log(testiElement.eq(a).val())
+    // ajax oleh-oleh
+    let suvenirElement = $('select[name="select_suvenir[]"]')
+    for (let b = 0; b < suvenirElement.length; b++) {
+      suvenirElement.eq(b).on('change', (e) => {
+        console.log(suvenirElement.eq(b).val())
 
-        let elemVal = testiElement.eq(a).val()
+        let elemVal = suvenirElement.eq(b).val()
         elemVal = elemVal.split(",")
 
+        let origin = window.location.origin
+        let getId = elemVal[elemVal.length - 1]
 
-        let getId = elemVal[elemVal.length - 1];
-        console.log(getId);
-        let url = 'satatus-testimoni/' + getId
+        let url = origin +
+          '/admin/satatus-suvenir/' + getId
 
-        // $.ajaxSetup({
-        //   headers: {
-        //     'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-        //   }
-        // });
+        $.ajaxSetup({
+          headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+          },
+        });
 
-        // $.ajax({
-        //   url: url,
-        //   type: 'PUT',
-        //   dataType: 'json',
-        //   data: {
-        //     id: getId,
-        //     publish: elemVal[0]
-        //   },
-        //   success: function(data) {
-        //     console.log(data);
-        //   }
-        // })
+        let csrf_token = $('meta[name="_token"]').attr("content")
+
+        $.ajax({
+          url: url,
+          type: 'POST',
+          data: {
+            _method: "PUT",
+            _token: csrf_token,
+            id: getId,
+            is_active: elemVal[0],
+          },
+          success: function(data) {
+            // console.log(data);
+            Swal.fire({
+              icon: 'success',
+              title: 'Success!',
+              text: data.message,
+            })
+          },
+          error: function(data) {
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: data.responseJSON.error,
+            })
+          },
+        })
       })
     }
+
+    // ajax wisata
+    let wisataElement = $('select[name="select_wisata[]"]')
+    let targetWisata = origin + '/admin/satatus-wisata/'
+    changeStatus(wisataElement, targetWisata)
+    
+    // ajax service
+    let serviceElement = $('select[name="select_service[]"]')
+    let targetService = origin + '/admin/satatus-service/'
+    changeStatus(serviceElement, targetService)
+
+    // ajax slider
+    let sliderElement = $('select[name="select_slider[]"]')
+    let targetSlider = origin + '/admin/satatus-slider/'
+    changeStatus(sliderElement, targetSlider)
   </script>
 @endpush
 
