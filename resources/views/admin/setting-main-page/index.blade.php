@@ -1,5 +1,6 @@
 @extends('admin.layouts.master')
 @section('content')
+  <meta name="csrf-token" content="{{ csrf_token() }}" />
   <div class="content-header">
     <div class="container-fluid">
       <div class="row mb-2">
@@ -641,7 +642,8 @@
                                   <div class="form-group">
                                     <input type="text"
                                       class="form-control @error('edit_service_icon') is-invalid @enderror"
-                                      name="edit_service_icon" value="{{ $ourService['icon'] }}" placeholder="Font awesome icon...">
+                                      name="edit_service_icon" value="{{ $ourService['icon'] }}"
+                                      placeholder="Font awesome icon...">
                                     @error('edit_service_icon')
                                       <span class="error invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -651,7 +653,8 @@
                                   <div class="form-group">
                                     <input type="text"
                                       class="form-control @error('edit_service_name') is-invalid @enderror"
-                                      name="edit_service_name" value="{{ $ourService['service_name'] }}" placeholder="Judul...">
+                                      name="edit_service_name" value="{{ $ourService['service_name'] }}"
+                                      placeholder="Judul...">
                                     @error('edit_service_name')
                                       <span class="error invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -661,8 +664,10 @@
                                   <div class="form-group">
                                     <select name="edit_service_active"
                                       class="form-control @error('edit_service_active') is-invalid @enderror">
-                                      <option value="active" {{ $ourService['is_active'] == 'active' ? 'selected' : '' }}>Ya</option>
-                                      <option value="inactive" {{ $ourService['is_active'] == 'inactive' ? 'selected' : '' }}>Tidak</option>
+                                      <option value="active"
+                                        {{ $ourService['is_active'] == 'active' ? 'selected' : '' }}>Ya</option>
+                                      <option value="inactive"
+                                        {{ $ourService['is_active'] == 'inactive' ? 'selected' : '' }}>Tidak</option>
                                     </select>
                                     @error('edit_service_active')
                                       <span class="error invalid-feedback" role="alert">
@@ -695,7 +700,8 @@
                               </div>
                               <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                <form action="{{ route('main-settings.delete-our-service', $ourService['id']) }}" method="POST">
+                                <form action="{{ route('main-settings.delete-our-service', $ourService['id']) }}"
+                                  method="POST">
                                   @csrf
                                   @method('DELETE')
                                   <button type="submit" class="btn btn-danger">Hapus</button>
@@ -736,17 +742,18 @@
                 </thead>
                 <tbody>
                   @foreach ($travels as $key => $travel)
-                  <tr>
-                    <td>{{ ++$key }}</td>
-                    <td><img src="{{ asset('images/destination/' . $travel['thumbnail']) }}" alt="img1" width="70px"></td>
-                    <td>Test</td>
-                    <td>
-                      <select name="" class="form-control">
-                        <option value="active" selected>Ya</option>
-                        <option value="active" selected>Tidak</option>
-                      </select>
-                    </td>
-                  </tr>
+                    <tr>
+                      <td>{{ ++$key }}</td>
+                      <td><img src="{{ asset('images/destination/' . $travel['thumbnail']) }}" alt="img1"
+                          width="70px"></td>
+                      <td>Test</td>
+                      <td>
+                        <select name="" class="form-control">
+                          <option value="active" selected>Ya</option>
+                          <option value="active" selected>Tidak</option>
+                        </select>
+                      </td>
+                    </tr>
                   @endforeach
                 </tbody>
               </table>
@@ -777,19 +784,20 @@
                 </thead>
                 <tbody>
                   @foreach ($suvenirs as $key => $suvenirs)
-                  <tr>
-                    <td>{{ ++$key }}</td>
-                    <td>
-                      <img src="{{ asset('images/suvenirs/' . $suvenirs['thumbnail']) }}" alt="{{ $suvenirs['thumbnail'] }}" width="70px">
-                    </td>
-                    <td>Test</td>
-                    <td>
-                      <select name="" id="" class="form-control">
-                        <option value="active" selected>Ya</option>
-                        <option value="active" selected>Tidak</option>
-                      </select>
-                    </td>
-                  </tr>
+                    <tr>
+                      <td>{{ ++$key }}</td>
+                      <td>
+                        <img src="{{ asset('images/suvenirs/' . $suvenirs['thumbnail']) }}"
+                          alt="{{ $suvenirs['thumbnail'] }}" width="70px">
+                      </td>
+                      <td>Test</td>
+                      <td>
+                        <select name="" id="" class="form-control">
+                          <option value="active" selected>Ya</option>
+                          <option value="active" selected>Tidak</option>
+                        </select>
+                      </td>
+                    </tr>
                   @endforeach
                 </tbody>
               </table>
@@ -813,31 +821,39 @@
                 <thead>
                   <tr>
                     <th>#</th>
-                    <th>Gambar</th>
                     <th>Nama</th>
                     <th>Email</th>
                     <th>Testimoni</th>
                     <th>Ditampilkan</th>
+                    <th>Aksi</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody id="status_testimoni[]">
                   @foreach ($testimonies as $key => $testimoni)
-                  <tr>
-                    <td>{{ ++ $key }}</td>
-                    <td><img src="{{ asset('images/testimoni/' . $testimoni['avatar']) }}" alt="img1" width="70px"></td>
-                    <td>{{ ucwords($testimoni['name']) }}</td>
-                    <td>{{ $testimoni['email'] }}</td>
-                    <td>
-                      <select class="form-control">
-                        <option value="active" {{ $testimoni['is_active'] == 'active' ? 'selected' : '' }}>Ya</option>
-                        <option value="inactive" {{ $testimoni['is_active'] == 'inactive' ? 'selected' : '' }}>Tidak</option>
-                      </select>
-                    </td>
-                  </tr>
+                    <tr>
+                      <td>{{ ++$key }}</td>
+                      <td>{{ ucwords($testimoni['name']) }}</td>
+                      <td>{{ $testimoni['email'] }}</td>
+                      <td>{{ $testimoni['content'] }}</td>
+                      <td>
+                        <select class="form-control" name="select_testi[]">
+                          <option value="active,{{ $testimoni['id'] }}"
+                            {{ $testimoni['is_active'] == 'active' ? 'selected' : '' }}>Ya</option>
+                          <option value="inactive,{{ $testimoni['id'] }}"
+                            {{ $testimoni['is_active'] == 'inactive' ? 'selected' : '' }}>Tidak</option>
+                        </select>
+                      </td>
+                      <td>
+                        <button class="btn btn-sm btn-danger m-1" style="width: 35px" data-toggle="modal"
+                          data-target="#modal-testimoni-delete-{{ $testimoni['id'] }}" title="Hapus">
+                          <i class="fas fa-trash"></i>
+                        </button>
+                      </td>
+                    </tr>
                   @endforeach
                 </tbody>
               </table>
-              <button class="btn btn-outline-info btn-block mt-2">Terapkan</button>
+              {{-- <button class="btn btn-outline-info btn-block mt-2">Terapkan</button> --}}
             </div>
             <!-- /.card -->
           </div>
@@ -902,37 +918,40 @@
       bsCustomFileInput.init();
     });
 
-    // slect option
-    let selectElement = $('select[name="status[]"]')
-    let selectOptions = $("#slides_status > tr > td > select")
-    let setHiddenValue = $('#sendArr')
-    let dataArr = []
+    // slect option  
+    let testiElement = $('select[name="select_testi[]"]')
 
-    for (let i = 0; i < selectElement.length; i++) {
-      dataArr.push(selectOptions.eq(i).val())
-      setHiddenValue.value = dataArr.toString()
+    for (let a = 0; a < testiElement.length; a++) {
+      testiElement.eq(a).on('change', (e) => {
+        console.log('clicked')
+        console.log(testiElement.eq(a).val())
 
-      selectOptions.eq(i).on('change', (e) => {
-        if (dataArr.length > 0) {
-          console.log(selectOptions.eq(i).val());
+        let elemVal = testiElement.eq(a).val()
+        elemVal = elemVal.split(",")
 
-          let checkValue = (el) => el == selectOptions.eq(i).val() //for index search
-          let cariIndex = dataArr.findIndex(checkValue)
-          console.log("hasil cari " + cariIndex);
-          if (cariIndex == -1) {
-            let selectValue = selectOptions.eq(i).val().split("+")
-            console.log(selectValue);
-            for (let j = 0; j < dataArr.length; j++) {
-              if (dataArr[j].indexOf(selectValue[0]) >= 0) {
-                // console.log("data found pada dataArray ke" + j)
-                dataArr[j] = selectOptions.eq(i).val()
-                // console.log("data telah diganti");
-                break;
-              }
-            }
-          }
-        }
-        setHiddenValue.value = dataArr.toString()
+
+        let getId = elemVal[elemVal.length - 1];
+        console.log(getId);
+        let url = 'satatus-testimoni/' + getId
+
+        // $.ajaxSetup({
+        //   headers: {
+        //     'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+        //   }
+        // });
+
+        // $.ajax({
+        //   url: url,
+        //   type: 'PUT',
+        //   dataType: 'json',
+        //   data: {
+        //     id: getId,
+        //     publish: elemVal[0]
+        //   },
+        //   success: function(data) {
+        //     console.log(data);
+        //   }
+        // })
       })
     }
   </script>

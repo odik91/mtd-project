@@ -384,4 +384,10 @@ class PengaturanHalamanUtama extends Controller
 
         return redirect()->route('main-settings.index');
     }
+
+    public function setActivaionTestimoni(Request $request, $id) {
+        return response()->json([
+            'message' => 'ok'
+        ], 200);
+    }
 }

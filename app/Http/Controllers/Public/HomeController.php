@@ -10,9 +10,11 @@ use App\Models\HomeSlider;
 use App\Models\OurService;
 use App\Models\Suvenir;
 use App\Models\SuvenirCategory;
+use App\Models\Testimoni;
 use App\Models\Travel;
 use App\Models\TravelPackage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class HomeController extends Controller
 {
@@ -30,7 +32,8 @@ class HomeController extends Controller
         $ourServices = OurService::limit(5)->get();
         $travels = Travel::get();
         $suvenirs = Suvenir::get();
-        return view('public.index', compact('title', 'mainSliders', 'services', 'elevatorPitch', 'ourServices', 'travels', 'suvenirs'));
+        $testimonies = Testimoni::get();
+        return view('public.index', compact('title', 'mainSliders', 'services', 'elevatorPitch', 'ourServices', 'travels', 'suvenirs', 'testimonies'));
     }
 
     /**
@@ -51,7 +54,40 @@ class HomeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate(
+            $request,
+            [
+                'nama' => 'required|min:3',
+                'email' => 'required|email:rfc,dns',
+                'testimoni' => 'required|min:5|max:300'
+            ],
+            [
+                'nama.required' => 'Mohon masukkan nama anda',
+                'nama.min' => 'Nama minimal 3 karakter',
+                'email.required' => 'Mohon masukkan email anda',
+                'email.email' => 'Email tidak vaild, coba gunakan gmail atau yahoo anda',
+                'testimoni.required' => 'Mohon masukkan testimoni anda',
+                'testimoni.min' => 'Minimal 5 karakter',
+                'testimoni.max' => 'Maksimal 300 karakter',
+            ]
+        );
+
+        $data = [
+            'email' => $request['email'],
+            'name' => $request['nama'],
+            'avatar' => 'default.jpg',
+            'publish' => 'yes',
+            'content' => $request['testimoni']
+        ];
+
+        $create = Testimoni::create($data);
+
+        if ($create) {
+            Session::flash('success', "Testimoni berhasil dibuat");
+        } else {
+            Session::flash('error', "Testimoni gagal dibuat");
+        }
+        return redirect()->route('home.index');
     }
 
     /**
@@ -99,30 +135,35 @@ class HomeController extends Controller
         //
     }
 
-    public function travelPackages() {
+    public function travelPackages()
+    {
         $title = "Paket Wisata";
         $destinations = Travel::where('is_active', 'active')->get();
         return view('public.paket-wisata', compact('title', 'destinations'));
     }
 
-    public function travelPackageDetail($slug) {
+    public function travelPackageDetail($slug)
+    {
         $destination = Travel::where('slug', $slug)->first();
         $title = $destination['travel_name'];
     }
 
-    public function singlePage() {
+    public function singlePage()
+    {
         $title = "Page Detail";
         return view('public.single-page', compact('title'));
     }
 
-    public function contact() {
-        $title = "About"; 
-        $about = About::first(); 
-        $elevatorPitch = ElevatorPitch::first();      
+    public function contact()
+    {
+        $title = "About";
+        $about = About::first();
+        $elevatorPitch = ElevatorPitch::first();
         return view('public.contact', compact('title', 'elevatorPitch', 'about'));
     }
 
-    public function travelDetail($slug) {
+    public function travelDetail($slug)
+    {
         $travel = Travel::where('slug', $slug)->first();
         $sugests = Travel::whereNotIn('slug', [$slug])->inRandomOrder()->limit(4)->get();
         $packages = TravelPackage::where('travel_id', $travel['id'])->get();
@@ -130,7 +171,8 @@ class HomeController extends Controller
         return view('public.detail-wisata', compact('title', 'travel', 'packages', 'sugests'));
     }
 
-    public function suvenirs() {
+    public function suvenirs()
+    {
         $title = 'Oleh-oleh';
         $suvenirs = Suvenir::where('is_active', 'active')->get();
         $suvenirCategories = SuvenirCategory::get();
@@ -138,7 +180,8 @@ class HomeController extends Controller
         return view('public.suvenir', compact('title', 'suvenirs', 'suvenirCategories'));
     }
 
-    public function detailSuvenir($slug) {
+    public function detailSuvenir($slug)
+    {
         $suvenir = Suvenir::where('slug', $slug)->first();
         $title = 'Oleh-oleh';
         $suvenirCategories = SuvenirCategory::get();

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('email');
             $table->string('name');
             $table->string('avatar');
+            $table->longText('content');
             $table->enum('publish', ['yes', 'no']);
             $table->timestamps();
             $table->softDeletes();

@@ -12,7 +12,9 @@
     @php
       $logoSlider = App\Models\About::first();
     @endphp
-    <img class="slide-top" src="{{ $logoSlider['logo_slider'] != '' ? asset('images/logo/' . $logoSlider['logo_slider']) : asset('template/images/logo-mtd.png') }}" alt="Your Happy Family">
+    <img class="slide-top"
+      src="{{ $logoSlider['logo_slider'] != '' ? asset('images/logo/' . $logoSlider['logo_slider']) : asset('template/images/logo-mtd.png') }}"
+      alt="Your Happy Family">
   </div>
   <div class="slider_wrapper">
     <div id="camera_wrap">
@@ -190,36 +192,37 @@
     <div>
       <div class="container_12">
         <div class="grid_12"
-          style="background-color: #fff3e6; padding: 0 10px; box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3); -webkit-box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3); -moz-box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3);">
-          <h3 class="head1" style="text-align: center; color: #f3aa29;">
+          style="padding: 0 10px; box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3); -webkit-box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3); -moz-box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3);">
+          <h3 class="head1 pt-5" style="text-align: center; color: #f3aa29;">
             Testimoni Pelanggan
           </h3>
-          <div style="text-align: center; margin-top: -10px; margin-bottom: 40px;">
+          <div style="text-align: center; margin-top: -30px; margin-bottom: 10px;">
             <div class="owl-carousel text-center" id="owl-carousel-2">
-              <div class="container bg-light p-4">
+              {{-- <div class="container bg-light p-4">
                 <div class="rounded-circle testimoni">
                   <div class="align-middle text-center text-white">
-                    {{-- <i class="fa-solid fa-user" style="font-size: 40px;"></i> --}}
                     <img src="{{ asset('images/suvenirs/1671369288VC673mHGzhq2y62qIgc9783EXC6g2X9ldOzYgahu.jpg') }}"
                       alt="">
                   </div>
                 </div>
-                <h5 class="text-center" style="margin-top: -50px">John Doe</h5>
+                <h5 class="text-center pt-2"><i>John Doe</i></h5>
                 <p style="margin-top: -5px"><i>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
                     tempor incididunt ut labore etdolore magna aliqua. Ut enim ad minim veniam, quis nostrud
                     exercitation ullamco laboris nisi ut aliquip ex</i></p>
-              </div>
-              <div class="container bg-light p-4">
-                <div class="rounded-circle testimoni">
-                  <div class="align-middle text-center text-white">
-                    <i class="fa-solid fa-user" style="font-size: 50px;"></i>
+              </div> --}}
+              @if (sizeof($testimonies) > 0)
+                @foreach ($testimonies as $testimoni)
+                  <div class="container bg-light pt-2 px-4">
+                    <h6 class="text-center pt-0" style="letter-spacing: 2px; font-weight: 600">{{ $testimoni['name'] }}</h6>
+                    <blockquote style="margin-top: -5px"><i>{{ $testimoni['content'] }}</i></blockquote>
                   </div>
+                @endforeach
+              @else
+                <div class="container bg-light p-4">
+                  <h5 class="text-center pt-2">Belum ada testimoni</h5>
+                  <p style="margin-top: -5px"><i>Jadilah orang pertama yang memberikan testimoni</i></p>
                 </div>
-                <h5 class="text-center" style="margin-top: -50px">Adam</h5>
-                <p style="margin-top: -5px"><i>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                    tempor incididunt ut labore etdolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                    exercitation ullamco laboris nisi ut aliquip ex</i></p>
-              </div>
+              @endif
             </div>
           </div>
         </div>
@@ -228,30 +231,45 @@
     {{-- end section testimoni --}}
 
     {{-- form testimoni --}}
-    <div class="container_12 mt-4">
+    <div class="container_12 mt-4" style="margin-bottom: -50px">
       <div class="grid_12"
         style="background-color: #fff3e6; padding: 0 10px; box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3); -webkit-box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3); -moz-box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3);">
         <div class="container">
           <div class="row">
             <div class="col">
-              <h3 class="text-center mt-4 pt-4">TULIS TESTIMONI ANDA</h3>
-              <form>
+              <h3 class="text-center mt-4 pt-4">Tulis Testimoni Anda</h3>
+              <form method="POST" action="{{ route('home.store') }}">
+                @csrf
                 <div class="form-row">
                   <div class="form-group col-md-6">
-                    <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+                    <input type="email" class="form-control @error('email') is-invalid @enderror" id="email"
+                      name="email" placeholder="Email" value="{{ old('email') }}">
+                    @error('email')
+                      <span class="error invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                      </span>
+                    @enderror
                   </div>
                   <div class="form-group col-md-6">
-                    <input type="text" class="form-control" id="nama" placeholder="Nama">
+                    <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama"
+                      name="nama" placeholder="Nama" value="{{ old('nama') }}">
+                    @error('nama')
+                      <span class="error invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                      </span>
+                    @enderror
                   </div>
                 </div>
-                <div class="custom-file mb-3">
-                  <input type="file" class="custom-file-input" id="validatedCustomFile" required>
-                  <label class="custom-file-label" for="validatedCustomFile">Pilih avatar</label>
-                </div>
                 <div class="form-group mt-1">
-                  <textarea class="form-control" id="isi" rows="6" placeholder="Tulis testimoni anda"></textarea>
+                  <textarea class="form-control @error('testimoni') is-invalid @enderror" id="testimoni" name="testimoni"
+                    rows="6" placeholder="Tulis testimoni anda" maxlength="300">{{ old('testimoni') }}</textarea>
                 </div>
-                <button type="submit" class="btn-cta-link mb-4">Buat Testimoni</button>
+                @error('testimoni')
+                  <span class="error invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                  </span>
+                @enderror
+                <button type="submit" class="btn btn-cta-link mb-4">Buat Testimoni</button>
                 <br>
                 <br>
               </form>
@@ -268,6 +286,8 @@
   {{-- owl carrousel --}}
   {{-- <script src="j{{ asset('owl/src/js/query.min.js') }}"></script> --}}
   <script src="{{ asset('owl/dist/owl.carousel.min.js') }}"></script>
+
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
   <script>
     $(document).ready(function() {
@@ -313,5 +333,19 @@
       });
 
     });
+
+    @if ($message = Session::get('success'))
+      Swal.fire({
+        icon: 'success',
+        title: 'Success',
+        text: "{!! $message !!}",
+      })
+    @elseif ($message = Session::get('error'))
+      Swal.fire({
+        icon: 'error',
+        title: 'Opps..',
+        text: "{!! $message !!}",
+      })
+    @endif
   </script>
 @endpush

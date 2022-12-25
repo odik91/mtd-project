@@ -49,6 +49,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
     Route::post('/main-setting', [PengaturanHalamanUtama::class, 'OurServices'])->name('main-settings.OurService');
     Route::match(['PUT', 'PATCH'], 'edit/our-service/{id}', [PengaturanHalamanUtama::class, 'EditOurService'])->name('main-settings.edit-our-service');
     Route::delete('edit/our-service/{id}', [PengaturanHalamanUtama::class, 'DeleteOurService'])->name('main-settings.delete-our-service');
+    Route::match(['PUT', 'PATCH'], '/main-settings/satatus-testimoni/{id}', [PengaturanHalamanUtama::class, 'setActivaionTestimoni'])->name('ajax.status-testimoni');
 
     // travel package
     Route::resource('/tour-travel', TourController::class);
