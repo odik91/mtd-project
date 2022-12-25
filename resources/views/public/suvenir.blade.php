@@ -5,7 +5,12 @@
     style="height: 350px; background-image: url('{{ asset('template/images/img-01.jpg') }}'); background-size: cover; background-repeat: no-repeat;">
     <div class="container">
       <div class="brand-name text-center" style="padding-top: 15rem">
-        <img class="slide-top" src="{{ asset('template/images/logo-mtd.png') }}" alt="Your Happy Family">
+        @php
+          $logoSlider = App\Models\About::first();
+        @endphp
+        <img class="slide-top"
+          src="{{ $logoSlider['logo_slider'] != '' ? asset('images/logo/' . $logoSlider['logo_slider']) : asset('template/images/logo-mtd.png') }}"
+          alt="Your Happy Family">
         <h1 class="text-white focus-in-expand" style="margin-top: -5rem">MAME TIRTA DEWATA</h1>
       </div>
     </div>

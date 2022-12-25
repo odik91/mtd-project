@@ -9,7 +9,10 @@
 @section('content')
   <div
     style="width: 100%; position: absolute; top: 12.5rem; z-index: 2; margin:0 auto; display: flex; justify-content: center">
-    <img class="slide-top" src="{{ asset('template/images/logo-mtd.png') }}" alt="Your Happy Family">
+    @php
+      $logoSlider = App\Models\About::first();
+    @endphp
+    <img class="slide-top" src="{{ $logoSlider['logo_slider'] != '' ? asset('images/logo/' . $logoSlider['logo_slider']) : asset('template/images/logo-mtd.png') }}" alt="Your Happy Family">
   </div>
   <div class="slider_wrapper">
     <div id="camera_wrap">
@@ -95,7 +98,8 @@
           <div class="text-center">
             <img src="{{ asset('template/images/mtd-color.png') }}" alt="mtd-color.png" style="width: 100px">
           </div>
-          <h3 class="head1" style="text-align: center; margin-top: -20px; color: #f3aa29; text-shadow: -4px 4px 10px rgba(0,0,0,0.2);">
+          <h3 class="head1"
+            style="text-align: center; margin-top: -20px; color: #f3aa29; text-shadow: -4px 4px 10px rgba(0,0,0,0.2);">
             {{ strtoupper($elevatorPitch['title']) }}
           </h3>
           <div style="text-align: center; margin-top: -25px; margin-bottom: 40px;">

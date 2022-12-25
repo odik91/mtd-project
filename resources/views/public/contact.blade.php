@@ -5,7 +5,12 @@
     style="height: 350px; background-image: url('{{ asset('template/images/img-01.jpg') }}'); background-size: cover; background-repeat: no-repeat;">
     <div class="container">
       <div class="brand-name text-center" style="padding-top: 15rem">
-        <img class="slide-top" src="{{ asset('template/images/logo-mtd.png') }}" alt="Your Happy Family">
+        @php
+          $logoSlider = App\Models\About::first();
+        @endphp
+        <img class="slide-top"
+          src="{{ $logoSlider['logo_slider'] != '' ? asset('images/logo/' . $logoSlider['logo_slider']) : asset('template/images/logo-mtd.png') }}"
+          alt="Your Happy Family">
         <h1 class="text-white focus-in-expand" style="margin-top: -5rem">MAME TIRTA DEWATA</h1>
       </div>
     </div>
@@ -14,7 +19,11 @@
   {{-- detail wisata --}}
   <div class="container_12">
     <div class="text-center mt-4">
-      <img src="{{ asset('template/images/mtd-color.png') }}" alt="mtd-color.png" style="width: 200px">
+      @if ($logoSlider['logo_about'] != '')
+        <img src="{{ asset('images/logo/' . $logoSlider['logo_about']) }}" alt="mtd-color.png" style="width: 200px">
+      @else
+        <img src="{{ asset('template/images/mtd-color.png') }}" alt="mtd-color.png" style="width: 200px">
+      @endif
     </div>
     <h2 class="text-center pt-4 m-0 text-shadow text-warning">PT MAME TIRTA DEWATA</h2>
     <div class="map">
@@ -35,14 +44,23 @@
         @endif
       </figure>
       <address>
+        @php
+          $contacts = App\Models\ContactPerson::get();
+        @endphp
         <dl>
           <dt>{{ ucwords($about['alamat']) }}<br>
             {{ ucwords($about['kelurahan']) }} {{ ucwords($about['kecamatan']) }} {{ ucwords($about['kabupaten']) }}<br>
             {{ ucwords($about['provinsi']) }}
           </dt>
-          <dd><span>Handphone:</span>+62 813 7788 7790 </dd>
-          <dd><span>WA:</span>+62 813 7788 7790</dd>
-          <dd>E-mail: <a href="#" class="col1">mametirtadewata90@gmail.com</a></dd>
+          @if (sizeof($contacts) > 0)
+            @foreach ($contacts as $contact)
+              @if ($contact['contact_media'] == 'email')
+                <dd>E-mail: <a href="mailto:{{ $contact['contact'] }}" class="col1">{{ $contact['contact'] }}</a></dd>
+              @else
+                <dd><span>{{ ucwords($contact['contact_media']) }}: </span>{{ $contact['contact'] }}</dd>
+              @endif
+            @endforeach
+          @endif
         </dl>
       </address>
     </div>
