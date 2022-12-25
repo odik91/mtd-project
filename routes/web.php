@@ -64,6 +64,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
 
     // about
     Route::resource('about', AboutController::class);
+    Route::post('add-contact', [AboutController::class, 'saveContact'])->name('about.add-contact');
+    Route::match(['PUT', 'PATCH'],'edit-contact/{id}', [AboutController::class, 'editContact'])->name('about.edit-contact');
+    Route::delete('delete-contact/{id}', [AboutController::class, 'deleteContact'])->name('about.delete-contact');
 });
 
 Auth::routes([

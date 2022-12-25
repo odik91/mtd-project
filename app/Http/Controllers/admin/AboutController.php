@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\About;
+use App\Models\ContactPerson;
 use App\Models\ElevatorPitch;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -21,7 +22,8 @@ class AboutController extends Controller
         $title = 'About';
         $about = About::first();
         $elevatorPitch = ElevatorPitch::first();
-        return view('admin.about.index', compact('title', 'about', 'elevatorPitch'));
+        $contacts = ContactPerson::get();
+        return view('admin.about.index', compact('title', 'about', 'elevatorPitch', 'contacts'));
     }
 
     /**
@@ -117,7 +119,7 @@ class AboutController extends Controller
             ]
         );
 
-        $oldAbout=About::find($id);
+        $oldAbout = About::find($id);
 
         $logo_about = $oldAbout['logo_about'];
         $logo_slider = $oldAbout['logo_slider'];
@@ -188,7 +190,7 @@ class AboutController extends Controller
         } else {
             Session::flash('error', "Informasi about gagal ditambahkan");
         }
-        
+
         return redirect()->route('about.index');
     }
 
@@ -201,5 +203,92 @@ class AboutController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function saveContact(Request $request)
+    {
+        $this->validate(
+            $request,
+            [
+                'contact_media' => 'required',
+                'contact' => 'required|min:3|max:40',
+                'primary' => 'required'
+            ],
+            [
+                'contact_media.required' => 'Harap pilih salah satu opsi media',
+                'contact.required' => 'Harap masukkan kontak anda',
+                'contact.min' => 'Minimal 3 karakter',
+                'contact.max' => 'Minimal 40 karakter',
+                'primary.required' => 'Harap pilih salah satu opsi',
+            ]
+        );
+
+        $data = [
+            'contact_media' => $request['contact_media'],
+            'contact' => $request['contact'],
+            'primary' => $request['primary']
+        ];
+
+        $create = ContactPerson::create($data);
+
+        if ($create) {
+            Session::flash('success', "Kontak berhasil ditambahkan");
+        } else {
+            Session::flash('error', "Kontak gagal ditambahkan");
+        }
+
+        return redirect()->route('about.index');
+    }
+
+    public function editContact(Request $request, $id)
+    {
+        $this->validate(
+            $request,
+            [
+                'contact_media_edit' => 'required',
+                'contact_edit' => 'required|min:3|max:40',
+                'primary_edit' => 'required'
+            ],
+            [
+                'contact_media_edit.required' => 'Harap pilih salah satu opsi media',
+                'contact_edit.required' => 'Harap masukkan kontak anda',
+                'contact_edit.min' => 'Minimal 3 karakter',
+                'contact_edit.max' => 'Minimal 40 karakter',
+                'primary.required' => 'Harap pilih salah satu opsi',
+            ]
+        );
+
+        $contact = ContactPerson::find($id);
+
+        $data = [
+            'contact_media' => $request['contact_media_edit'],
+            'contact' => $request['contact_edit'],
+            'primary' => $request['primary_edit']
+        ];
+
+        $update = $contact->update($data);
+
+        if ($update) {
+            Session::flash('success', "Kontak berhasil diubah");
+        } else {
+            Session::flash('error', "Kontak gagal diubah");
+        }
+
+        return redirect()->route('about.index');
+    }
+
+    public function deleteContact($id) {
+        $contact = ContactPerson::find($id);
+        $contactInfo = $contact['contact'];
+
+        $delete = $contact->delete();
+
+        if ($delete) {
+            Session::flash('success', "Kontak $contactInfo berhasil dihapus");
+        } else {
+            Session::flash('error', "Kontak $contactInfo gagal dihapus");
+        }
+
+        return redirect()->route('about.index');
     }
 }

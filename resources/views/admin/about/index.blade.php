@@ -23,7 +23,7 @@
             <div class="card-header">
               <h3 class="card-title">
                 <i class="fas fa-edit"></i>
-                Peta Pinpoint Alamat Di Gmap
+                Pengaturan Halaman About
               </h3>
             </div>
             <div class="card-body">
@@ -55,7 +55,8 @@
               <h4 class="text-center">Alamat</h4>
               <div class="callout callout-danger">
                 <h6>Info Alamat</h6>
-                <p class="text-muted">Pengaturan alamat juga akan berpengaruh pada alamat yang ditampilkan di footer setiap halaman publik website</p>
+                <p class="text-muted">Pengaturan alamat juga akan berpengaruh pada alamat yang ditampilkan di footer
+                  setiap halaman publik website</p>
               </div>
               <div class="my-4 text-center">
                 <p>
@@ -68,9 +69,9 @@
                   <h5 class="text-warning">Logo About
                   </h5>
                   @if (isset($about['logo_about']))
-                  <img src="{{ asset('images/' . $about['logo_about']) }}" alt="logo about" height="50px">
+                    <img src="{{ asset('images/' . $about['logo_about']) }}" alt="logo about" height="50px">
                   @else
-                  <img src="{{ asset('template/images/mtd-color.png') }}" alt="logo about" height="50px">   
+                    <img src="{{ asset('template/images/mtd-color.png') }}" alt="logo about" height="50px">
                   @endif
                 </div>
                 <hr>
@@ -78,9 +79,11 @@
                   <h5 class="text-warning">Logo Header
                   </h5>
                   @if (isset($about['logo_slider']))
-                  <img class="slide-top" src="{{ asset('images/' . $about['logo_slider']) }}" alt="logo slider" height="50px">
+                    <img class="slide-top" src="{{ asset('images/' . $about['logo_slider']) }}" alt="logo slider"
+                      height="50px">
                   @else
-                  <img class="slide-top" src="{{ asset('template/images/logo-mtd.png') }}" alt="logo slider" height="50px">
+                    <img class="slide-top" src="{{ asset('template/images/logo-mtd.png') }}" alt="logo slider"
+                      height="50px">
                   @endif
                 </div>
                 <hr>
@@ -88,14 +91,14 @@
                   <h5 class="text-warning">Logo Footer
                   </h5>
                   @if ($about['logo_footer'])
-                  <img src="{{ asset('images/' . $about['logo_footer']) }}" alt="Your Happy Family" height="50px">
+                    <img src="{{ asset('images/' . $about['logo_footer']) }}" alt="Your Happy Family" height="50px">
                   @else
-                  <img src="{{ asset('template/images/logo-mtd-logo.png') }}" alt="Your Happy Family" height="50px">
+                    <img src="{{ asset('template/images/logo-mtd-logo.png') }}" alt="Your Happy Family" height="50px">
                   @endif
                 </div>
               </div>
               <div class="card-body pad table-responsive">
-                <div class="card card-warning card-outline collapsed-card">
+                <div class="card card-warning card-outline collapsed-card box-shadow">
                   <div class="card-header bg-dark">
                     <h3 class="card-title text-center">Edit Informasi Halamn About</h3>
                     <div class="card-tools">
@@ -106,7 +109,8 @@
                   </div>
                   <!-- /.card-header -->
                   <div class="card-body">
-                    <form action="{{ route('about.update', $about['id']) }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('about.update', $about['id']) }}" method="post"
+                      enctype="multipart/form-data">
                       @csrf
                       @method('PUT')
                       <div class="form-body mb-3">
@@ -118,8 +122,11 @@
                           <div class="custom-file">
                             <input type="file" class="custom-file-input @error('logo_about') is-invalid @enderror"
                               name="logo_about" id="logo_about" accept="image/*" name="logo_about">
-                            <label class="custom-file-label text-muted" for="logo_about-01">{{ !empty($about['logo_about']) ? $about['logo_about'] : 'Logo utama halaman
-                              about' }}</label>
+                            <label class="custom-file-label text-muted"
+                              for="logo_about-01">{{ !empty($about['logo_about'])
+                                  ? $about['logo_about']
+                                  : 'Logo utama halaman
+                                                                                                                                                                                    about' }}</label>
                             @error('logo_about')
                               <span class="error invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -133,8 +140,11 @@
                           <div class="custom-file">
                             <input type="file" class="custom-file-input @error('logo_slider') is-invalid @enderror"
                               name="logo_slider" id="thumnail-01" accept="image/*" name="logo_slider">
-                            <label class="custom-file-label text-muted" for="logo_slider">{{ !empty($about['logo_slider']) ? $about['logo_slider'] : 'Logo header setiap
-                              halaman' }}</label>
+                            <label class="custom-file-label text-muted"
+                              for="logo_slider">{{ !empty($about['logo_slider'])
+                                  ? $about['logo_slider']
+                                  : 'Logo header setiap
+                                                                                                                                                                                    halaman' }}</label>
                           </div>
                           @error('logo_slider')
                             <span class="error invalid-feedback" role="alert">
@@ -148,8 +158,11 @@
                           <div class="custom-file">
                             <input type="file" class="custom-file-input @error('logo_footer') is-invalid @enderror"
                               name="logo_footer" id="logo_footer" accept="image/*" name="logo_footer">
-                            <label class="custom-file-label text-muted" for="logo_footer">{{ !empty($about['logo_footer']) ? $about['logo_footer'] : 'Logo footer setiap
-                              halaman' }}</label>
+                            <label class="custom-file-label text-muted"
+                              for="logo_footer">{{ !empty($about['logo_footer'])
+                                  ? $about['logo_footer']
+                                  : 'Logo footer setiap
+                                                                                                                                                                                    halaman' }}</label>
                             @error('logo_footer')
                               <span class="error invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -161,7 +174,8 @@
                       <div class="row">
                         <div class="col-sm col-lg-6 col-md-6 mb-3">
                           <input type="text" name="alamat"
-                            class="form-control @error('alamat') is-invalid @enderror" placeholder="Alamat" value="{{ $about['alamat'] }}" required>
+                            class="form-control @error('alamat') is-invalid @enderror" placeholder="Alamat"
+                            value="{{ $about['alamat'] }}" required>
                           @error('alamat')
                             <span class="error invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>
@@ -170,8 +184,8 @@
                         </div>
                         <div class="col-sm col-lg-6 col-md-6 mb-3">
                           <input type="text" name="kelurahan"
-                            class="form-control @error('kelurahan') is-invalid @enderror" placeholder="Kelurahan" value="{{ $about['kelurahan'] }}"
-                            required>
+                            class="form-control @error('kelurahan') is-invalid @enderror" placeholder="Kelurahan"
+                            value="{{ $about['kelurahan'] }}" required>
                           @error('kelurahan')
                             <span class="error invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>
@@ -182,8 +196,8 @@
                       <div class="row">
                         <div class="col-sm col-lg-4 col-md-4 mb-3">
                           <input type="text" name="kecamatan"
-                            class="form-control @error('kecamatan') is-invalid @enderror" placeholder="Kecamatan" value="{{ $about['kecamatan'] }}"
-                            required>
+                            class="form-control @error('kecamatan') is-invalid @enderror" placeholder="Kecamatan"
+                            value="{{ $about['kecamatan'] }}" required>
                           @error('kecamatan')
                             <span class="error invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>
@@ -192,7 +206,8 @@
                         </div>
                         <div class="col-sm col-lg-4 col-md-4 mb-3">
                           <input type="text" name="kabupaten"
-                            class="form-control @error('kabupaten') is-invalid @enderror" placeholder="Kota" value="{{ $about['kabupaten'] }}" required>
+                            class="form-control @error('kabupaten') is-invalid @enderror" placeholder="Kota"
+                            value="{{ $about['kabupaten'] }}" required>
                           @error('kabupaten')
                             <span class="error invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>
@@ -201,8 +216,8 @@
                         </div>
                         <div class="col-sm col-lg-4 col-md-4 mb-3">
                           <input type="text" name="provinsi"
-                            class="form-control @error('provinsi') is-invalid @enderror" placeholder="Provinsi" value="{{ $about['provinsi'] }}"
-                            required>
+                            class="form-control @error('provinsi') is-invalid @enderror" placeholder="Provinsi"
+                            value="{{ $about['provinsi'] }}" required>
                           @error('provinsi')
                             <span class="error invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>
@@ -216,6 +231,216 @@
                   <!-- /.card-body -->
                 </div>
 
+              </div>
+            </div>
+          </div>
+          <div class="card card-primary card-outline">
+            <div class="card-header">
+              <h3 class="card-title">
+                <i class="fas fa-edit"></i>
+                Pengaturan Kontak
+              </h3>
+            </div>
+            <div class="card-body">
+              <div class="card box-shadow">
+                <div class="card-header">
+                  <h4 class="card-title text-center">Tambah Kontak</h4>
+                </div>
+                <div class="card-body">
+                  <form action="{{ route('about.add-contact') }}" method="post">
+                    @csrf
+                    <div class="row">
+                      <div class="col-sm col-lg-4 col-md-4 mb-3">
+                        <select name="contact_media" class="form-control @error('contact_media') is-invalid @enderror"
+                          required>
+                          <option selected disabled>-- Pilh Tipe Kontak --</option>
+                          <option value="hp">HP</option>
+                          <option value="telepon">Telepon</option>
+                          <option value="wa">Whatsapp</option>
+                          <option value="telegram">Telegram</option>
+                          <option value="email">Email</option>
+                        </select>
+                        @error('contact_media')
+                          <span class="error invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                          </span>
+                        @enderror
+                      </div>
+                      <div class="col-sm col-lg-4 col-md-4 mb-3">
+                        <input type="text" name="contact"
+                          class="form-control @error('contact') is-invalid @enderror"
+                          placeholder="Masukkan kontak (tlp, hp, wa, email atau tg)" required>
+                        @error('contact')
+                          <span class="error invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                          </span>
+                        @enderror
+                      </div>
+                      <div class="col-sm col-lg-4 col-md-4 mb-3">
+                        <select name="primary" class="form-control @error('primary') is-invalid @enderror">
+                          <option selected disabled>-- Kontak Utama --</option>
+                          <option value="primary">Utama</option>
+                          <option value="secondary">Sekunder</option>
+                        </select>
+                        @error('primary')
+                          <span class="error invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                          </span>
+                        @enderror
+                      </div>
+                    </div>
+                    <button type="submit" class="btn btn-block btn-outline-info mt-2">Simpan</button>
+                  </form>
+                </div>
+              </div>
+              <div class="card box-shadow">
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>Tipe Kontak</th>
+                          <th>Detail Kontak</th>
+                          <th>Primary/Secondary</th>
+                          <th>Aksi</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        @foreach ($contacts as $key => $contact)
+                          <tr>
+                            <td>{{ ++$key }}</td>
+                            <td>{{ $contact['contact_media'] }}</td>
+                            <td>{{ $contact['contact'] }}</td>
+                            <td>{{ ucwords($contact['primary']) }}</td>
+                            <td>
+                              <button class="btn btn-sm bg-teal m-1" style="width: 35px" title="Edit kontak"
+                                data-toggle="modal" data-target="#modal-contact-{{ $contact['id'] }}">
+                                <i class="fas fa-edit"></i>
+                              </button>
+
+                              {{-- modal --}}
+                              <div class="modal fade" id="modal-contact-{{ $contact['id'] }}" data-backdrop="static"
+                                data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title" id="staticBackdropLabel">Edit Oleh-oleh</h5>
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div>
+                                    <div class="modal-body">
+                                      {{-- form --}}
+                                      <form action="{{ route('about.edit-contact', $contact['id']) }}" method="post">
+                                        @csrf
+                                        @method('PUT')
+                                        <div class="form-group">
+                                          <label for="contact_media_edit" class="form-text text-muted">Tipe
+                                            Kontak</label>
+                                          <select name="contact_media_edit" id="contact_media_edit"
+                                            class="form-control @error('contact_media_edit') is-invalid @enderror"
+                                            required>
+                                            <option selected disabled></option>
+                                            <option value="hp"
+                                              {{ $contact['contact_media'] == 'hp' ? 'selected' : '' }}>HP</option>
+                                            <option value="telepon"
+                                              {{ $contact['contact_media'] == 'telepon' ? 'selected' : '' }}>Telepon
+                                            </option>
+                                            <option value="wa"
+                                              {{ $contact['contact_media'] == 'wa' ? 'selected' : '' }}>Whatsapp</option>
+                                            <option value="telegram"
+                                              {{ $contact['contact_media'] == 'telegram' ? 'selected' : '' }}>Telegram
+                                            </option>
+                                            <option value="email"
+                                              {{ $contact['contact_media'] == 'email' ? 'selected' : '' }}>Email</option>
+                                          </select>
+                                          @error('contact_media_edit')
+                                            <span class="error invalid-feedback" role="alert">
+                                              <strong>{{ $message }}</strong>
+                                            </span>
+                                          @enderror
+                                        </div>
+                                        <div class="form-group">
+                                          <label for="contact_edit" class="form-text text-muted">Kontak detail</label>
+                                          <input type="text" name="contact_edit"
+                                            class="form-control @error('contact_edit') is-invalid @enderror"
+                                            placeholder="Masukkan kontak (tlp, hp, wa, email atau tg)"
+                                            value="{{ $contact['contact'] }}" required>
+                                          @error('contact_edit')
+                                            <span class="error invalid-feedback" role="alert">
+                                              <strong>{{ $message }}</strong>
+                                            </span>
+                                          @enderror
+                                        </div>
+                                        <div class="form-group">
+                                          <label for="primary_edit" class="form-text text-muted">Jadikan utama</label>
+                                          <select name="primary_edit"
+                                            class="form-control @error('primary_edit') is-invalid @enderror">
+                                            <option value="primary"
+                                              {{ $contact['primary'] == 'primary' ? 'selected' : '' }}>Utama</option>
+                                            <option value="secondary"
+                                              {{ $contact['primary'] == 'secondary' ? 'selected' : '' }}>Sekunder
+                                            </option>
+                                          </select>
+                                          @error('primary_edit')
+                                            <span class="error invalid-feedback" role="alert">
+                                              <strong>{{ $message }}</strong>
+                                            </span>
+                                          @enderror
+                                        </div>
+                                        <button type="submit"
+                                          class="btn btn-block btn-outline-info mt-2">Simpan</button>
+                                      </form>
+                                      {{-- form --}}
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              {{-- modal --}}
+
+                              <button class="btn btn-sm btn-danger m-1" style="width: 35px" title="Hapus kontak" data-toggle="modal"
+                              data-target="#modal-contact-delete-{{ $contact['id'] }}">
+                                <i class="fas fa-trash"></i>
+                              </button>
+
+                              {{-- modal --}}
+                              <div class="modal fade" id="modal-contact-delete-{{ $contact['id'] }}"
+                                data-backdrop="static" data-keyboard="false" tabindex="-1"
+                                aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title" id="staticBackdropLabel">Hapus Kontak</h5>
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div>
+                                    <div class="modal-body">
+                                      <h3 class="text-center text-danger">Apakah anda yakin ingin menghapus item ini</h3>
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-secondary"
+                                        data-dismiss="modal">Batal</button>
+                                      <form action="{{ route('about.delete-contact', $contact['id']) }}"
+                                        method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger">Hapus</button>
+                                      </form>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              {{-- modal --}}
+                            </td>
+                          </tr>
+                        @endforeach
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -254,11 +479,15 @@
   </script>
 @endpush
 @push('addon-css')
+  <style>
+    iframe {
+      width: 100%
+    }
 
-<style>
-  iframe {
-    width: 100%
-  }
-</style>
-    
+    .box-shadow {
+      box-shadow: -1px 1px 28px 0px rgba(0, 0, 0, 0.3);
+      -webkit-box-shadow: -1px 1px 28px 0px rgba(0, 0, 0, 0.3);
+      -moz-box-shadow: -1px 1px 28px 0px rgba(0, 0, 0, 0.3);
+    }
+  </style>
 @endpush
