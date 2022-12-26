@@ -69,6 +69,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
     Route::post('/oleh-olehnya', [SuvenirController::class, 'addSuvenirItem'])->name('oleh-oleh.add-item');
     Route::match(['PUT', 'PATCH'], '/oleh-olehnya/{id}', [SuvenirController::class, 'editSuvenirItem'])->name('oleh-oleh.edit-item');
     Route::delete('/oleh-olehnya/{id}', [SuvenirController::class, 'deleteSuvenirItem'])->name('oleh-oleh.delete-item');
+    Route::match(['PUT', 'PATCH'], '/status-oleh-olehnya/{id}', [SuvenirController::class, 'setActivePackage'])->name('oleh-oleh.status');
 
     // about
     Route::resource('about', AboutController::class);

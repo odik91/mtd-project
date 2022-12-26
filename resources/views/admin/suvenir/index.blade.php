@@ -1,5 +1,6 @@
 @extends('admin.layouts.master')
 @section('content')
+  <meta name="csrf-token" content="{{ csrf_token() }}" />
   <div class="content-header">
     <div class="container-fluid">
       <div class="row mb-2">
@@ -312,22 +313,23 @@
                         <td>{{ ucwords($listSuvenir['first_text']) }}</td>
                         <td>{{ ucwords($listSuvenir['start_price']) }}</td>
                         <td>
-                          <img src="{{ asset('images/suvenirs/' . $listSuvenir['thumbnail']) }}" alt="{{ $listSuvenir['thumbnail'] }}"
-                            width="70px">
+                          <img src="{{ asset('images/suvenirs/' . $listSuvenir['thumbnail']) }}"
+                            alt="{{ $listSuvenir['thumbnail'] }}" width="70px">
                         </td>
                         <td>
-                          <img src="{{ asset('images/suvenirs/' . $listSuvenir['image']) }}" alt="{{ $listSuvenir['image'] }}"
-                            width="70px">
+                          <img src="{{ asset('images/suvenirs/' . $listSuvenir['image']) }}"
+                            alt="{{ $listSuvenir['image'] }}" width="70px">
                         </td>
                         <td>
                           {!! strip_tags(substr($listSuvenir['description'], 0, 100)) !!}...
                         </td>
                         <td>
-                          {{ $listSuvenir['is_active'] == 'active' ? 'Ya' : 'Tidak' }}
-                          {{-- <select name="" id="" class="form-control">
-                            <option value="active" selected>Ya</option>
-                            <option value="active" selected>Tidak</option>
-                          </select> --}}
+                          <select name="select_suvenirs[]" class="form-control">
+                            <option value="active,{{ $listSuvenir['id'] }}"
+                              {{ $listSuvenir['is_active'] == 'active' ? 'selected' : '' }}>Ya</option>
+                            <option value="inactive,{{ $listSuvenir['id'] }}"
+                              {{ $listSuvenir['is_active'] == 'inactive' ? 'selected' : '' }}>Tidak</option>
+                          </select>
                         </td>
                         <td>
                           <button class="btn btn-sm bg-teal m-1" style="width: 35px" data-toggle="modal"
@@ -339,8 +341,9 @@
                             <i class="fas fa-trash"></i>
                           </button>
                           {{-- modal edit package --}}
-                          <div class="modal fade" id="modal-package-{{ $listSuvenir['id'] }}" data-backdrop="static" data-keyboard="false"
-                            tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                          <div class="modal fade" id="modal-package-{{ $listSuvenir['id'] }}" data-backdrop="static"
+                            data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+                            aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered">
                               <div class="modal-content">
                                 <div class="modal-header">
@@ -350,7 +353,8 @@
                                   </button>
                                 </div>
                                 <div class="modal-body">
-                                  <form method="POST" enctype="multipart/form-data" action="{{ route('oleh-oleh.edit-item', $listSuvenir['id']) }}">
+                                  <form method="POST" enctype="multipart/form-data"
+                                    action="{{ route('oleh-oleh.edit-item', $listSuvenir['id']) }}">
                                     @csrf
                                     @method('PUT')
                                     <div class="card-body">
@@ -358,7 +362,8 @@
                                         <div class="col-sm col-lg-4 col-md-4 mb-3">
                                           <input type="text" name="edit_suvenir_name"
                                             class="form-control @error('edit_suvenir_name') is-invalid @enderror"
-                                            placeholder="Nama Oleh-oleh" value="{{ $listSuvenir['suvenir_name'] }}" required>
+                                            placeholder="Nama Oleh-oleh" value="{{ $listSuvenir['suvenir_name'] }}"
+                                            required>
                                           @error('edit_suvenir_name')
                                             <span class="error invalid-feedback" role="alert">
                                               <strong>{{ $message }}</strong>
@@ -367,8 +372,9 @@
                                         </div>
                                         <div class="col-sm col-lg-4 col-md-4 mb-3">
                                           <input type="text" name="edit_first_text"
-                                            class="form-control @error('edit_first_text') is-invalid @enderror" placeholder="Middle Text"
-                                            value="{{ $listSuvenir['first_text'] }}" required>
+                                            class="form-control @error('edit_first_text') is-invalid @enderror"
+                                            placeholder="Middle Text" value="{{ $listSuvenir['first_text'] }}"
+                                            required>
                                           @error('edit_first_text')
                                             <span class="error invalid-feedback" role="alert">
                                               <strong>{{ $message }}</strong>
@@ -377,8 +383,9 @@
                                         </div>
                                         <div class="col-sm col-lg-4 col-md-4 mb-3">
                                           <input type="text" name="edit_start_price"
-                                            class="form-control @error('edit_start_price') is-invalid @enderror" placeholder="Bottom Text"
-                                            value="{{ $listSuvenir['start_price'] }}" required>
+                                            class="form-control @error('edit_start_price') is-invalid @enderror"
+                                            placeholder="Bottom Text" value="{{ $listSuvenir['start_price'] }}"
+                                            required>
                                           @error('edit_start_price')
                                             <span class="error invalid-feedback" role="alert">
                                               <strong>{{ $message }}</strong>
@@ -388,7 +395,8 @@
                                       </div>
                                       <div class="form-group">
                                         <select name="edit_suvenir_category_id"
-                                          class="form-control @error('edit_suvenir_category_id') is-invalid @enderror" required>
+                                          class="form-control @error('edit_suvenir_category_id') is-invalid @enderror"
+                                          required>
                                           @foreach ($suvenirs as $suvenir)
                                             <option value="{{ $suvenir['id'] }}"
                                               {{ $suvenir['id'] == $listSuvenir['suvenir_category_id'] ? 'selected' : '' }}>
@@ -406,8 +414,10 @@
                                           <div class="custom-file">
                                             <input type="file"
                                               class="custom-file-input @error('edit_thumbnail') is-invalid @enderror"
-                                              name="edit_thumbnail" id="thumnail-01" accept="image/*" name="edit_thumbnail">
-                                            <label class="custom-file-label text-muted" for="thumnail-01">Pilih Gambar Thumnail untuk
+                                              name="edit_thumbnail" id="thumnail-01" accept="image/*"
+                                              name="edit_thumbnail">
+                                            <label class="custom-file-label text-muted" for="thumnail-01">Pilih Gambar
+                                              Thumnail untuk
                                               Siler</label>
                                           </div>
                                         </div>
@@ -416,9 +426,10 @@
                                         <div class="input-group">
                                           <div class="custom-file">
                                             <input type="file" name="edit_image"
-                                              class="custom-file-input @error('edit_image') is-invalid @enderror" id="img-liting"
-                                              accept="image/*">
-                                            <label class="custom-file-label text-muted" for="img-liting">Pilih Gambar untuk
+                                              class="custom-file-input @error('edit_image') is-invalid @enderror"
+                                              id="img-liting" accept="image/*">
+                                            <label class="custom-file-label text-muted" for="img-liting">Pilih Gambar
+                                              untuk
                                               Listing</label>
                                           </div>
                                         </div>
@@ -433,10 +444,13 @@
                                         @enderror
                                       </div>
                                       <div class="form-group">
-                                        <select name="edit_suvenir_active" class="form-control @error('edit_suvenir_active') is-invalid @enderror"
+                                        <select name="edit_suvenir_active"
+                                          class="form-control @error('edit_suvenir_active') is-invalid @enderror"
                                           required>
-                                          <option value="active" {{ $listSuvenir['is_active'] == 'active' ? 'selected' : '' }}>Ya</option>
-                                          <option value="inactive" {{ $listSuvenir['is_active'] == 'inactive' ? 'selected' : '' }}>Tidak
+                                          <option value="active"
+                                            {{ $listSuvenir['is_active'] == 'active' ? 'selected' : '' }}>Ya</option>
+                                          <option value="inactive"
+                                            {{ $listSuvenir['is_active'] == 'inactive' ? 'selected' : '' }}>Tidak
                                           </option>
                                         </select>
                                         @error('edit_suvenir_active')
@@ -456,9 +470,9 @@
                           {{-- modal edit package --}}
 
                           {{-- modal warning hapus package --}}
-                          <div class="modal fade" id="modal-package-delete-{{ $listSuvenir['id'] }}" data-backdrop="static"
-                            data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
-                            aria-hidden="true">
+                          <div class="modal fade" id="modal-package-delete-{{ $listSuvenir['id'] }}"
+                            data-backdrop="static" data-keyboard="false" tabindex="-1"
+                            aria-labelledby="staticBackdropLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered">
                               <div class="modal-content">
                                 <div class="modal-header">
@@ -472,7 +486,8 @@
                                 </div>
                                 <div class="modal-footer">
                                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                  <form action="{{ route('oleh-oleh.delete-item', $listSuvenir['id']) }}" method="POST">
+                                  <form action="{{ route('oleh-oleh.delete-item', $listSuvenir['id']) }}"
+                                    method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger">Hapus</button>
@@ -578,7 +593,7 @@
       })
 
       @foreach ($listSuvenirs as $listSuvenir)
-        $("#package-description-edit-{{$listSuvenir->id}}").summernote({
+        $("#package-description-edit-{{ $listSuvenir->id }}").summernote({
           placeholder: 'Detail informasi paket wisata...',
           tabsize: summernote_tabsize,
           height: summernote_height,
@@ -586,7 +601,7 @@
           popover: summernote_popover
         })
       @endforeach
-      
+
     })
 
     $(document).ready(function() {
@@ -604,5 +619,58 @@
         ],
       });
     });
+
+    let changeStatus = (elem, gurl) => {
+      for (let a = 0; a < elem.length; a++) {
+        elem.eq(a).on('change', (e) => {
+
+          let elemVal = elem.eq(a).val()
+          elemVal = elemVal.split(",")
+
+          let getId = elemVal[elemVal.length - 1]
+
+          let url = gurl + getId
+
+          $.ajaxSetup({
+            headers: {
+              "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+          });
+
+          let csrf_token = $('meta[name="_token"]').attr("content")
+
+          $.ajax({
+            url: url,
+            type: 'POST',
+            data: {
+              _method: "PUT",
+              _token: csrf_token,
+              id: getId,
+              publish: elemVal[0],
+            },
+            success: function(data) {
+              Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: data.message,
+              })
+            },
+            error: function(data) {
+              Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: data.responseJSON.error,
+              })
+            },
+          })
+        })
+      }
+    }
+
+    // ajax destinasi 
+    let testiElement = $('select[name="select_suvenirs[]"]')
+    let origin = window.location.origin
+    let target = origin + '/admin/status-oleh-olehnya/'
+    changeStatus(testiElement, target)
   </script>
 @endpush

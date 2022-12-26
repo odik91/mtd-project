@@ -7,6 +7,7 @@ use App\Models\Suvenir;
 use App\Models\SuvenirCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Str;
 
@@ -311,5 +312,51 @@ class SuvenirController extends Controller
         }
 
         return redirect()->route('oleh-oleh.index');
+    }
+
+    public function setActivePackage(Request $request, $id) {
+
+        $validate = Validator::make(
+            $request->all(),
+            [
+                'id' => 'required',
+                'publish' => 'required',
+            ],
+            [
+                'id.required' => 'Illegal actions',
+                'publish.required' => 'Illegal actions',
+            ]
+        );
+
+        if ($validate->fails()) {
+            $message = $this->validation_message($validate->errors()->messages());
+            return response()->json([
+                'error' => $message
+            ], 422);
+        }
+
+        $suvenir = Suvenir::find($id);
+
+        if ($suvenir) {
+            $data = [
+                'is_active' => $request['publish']
+            ];
+
+            $update = $suvenir->update($data);
+
+            if ($update) {
+                return response()->json([
+                    'message' => "Status oleh-oleh berhasil diupdate"
+                ], 201);
+            } else {
+                return response()->json([
+                    'message' => "Status oleh-oleh gagal diupdate"
+                ], 422);
+            }
+        } else {
+            return response()->json([
+                'message' => "Something went wrong"
+            ], 422);
+        }
     }
 }
