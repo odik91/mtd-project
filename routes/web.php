@@ -61,6 +61,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
     Route::post('/add-tour', [TourController::class, 'addTravelPackage'])->name('tour-travel.add-package');
     Route::match(['PUT', 'PATCH'], '/add-tour/{id}', [TourController::class, 'editTravelPackage'])->name('tour-travel.edit-package');
     Route::delete('/add-tour/{id}', [TourController::class, 'deleteTravelPackage'])->name('tour-travel.delete-package');
+    Route::match(['PUT', 'PATCH'], '/activate-tour/{id}', [TourController::class, 'setActiveWisata'])->name('activate-wisata');
+    Route::match(['PUT', 'PATCH'], '/activate-package/{id}', [TourController::class, 'setActivePackage'])->name('activate-package');
 
     // oleh-oleh
     Route::resource('/oleh-oleh', SuvenirController::class);

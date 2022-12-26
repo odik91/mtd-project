@@ -7,6 +7,7 @@ use App\Models\Travel;
 use App\Models\TravelPackage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Str;
 
@@ -342,5 +343,97 @@ class TourController extends Controller
         }
 
         return redirect()->route('tour-travel.index');
+    }
+
+    public function setActiveWisata(Request $request, $id) {
+
+        $validate = Validator::make(
+            $request->all(),
+            [
+                'id' => 'required',
+                'publish' => 'required',
+            ],
+            [
+                'id.required' => 'Illegal actions',
+                'publish.required' => 'Illegal actions',
+            ]
+        );
+
+        if ($validate->fails()) {
+            $message = $this->validation_message($validate->errors()->messages());
+            return response()->json([
+                'error' => $message
+            ], 422);
+        }
+
+        $travel = Travel::find($id);
+
+        if ($travel) {
+            $data = [
+                'is_active' => $request['publish']
+            ];
+
+            $update = $travel->update($data);
+
+            if ($update) {
+                return response()->json([
+                    'message' => "Status destinasi wisata berhasil diupdate"
+                ], 201);
+            } else {
+                return response()->json([
+                    'message' => "Status destinasi wisata gagal diupdate"
+                ], 422);
+            }
+        } else {
+            return response()->json([
+                'message' => "Something went wrong"
+            ], 422);
+        }
+    }
+
+    public function setActivePackage(Request $request, $id) {
+
+        $validate = Validator::make(
+            $request->all(),
+            [
+                'id' => 'required',
+                'publish' => 'required',
+            ],
+            [
+                'id.required' => 'Illegal actions',
+                'publish.required' => 'Illegal actions',
+            ]
+        );
+
+        if ($validate->fails()) {
+            $message = $this->validation_message($validate->errors()->messages());
+            return response()->json([
+                'error' => $message
+            ], 422);
+        }
+
+        $travelPackage = TravelPackage::find($id);
+
+        if ($travelPackage) {
+            $data = [
+                'is_active' => $request['publish']
+            ];
+
+            $update = $travelPackage->update($data);
+
+            if ($update) {
+                return response()->json([
+                    'message' => "Status paket wisata berhasil diupdate"
+                ], 201);
+            } else {
+                return response()->json([
+                    'message' => "Status paket wisata gagal diupdate"
+                ], 422);
+            }
+        } else {
+            return response()->json([
+                'message' => "Something went wrong"
+            ], 422);
+        }
     }
 }

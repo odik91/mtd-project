@@ -1,5 +1,6 @@
 @extends('admin.layouts.master')
 @section('content')
+<meta name="csrf-token" content="{{ csrf_token() }}" />
   <div class="content-header">
     <div class="container-fluid">
       <div class="row mb-2">
@@ -190,17 +191,16 @@
                             width="70px">
                         </td>
                         <td>{!! strip_tags(substr($travel['description'], 0, 100)) !!}...</td>
-                        <td>0</td>
-                        <td>
-                          {{ $travel['is_active'] == 'active' ? 'Ya' : 'Tidak' }}
-                          {{-- <select name="" id="" class="form-control">
-                          <option value="active" selected>Ya</option>
-                          <option value="active" selected>Tidak</option>
-                        </select> --}}
+                        <td>{{ count(App\Models\TravelPackage::where('travel_id', $travel['id'])->get()) }}</td>
+                        <td>                          
+                          <select name="select_wisata[]" class="form-control">
+                            <option value="active,{{ $travel['id'] }}" {{ $travel['is_active'] == 'active' ? 'selected' : '' }}>Ya</option>
+                            <option value="inactive,{{ $travel['id'] }}" {{ $travel['is_active'] == 'inactive' ? 'selected' : '' }}>Tidak</option>
+                          </select>
                         </td>
                         <td>
                           <a href="#" class="btn btn-sm btn-info m-1" style="width: 35px" title="tambah paket"
-                            data-toggle="modal" data-target="#modal-direct-add-package">
+                            data-toggle="modal" data-target="#modal-direct-add-package-{{ $travel['id'] }}">
                             <i class="fa fa-plus"></i>
                           </a>
 
@@ -384,7 +384,7 @@
                           {{-- modal warning hapus slider --}}
 
                           {{-- modal tambah paket direct --}}
-                          <div class="modal fade" id="modal-direct-add-package" data-backdrop="static"
+                          <div class="modal fade" id="modal-direct-add-package-{{ $travel['id'] }}" data-backdrop="static"
                             data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
                             aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered">
@@ -396,32 +396,27 @@
                                   </button>
                                 </div>
                                 <div class="modal-body">
-                                  <form>
+                                  <form method="POST" action="{{ route('tour-travel.add-package') }}">
+                                    @csrf
                                     <div class="card-body">
                                       <div class="form-group">
-                                        <select name="" class="form-control">
-                                          <option selected disabled>Pilih Destinasi</option>
-                                          <option value="">Destinasi 1</option>
-                                          <option value="">Destinasi 2</option>
-                                          <option value="">Destinasi 3</option>
+                                        <select name="travel_id" class="form-control">
+                                          <option value="{{ $travel['id'] }}" selected>{{ ucwords($travel['travel_name']) }}</option>
                                         </select>
                                       </div>
                                       <div class="row">
-                                        <div class="col-sm col-lg-4 col-md-4 mb-3">
-                                          <input type="text" class="form-control" placeholder="Nama Paket">
+                                        <div class="col-sm col-lg-6 col-md-6 mb-3">
+                                          <input type="text" class="form-control" placeholder="Nama Paket" name="package_name">
                                         </div>
-                                        <div class="col-sm col-lg-4 col-md-4 mb-3">
-                                          <input type="text" class="form-control" placeholder="Middle Text">
-                                        </div>
-                                        <div class="col-sm col-lg-4 col-md-4 mb-3">
-                                          <input type="text" class="form-control" placeholder="Bottom Text">
+                                        <div class="col-sm col-lg-6 col-md-6 mb-3">
+                                          <input type="text" class="form-control" placeholder="Harga" name="package_price">
                                         </div>
                                       </div>
                                       <div class="form-group">
-                                        <textarea id="package-description-direct"></textarea>
+                                        <textarea id="package-description-direct-{{ $travel['id'] }}" name="package_description"></textarea>
                                       </div>
                                       <div class="form-group">
-                                        <select name="active" id="" class="form-control">
+                                        <select name="package_active" class="form-control">
                                           <option selected disabled>Aktif?</option>
                                           <option value="active">Ya</option>
                                           <option value="inactive">Tidak</option>
@@ -565,11 +560,10 @@
                         <td>{{ $travelPackage['price'] }}</td>
                         <td>{!! strip_tags(substr($travelPackage['description'], 0, 100)) !!}...</td>
                         <td>
-                          {{ $travelPackage['is_active'] == 'active' ? 'Ya' : 'Tidak' }}
-                          {{-- <select name="" id="" class="form-control">
-                            <option value="active" selected>Ya</option>
-                            <option value="active" selected>Tidak</option>
-                          </select> --}}
+                          <select name="select_package[]" class="form-control">
+                            <option value="active,{{ $travelPackage['id'] }}" {{ $travelPackage['is_active'] == 'active' ? 'selected' : '' }}>Ya</option>
+                            <option value="inactive,{{ $travelPackage['id'] }}" {{ $travelPackage['is_active'] == 'inactive' ? 'selected' : '' }}>Tidak</option>
+                          </select>
                         </td>
                         <td>
                           <button class="btn btn-sm bg-teal m-1" style="width: 35px" data-toggle="modal"
@@ -581,8 +575,9 @@
                             <i class="fas fa-trash"></i>
                           </button>
                           {{-- modal edit package --}}
-                          <div class="modal fade" id="modal-package-{{ $travelPackage['id'] }}" data-backdrop="static" data-keyboard="false"
-                            tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                          <div class="modal fade" id="modal-package-{{ $travelPackage['id'] }}" data-backdrop="static"
+                            data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+                            aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered">
                               <div class="modal-content">
                                 <div class="modal-header">
@@ -592,13 +587,14 @@
                                   </button>
                                 </div>
                                 <div class="modal-body">
-                                  <form method="POST" action="{{ route('tour-travel.edit-package', $travelPackage['id']) }}">
+                                  <form method="POST"
+                                    action="{{ route('tour-travel.edit-package', $travelPackage['id']) }}">
                                     @csrf
                                     @method('PUT')
                                     <div class="card-body">
                                       <div class="form-group">
-                                        <select name="edit_travel_id" class="form-control @error('edit_travel_id') is-invalid @enderror"
-                                          required>
+                                        <select name="edit_travel_id"
+                                          class="form-control @error('edit_travel_id') is-invalid @enderror" required>
                                           @foreach ($selectTravels as $key => $selectTravel)
                                             <option value="{{ $selectTravel['id'] }}"
                                               {{ $travelPackage['travel_id'] == $selectTravel['id'] ? 'selected' : '' }}>
@@ -614,8 +610,9 @@
                                       <div class="row">
                                         <div class="col-sm col-lg-6 col-md-6 mb-3">
                                           <input type="text" name="edit_package_name"
-                                            class="form-control @error('edit_package_name') is-invalid @enderror" placeholder="Nama Paket"
-                                            value="{{ $travelPackage['package_name'] }}" required>
+                                            class="form-control @error('edit_package_name') is-invalid @enderror"
+                                            placeholder="Nama Paket" value="{{ $travelPackage['package_name'] }}"
+                                            required>
                                           @error('edit_package_name')
                                             <span class="error invalid-feedback" role="alert">
                                               <strong>{{ $message }}</strong>
@@ -623,8 +620,10 @@
                                           @enderror
                                         </div>
                                         <div class="col-sm col-lg-6 col-md-6 mb-3">
-                                          <input type="text" class="form-control @error('edit_package_price') is-invalid @enderror"
-                                            name="edit_package_price" placeholder="Harga" value="{{ $travelPackage['price'] }}" required>
+                                          <input type="text"
+                                            class="form-control @error('edit_package_price') is-invalid @enderror"
+                                            name="edit_package_price" placeholder="Harga"
+                                            value="{{ $travelPackage['price'] }}" required>
                                           @error('edit_package_price')
                                             <span class="error invalid-feedback" role="alert">
                                               <strong>{{ $message }}</strong>
@@ -633,7 +632,7 @@
                                         </div>
                                       </div>
                                       <div class="form-group">
-                                        <textarea id="edit_package_description_{{$travelPackage['id']}}" name="edit_package_description"
+                                        <textarea id="edit_package_description_{{ $travelPackage['id'] }}" name="edit_package_description"
                                           class="@error('edit_package_description') is-invalid @enderror" required>{{ $travelPackage['description'] }}</textarea>
                                         @error('edit_package_description')
                                           <span class="error invalid-feedback" role="alert">
@@ -643,9 +642,12 @@
                                       </div>
                                       <div class="form-group">
                                         <select name="edit_package_active"
-                                          class="form-control @error('edit_package_active') is-invalid @enderror" required>
-                                          <option value="active" {{ $travelPackage['is_active'] == 'active' ? 'selected' : '' }}>Ya</option>
-                                          <option value="inactive" {{ $travelPackage['is_active'] == 'inactive' ? 'selected' : '' }}>Tidak
+                                          class="form-control @error('edit_package_active') is-invalid @enderror"
+                                          required>
+                                          <option value="active"
+                                            {{ $travelPackage['is_active'] == 'active' ? 'selected' : '' }}>Ya</option>
+                                          <option value="inactive"
+                                            {{ $travelPackage['is_active'] == 'inactive' ? 'selected' : '' }}>Tidak
                                           </option>
                                         </select>
                                         @error('edit_package_active')
@@ -665,9 +667,9 @@
                           {{-- modal edit package --}}
 
                           {{-- modal warning hapus package --}}
-                          <div class="modal fade" id="modal-package-delete-{{ $travelPackage['id'] }}" data-backdrop="static"
-                            data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
-                            aria-hidden="true">
+                          <div class="modal fade" id="modal-package-delete-{{ $travelPackage['id'] }}"
+                            data-backdrop="static" data-keyboard="false" tabindex="-1"
+                            aria-labelledby="staticBackdropLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered">
                               <div class="modal-content">
                                 <div class="modal-header">
@@ -681,7 +683,8 @@
                                 </div>
                                 <div class="modal-footer">
                                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                  <form action="{{ route('tour-travel.delete-package', $travelPackage['id']) }}" method="POST">
+                                  <form action="{{ route('tour-travel.delete-package', $travelPackage['id']) }}"
+                                    method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger">Hapus</button>
@@ -836,10 +839,17 @@
           toolbar: summernote_toolbar,
           popover: summernote_popover
         })
-      @endforeach      
-      
+        $("#package-description-direct-{{ $travel['id'] }}").summernote({
+          placeholder: '',
+          tabsize: summernote_tabsize,
+          height: summernote_height,
+          toolbar: summernote_toolbar,
+          popover: summernote_popover
+        })
+      @endforeach
+
       @foreach ($travelPackages as $key => $travelPackage)
-        $("#edit_package_description_{{$travelPackage['id']}}").summernote({
+        $("#edit_package_description_{{ $travelPackage['id'] }}").summernote({
           placeholder: '',
           tabsize: summernote_tabsize,
           height: summernote_height,
@@ -862,5 +872,63 @@
         ],
       });
     });
+
+    let changeStatus = (elem, gurl) => {
+      for (let a = 0; a < elem.length; a++) {
+        elem.eq(a).on('change', (e) => {
+
+          let elemVal = elem.eq(a).val()
+          elemVal = elemVal.split(",")
+
+          let getId = elemVal[elemVal.length - 1]
+
+          let url = gurl + getId
+
+          $.ajaxSetup({
+            headers: {
+              "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+          });
+
+          let csrf_token = $('meta[name="_token"]').attr("content")
+
+          $.ajax({
+            url: url,
+            type: 'POST',
+            data: {
+              _method: "PUT",
+              _token: csrf_token,
+              id: getId,
+              publish: elemVal[0],
+            },
+            success: function(data) {
+              Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: data.message,
+              })
+            },
+            error: function(data) {
+              Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: data.responseJSON.error,
+              })
+            },
+          })
+        })
+      }
+    }
+
+    // ajax destinasi 
+    let testiElement = $('select[name="select_wisata[]"]')
+    let origin = window.location.origin
+    let target = origin + '/admin/activate-tour/'
+    changeStatus(testiElement, target) 
+
+    // ajax package 
+    let packageElement = $('select[name="select_package[]"]')
+    let packagetarget = origin + '/admin/activate-package/'
+    changeStatus(packageElement, packagetarget) 
   </script>
 @endpush
