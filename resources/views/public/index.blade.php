@@ -175,7 +175,7 @@
             @foreach ($suvenirs as $suvenir)
               <div class="mx-3 mb-4 pt-2">
                 <div class="rounded-circle services"
-                  style="background-image: url('{{ asset('images/suvenirs/' . $suvenir['thumbnail']) }}'); background-size: contain;">
+                  style="background-image: url('{{ asset('images/suvenirs/' . $suvenir['thumbnail']) }}'); background-size: cover;">
                 </div>
                 <h5 class="text-center" style="margin-top: -100px;">
                   <a href="#">{{ strtoupper($suvenir['suvenir_name']) }}</a>
