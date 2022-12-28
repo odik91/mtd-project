@@ -304,7 +304,7 @@ class TourController extends Controller
             if (sizeof($arrayRemoveimage) > 0) {
                 for ($i = 0; $i < sizeof($arrayRemoveimage); $i++) {
                     if ($arrayRemoveimage[$i] != "") {
-                        if (file_exists(unlink(public_path("images/destination/{$arrayRemoveimage[$i]}")))) {
+                        if (file_exists(public_path("images/destination/{$arrayRemoveimage[$i]}"))) {
                             unlink(public_path("images/destination/{$arrayRemoveimage[$i]}"));
                         }
                     }
