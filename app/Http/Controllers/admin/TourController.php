@@ -86,22 +86,43 @@ class TourController extends Controller
             ]
         );
 
+        $content = $request['description'];
+
+        $dom = new \DOMDocument();
+        $dom->loadHTML($content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD | libxml_use_internal_errors(true));
+        $imageFiles = $dom->getElementsByTagName('img');
+        $arrImg = [];
+        foreach ($imageFiles as $key => $imageFile) {
+            $data = $imageFile->getAttribute('src');
+            if (strpos($data, ';') === false) {
+                continue;
+            }
+            list($type, $data) = explode(';', $data);
+            list($e, $data) = explode(',', $data);
+            $imageData[$key] = base64_decode($data);
+            $uniqueName = date_timestamp_get(date_create());
+            $imageName[$key] = date('timestamp') . time() . $uniqueName . $imageFiles[$key]->getAttribute('data-filename');
+            $path = public_path() . '/images/destination/' . $imageName[$key];
+            file_put_contents($path, $imageData[$key]);
+            $imageFile->removeAttribute('src');
+            $imageFile->setAttribute('src', '/images/destination/' . $imageName[$key]);
+            array_push($arrImg, $imageName[$key]);
+        }
+
+        $content = $dom->saveHTML();
+
         $thumbnail = null;
         $image = null;
 
         if ($request->hasFile('thumbnail')) {
-            // $thumbnail = time() . $request['thumbnail']->hashName();
-            // $pathImage = public_path('/images/destination');
-            // $resizeImage = Image::make($request['thumbnail']->path());
-            // $resizeImage->resize(1280, 1280, function ($const) {
-            //     $const->aspectRatio();
-            // })->save($pathImage . '/' . $thumbnail);
             $thumbnail = $this->_resizeImage($request['thumbnail'], 364, 364, '/images/destination');
         }
 
         if ($request->hasFile('image')) {
             $image = $this->_resizeImage($request['image'], 1280, 1280, '/images/destination');
         }
+
+        $slug = 'mame tirta dewata wisata ' . $request['travel_name'];
 
         $data = [
             'travel_name' => $request['travel_name'],
@@ -111,9 +132,9 @@ class TourController extends Controller
             'region' => $request['region'],
             'thumbnail' => $thumbnail,
             'image' => $image,
-            'description' => $request['description'],
+            'description' => $content,
             'is_active' => $request['is_active'],
-            'slug' => Str::slug($request['travel_name'])
+            'slug' => Str::slug($slug)
         ];
 
         $create = Travel::create($data);
@@ -191,6 +212,60 @@ class TourController extends Controller
         $thumbnail = $travel['thumbnail'];
         $image = $travel['image'];
 
+        $oldContent = $travel['description'];
+
+        $domOldArticle = new \DOMDocument();
+        $domOldArticle->loadHTML($oldContent, LIBXML_HTML_NOIMPLIED | libxml_use_internal_errors(true));
+        $findImages = $domOldArticle->getElementsByTagName('img');
+        $oldImages = [];
+
+        foreach ($findImages as $key => $findImage) {
+            $data = $findImage->getAttribute('src');
+            $data = explode('/', $data);
+            array_push($oldImages, $data[3]);
+        }
+
+        $content = $request['edit_description'];
+        $dom = new \DOMDocument();
+        $dom->loadHTML($content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD | libxml_use_internal_errors(true));
+        $imageFiles = $dom->getElementsByTagName('img');
+        $arrayImage = [];
+
+        foreach ($imageFiles as $key => $imageFile) {
+            $data = $imageFile->getAttribute('src');
+            if (strpos($data, ';') === false) {
+                continue;
+            }
+            list($type, $data) = explode(';', $data);
+            list($e, $data) = explode(',', $data);
+            $imageData[$key] = base64_decode($data);
+            $uniqueName = date_timestamp_get(date_create());
+            $imageName[$key] = date('timestamp') . time() . $key . $uniqueName . $imageFiles[$key]->getAttribute('data-filename');
+            $path = public_path() . "/images/destination/" . $imageName[$key];
+            file_put_contents($path, $imageData[$key]);
+            $imageFile->removeAttribute('src');
+            $imageFile->setAttribute('src', '/images/destination/' . $imageName[$key]);
+            array_push($arrayImage, $imageName[$key]);
+        }
+
+        $content = $dom->saveHTML();
+
+        // check if image is not used in post
+        $checkNewImage =  new \DOMDocument();
+        $checkNewImage->loadHTML($content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD | libxml_use_internal_errors(true));
+        $newImages = $dom->getElementsByTagName('img');
+        $newArrayImages = [];
+        foreach ($newImages as $key => $newImage) {
+            $data = $newImage->getAttribute('src');
+            $data = explode('/', $data);
+            if (isset($data[3])) {
+                $name = $data[3];
+                array_push($newArrayImages, $name);
+            } else {
+                array_push($newArrayImages, $data[0]);
+            }
+        }
+
         if ($request->hasFile('edit_thumbnail')) {
             if (file_exists(public_path('images/destination/' . $thumbnail))) {
                 unlink(public_path('images/destination/' . $thumbnail));
@@ -205,6 +280,8 @@ class TourController extends Controller
             $image = $this->_resizeImage($request['edit_image'], 1280, 1280, '/images/destination');
         }
 
+        $slug = 'mame tirta dewata wisata ' . $request['edit_travel_name'];
+
         $data = [
             'travel_name' => $request['edit_travel_name'],
             'second_text' => $request['edit_second_text'],
@@ -213,14 +290,26 @@ class TourController extends Controller
             'region' => $request['edit_region'],
             'thumbnail' => $thumbnail,
             'image' => $image,
-            'description' => $request['edit_description'],
+            'description' => $content,
             'is_active' => $request['edit_is_active'],
-            'slug' => Str::slug($request['edit_travel_name'])
+            'slug' => Str::slug($slug)
         ];
 
         $update = $travel->update($data);
 
         if ($update) {
+            $arrayRemoveimage = array_diff($oldImages, $newArrayImages);
+            $arrayRemoveimage = implode("/", $arrayRemoveimage);
+            $arrayRemoveimage = explode("/", $arrayRemoveimage);
+            if (sizeof($arrayRemoveimage) > 0) {
+                for ($i = 0; $i < sizeof($arrayRemoveimage); $i++) {
+                    if ($arrayRemoveimage[$i] != "") {
+                        if (file_exists(unlink(public_path("images/destination/{$arrayRemoveimage[$i]}")))) {
+                            unlink(public_path("images/destination/{$arrayRemoveimage[$i]}"));
+                        }
+                    }
+                }
+            }
             Session::flash('success', "Destinasi wisata berhasil diedit");
         } else {
             Session::flash('error', "Destinasi wisata gagal diedit");
@@ -290,7 +379,8 @@ class TourController extends Controller
         return redirect()->route('tour-travel.index');
     }
 
-    public function editTravelPackage(Request $request, $id) {
+    public function editTravelPackage(Request $request, $id)
+    {
         $this->validate(
             $request,
             [
@@ -331,7 +421,8 @@ class TourController extends Controller
         return redirect()->route('tour-travel.index');
     }
 
-    public function deleteTravelPackage($id) {
+    public function deleteTravelPackage($id)
+    {
         $travelPackage = TravelPackage::find($id);
         $packageName = $travelPackage['package_name'];
 
@@ -345,7 +436,8 @@ class TourController extends Controller
         return redirect()->route('tour-travel.index');
     }
 
-    public function setActiveWisata(Request $request, $id) {
+    public function setActiveWisata(Request $request, $id)
+    {
 
         $validate = Validator::make(
             $request->all(),
@@ -391,7 +483,8 @@ class TourController extends Controller
         }
     }
 
-    public function setActivePackage(Request $request, $id) {
+    public function setActivePackage(Request $request, $id)
+    {
 
         $validate = Validator::make(
             $request->all(),
