@@ -33,6 +33,7 @@ class HomeController extends Controller
         $travels = Travel::where('is_active', 'active')->get();
         $suvenirs = Suvenir::where('is_active', 'active')->get();
         $testimonies = Testimoni::where('publish', 'yes')->get();
+
         return view('public.index', compact('title', 'mainSliders', 'services', 'elevatorPitch', 'ourServices', 'travels', 'suvenirs', 'testimonies'));
     }
 

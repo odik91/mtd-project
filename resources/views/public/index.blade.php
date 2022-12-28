@@ -142,9 +142,20 @@
           <br>
           <div class="container">
             <div class="row">
-              <div class="d-flex justify-content-center flex-wrap w-100">
+              <div class="d-flex justify-content-center flex-wrap">
                 @foreach ($travels as $travel)
-                  <div class="banner m-2">
+                  <div class="banner m-2"
+                    style="width: 240px; height: 340px; background-image: url('{{ asset('images/destination/' . $travel['thumbnail']) }}'); background-size: fit; box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3); -webkit-box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3); -moz-box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3);">
+                    {{-- <img src="{{ asset('images/destination/' . $destination['thumbnail']) }}" alt="{{ $destination['thumbnail'] }}"> --}}
+                    <div class="label"
+                      style="margin-top: -7rem; background: rgba(0, 0, 0, 0.4); padding-top: 30px; padding-bottom: 30px">
+                      <div class="title">{{ strtoupper($travel['travel_name']) }}</div>
+                      <div class="price">{{ strtoupper($travel['second_text']) }}<span
+                          style="color: orange">{{ strtoupper($travel['start_price']) }}</span></div>
+                      <a href="{{ route('detail-wisata', $travel['slug']) }}">LEARN MORE</a>
+                    </div>
+                  </div>
+                  {{-- <div class="banner m-2">
                     <img src="{{ asset('images/destination/' . $travel['thumbnail']) }}"
                       alt="{{ $travel['thumbnail'] }}" style="filter: brightness(80%);">
                     <div class="label" style="text-shadow: -4px 4px 10px rgba(0,0,0,0.6);">
@@ -152,53 +163,53 @@
                       <div class="price">
                         {{ strtoupper($travel['second_text']) }}<span>{{ $travel['start_price'] }}</span></div>
                       <a href="{{ route('detail-wisata', $travel['slug']) }}">SELENGKAPNYA</a>
-                    </div>
-                  </div>
-                @endforeach
+                    </div> --}}
               </div>
+              @endforeach
             </div>
           </div>
-          <div class="label text-center mb-4">
-            <a href="{{ route('paket-wisata') }}" class="btn-cta-link">LIHAT SEMUA PAKET</a>
-          </div>
+        </div>
+        <div class="label text-center mb-4">
+          <a href="{{ route('paket-wisata') }}" class="btn-cta-link">LIHAT SEMUA PAKET</a>
         </div>
       </div>
     </div>
-    {{-- end destinasi wisata --}}
+  </div>
+  {{-- end destinasi wisata --}}
 
-    {{-- oleh-oleh khas batam --}}
-    <div class="container_12 my-4">
-      <h3 class="text-center mx-2">OLEH-OLEH KHAS BATAM</h3>
-      <div>
-        <div class="container_12">
-          <div class="owl-carousel text-center" id="owl-carousel-1">
-            @foreach ($suvenirs as $suvenir)
-              <div class="mx-3 mb-4 pt-2">
-                <div class="rounded-circle services"
-                  style="background-image: url('{{ asset('images/suvenirs/' . $suvenir['thumbnail']) }}'); background-size: cover;">
-                </div>
-                <h5 class="text-center" style="margin-top: -100px;">
-                  <a href="#">{{ strtoupper($suvenir['suvenir_name']) }}</a>
-                </h5>
-              </div>
-            @endforeach
-          </div>
-        </div>
-      </div>
-      {{-- end oleh-oleh khas batam --}}
-    </div>
-
-    {{-- section testimoni --}}
+  {{-- oleh-oleh khas batam --}}
+  <div class="container_12 my-4">
+    <h3 class="text-center mx-2">OLEH-OLEH KHAS BATAM</h3>
     <div>
       <div class="container_12">
-        <div class="grid_12"
-          style="padding: 0 10px; box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3); -webkit-box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3); -moz-box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3);">
-          <h3 class="head1 pt-5" style="text-align: center; color: #f3aa29;">
-            Testimoni Pelanggan
-          </h3>
-          <div style="text-align: center; margin-top: -30px; margin-bottom: 10px;">
-            <div class="owl-carousel text-center" id="owl-carousel-2">
-              {{-- <div class="container bg-light p-4">
+        <div class="owl-carousel text-center" id="owl-carousel-1">
+          @foreach ($suvenirs as $suvenir)
+            <div class="mx-3 mb-4 pt-2">
+              <div class="rounded-circle services"
+                style="background-image: url('{{ asset('images/suvenirs/' . $suvenir['thumbnail']) }}'); background-size: cover;">
+              </div>
+              <h5 class="text-center" style="margin-top: -100px;">
+                <a href="#">{{ strtoupper($suvenir['suvenir_name']) }}</a>
+              </h5>
+            </div>
+          @endforeach
+        </div>
+      </div>
+    </div>
+    {{-- end oleh-oleh khas batam --}}
+  </div>
+
+  {{-- section testimoni --}}
+  <div>
+    <div class="container_12">
+      <div class="grid_12"
+        style="padding: 0 10px; box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3); -webkit-box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3); -moz-box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3);">
+        <h3 class="head1 pt-5" style="text-align: center; color: #f3aa29;">
+          Testimoni Pelanggan
+        </h3>
+        <div style="text-align: center; margin-top: -30px; margin-bottom: 10px;">
+          <div class="owl-carousel text-center" id="owl-carousel-2">
+            {{-- <div class="container bg-light p-4">
                 <div class="rounded-circle testimoni">
                   <div class="align-middle text-center text-white">
                     <img src="{{ asset('images/suvenirs/1671369288VC673mHGzhq2y62qIgc9783EXC6g2X9ldOzYgahu.jpg') }}"
@@ -210,75 +221,76 @@
                     tempor incididunt ut labore etdolore magna aliqua. Ut enim ad minim veniam, quis nostrud
                     exercitation ullamco laboris nisi ut aliquip ex</i></p>
               </div> --}}
-              @if (sizeof($testimonies) > 0)
-                @foreach ($testimonies as $testimoni)
-                  <div class="container bg-light pt-2 px-4">
-                    <h6 class="text-center pt-0" style="letter-spacing: 2px; font-weight: 600">{{ $testimoni['name'] }}</h6>
-                    <blockquote style="margin-top: -5px"><i>{{ $testimoni['content'] }}</i></blockquote>
-                  </div>
-                @endforeach
-              @else
-                <div class="container bg-light p-4">
-                  <h5 class="text-center pt-2">Belum ada testimoni</h5>
-                  <p style="margin-top: -5px"><i>Jadilah orang pertama yang memberikan testimoni</i></p>
+            @if (sizeof($testimonies) > 0)
+              @foreach ($testimonies as $testimoni)
+                <div class="container bg-light pt-2 px-4">
+                  <h6 class="text-center pt-0" style="letter-spacing: 2px; font-weight: 600">{{ $testimoni['name'] }}
+                  </h6>
+                  <blockquote style="margin-top: -5px"><i>{{ $testimoni['content'] }}</i></blockquote>
                 </div>
-              @endif
-            </div>
+              @endforeach
+            @else
+              <div class="container bg-light p-4">
+                <h5 class="text-center pt-2">Belum ada testimoni</h5>
+                <p style="margin-top: -5px"><i>Jadilah orang pertama yang memberikan testimoni</i></p>
+              </div>
+            @endif
           </div>
         </div>
       </div>
     </div>
-    {{-- end section testimoni --}}
+  </div>
+  {{-- end section testimoni --}}
 
-    {{-- form testimoni --}}
-    <div class="container_12 mt-4" style="margin-bottom: -50px">
-      <div class="grid_12"
-        style="background-color: #fff3e6; padding: 0 10px; box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3); -webkit-box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3); -moz-box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3);">
-        <div class="container">
-          <div class="row">
-            <div class="col">
-              <h3 class="text-center mt-4 pt-4">Tulis Testimoni Anda</h3>
-              <form method="POST" action="{{ route('home.store') }}">
-                @csrf
-                <div class="form-row">
-                  <div class="form-group col-md-6">
-                    <input type="email" class="form-control @error('email') is-invalid @enderror" id="email"
-                      name="email" placeholder="Email" value="{{ old('email') }}">
-                    @error('email')
-                      <span class="error invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                      </span>
-                    @enderror
-                  </div>
-                  <div class="form-group col-md-6">
-                    <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama"
-                      name="nama" placeholder="Nama" value="{{ old('nama') }}">
-                    @error('nama')
-                      <span class="error invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                      </span>
-                    @enderror
-                  </div>
+  {{-- form testimoni --}}
+  <div class="container_12 mt-4" style="margin-bottom: -50px">
+    <div class="grid_12"
+      style="background-color: #fff3e6; padding: 0 10px; box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3); -webkit-box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3); -moz-box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3);">
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <h3 class="text-center mt-4 pt-4">Tulis Testimoni Anda</h3>
+            <form method="POST" action="{{ route('home.store') }}">
+              @csrf
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <input type="email" class="form-control @error('email') is-invalid @enderror" id="email"
+                    name="email" placeholder="Email" value="{{ old('email') }}">
+                  @error('email')
+                    <span class="error invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                    </span>
+                  @enderror
                 </div>
-                <div class="form-group mt-1">
-                  <textarea class="form-control @error('testimoni') is-invalid @enderror" id="testimoni" name="testimoni"
-                    rows="6" placeholder="Tulis testimoni anda" maxlength="300">{{ old('testimoni') }}</textarea>
+                <div class="form-group col-md-6">
+                  <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama"
+                    name="nama" placeholder="Nama" value="{{ old('nama') }}">
+                  @error('nama')
+                    <span class="error invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                    </span>
+                  @enderror
                 </div>
-                @error('testimoni')
-                  <span class="error invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                  </span>
-                @enderror
-                <button type="submit" class="btn btn-cta-link mb-4">Buat Testimoni</button>
-                <br>
-                <br>
-              </form>
-            </div>
+              </div>
+              <div class="form-group mt-1">
+                <textarea class="form-control @error('testimoni') is-invalid @enderror" id="testimoni" name="testimoni"
+                  rows="6" placeholder="Tulis testimoni anda" maxlength="300">{{ old('testimoni') }}</textarea>
+              </div>
+              @error('testimoni')
+                <span class="error invalid-feedback" role="alert">
+                  <strong>{{ $message }}</strong>
+                </span>
+              @enderror
+              <button type="submit" class="btn btn-cta-link mb-4">Buat Testimoni</button>
+              <br>
+              <br>
+            </form>
           </div>
         </div>
       </div>
     </div>
-    {{-- end form testimoni --}}
+  </div>
+  {{-- end form testimoni --}}
   </div>
 @endsection
 

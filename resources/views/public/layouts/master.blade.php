@@ -2,8 +2,14 @@
 <html lang="en">
 
 <head>
+  
   <title>MTD | {{ $title ? $title : 'Home'}}</title>
   <meta charset="utf-8">
+  <meta name="title" content="home - mame tirta dewata">
+  <meta name="description" content="mame tirta dewata tour and travel dan pusat oleh-oleh batam">
+
+  {!! seo() !!}
+
   <meta name="format-detection" content="telephone=no" />
   <link rel="icon" href="{{ asset('template/images/favicon.ico') }}">
   <link rel="shortcut icon" href="{{ asset('template/images/favicon.ico') }}" />
