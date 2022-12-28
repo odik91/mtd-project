@@ -35,9 +35,27 @@
   <!--==============================Content=================================-->
   <div class="content">
     {{-- <div class="ic">More Website Templates @ TemplateMonster.com - February 10, 2014!</div> --}}
+    {{-- <div class="container px-auto" style="margin-top: -50px;">
+      <div class="row px-auto">
+        @foreach ($services as $key => $service)
+          <div class="col-sm-12 col-md-12 col-lg-4 p-2">
+            <div class="card std-shadow mx-auto"
+              style="width: 320px; height: 360px; background: rgba(0, 0, 0, .25) url('{{ asset('images/banner/' . $service['image']) }}'); background-size: cover; background-blend-mode: darken;">
+              <div class="text-center mt-4 pt-5">
+                <div class="pb-4 text-shadow" style="color: #ff7300; font-size: 1.9rem">
+                  {{ strtoupper($service['first_text']) }}</div>
+                <h6 class="text-white pb-2">{{ strtoupper($service['second_text']) }}</h6>
+                <h4 class="text-white mb-3">{{ strtoupper($service['third_text']) }}</h4>
+                <a class="button-cta" href="{{ $service['link'] }}">SELENGKAPNYA</a>
+              </div>
+            </div>
+          </div>
+        @endforeach
+      </div>
+    </div> --}}
     <div class="container_12">
       @foreach ($services as $key => $service)
-        <div class="grid_4">
+        <div class="grid_4 mx-2">
           <div class="banner"
             style="box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.4); -webkit-box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.4); -moz-box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.4);">
             @if ($key == 0)
@@ -51,7 +69,7 @@
                 style="filter: brightness(50%)">
             @endif
             {{-- <img src="{{ asset('images/banner/' . $service['image']) }}" alt=""> --}}
-            <div class="label">
+            <div class="label" style="margin-top: -70px">
               <div class="title" style="color: #f3aa29">{{ strtoupper($service['first_text']) }}</div>
               <div class="price">
                 {{ strtoupper($service['second_text']) }}<span>{{ strtoupper($service['third_text']) }}</span></div>
@@ -60,51 +78,19 @@
           </div>
         </div>
       @endforeach
-      {{-- <div class="grid_4">
-        <div class="banner">
-          <img src="{{ asset('template/images/ban_img1.jpg') }}" alt="">
-          <div class="label">
-            <div class="title">TICKETING</div>
-            <div class="price">TERSEDIA<span>PESAWAT & KAPAL</span></div>
-            <a href="#">LEARN MORE</a>
-          </div>
-        </div>
-      </div>
-      <div class="grid_4">
-        <div class="banner">
-          <img src="{{ asset('template/images/ban_img2.jpg') }}" alt="">
-          <div class="label">
-            <div class="title">PAKET TRAVEL</div>
-            <div class="price">PILIHAN<span>DALAM & LUAR NEGERI</span></div>
-            <a href="#">LEARN MORE</a>
-          </div>
-        </div>
-      </div>
-      <div class="grid_4">
-        <div class="banner">
-          <img src="{{ asset('template/images/ban_img3.jpg') }}" alt="">
-          <div class="label">
-            <div class="title">PUSAT OLEH-OLEH</div>
-            <div class="price">TERSEDIA<span>ANEKA BUAH TANGAN</span></div>
-            <a href="#">LEARN MORE</a>
-          </div>
-        </div>
-      </div> --}}
     </div>
 
     {{-- section elevator pitch --}}
-    <div>
-      <div class="container_12 shadow-sm">
-        <div class="grid_12"
-          style="background-color: #fff3e6; padding: 30px; box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3); -webkit-box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3); -moz-box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3);">
+    <div class="container px-5 pt-2 mb-4">
+      <div class="card mx-2 box-shadow px-4" style="background-color: #fff3e6;">
+        <div class="card-body">
           <div class="text-center">
             <img src="{{ asset('template/images/mtd-color.png') }}" alt="mtd-color.png" style="width: 100px">
           </div>
-          <h3 class="head1"
-            style="text-align: center; margin-top: -20px; color: #f3aa29; text-shadow: -4px 4px 10px rgba(0,0,0,0.2);">
+          <h3 class="p-0 mb-0 mt-3 mx-0 text-center" style="color: #f3aa29; text-shadow: -4px 4px 10px rgba(0,0,0,0.2);">
             {{ strtoupper($elevatorPitch['title']) }}
           </h3>
-          <div style="text-align: center; margin-top: -25px; margin-bottom: 40px;">
+          <div class="text-center mt-2 mb-4">
             {{ $elevatorPitch['content'] }}
           </div>
         </div>
@@ -113,184 +99,157 @@
     {{-- end section elevator pitch --}}
 
     {{-- our services --}}
-    <div class="container_12 my-4">
-      <h3 class="text-center mx-2"><u>Our Services</u></h3>
-      <div class="d-flex justify-content-center d-flex justify-content-center flex-wrap">
-        @foreach ($ourServices as $ourService)
-          <div class="mx-3 mb-4">
-            <div class="rounded-circle services">
-              <div class="align-middle text-center text-white">
-                <i class="{{ $ourService['icon'] }}" style="font-size: 75px;"></i>
-              </div>
-            </div>
-            <h5 class="text-center" style="margin-top: -100px; color: #f3aa29;">
-              {{ ucwords($ourService['service_name']) }}</h5>
-          </div>
-        @endforeach
-      </div>
-    </div>
-    {{-- end our services --}}
-
-    {{-- destinasi wisata --}}
-    <div>
-      <div class="container_12">
-        <div class="grid_12"
-          style="background-color: #fff3e6; padding: 30px; box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3); -webkit-box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3); -moz-box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3);">
-          <h3 class="head1" style="text-align: center; color: #f3aa29; margin-top: -15px">
-            PAKET WISATA
-          </h3>
-          <br>
-          <div class="container">
-            <div class="row">
-              <div class="d-flex justify-content-center flex-wrap">
-                @foreach ($travels as $travel)
-                  <div class="banner m-2"
-                    style="width: 240px; height: 340px; background-image: url('{{ asset('images/destination/' . $travel['thumbnail']) }}'); background-size: fit; box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3); -webkit-box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3); -moz-box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3);">
-                    {{-- <img src="{{ asset('images/destination/' . $destination['thumbnail']) }}" alt="{{ $destination['thumbnail'] }}"> --}}
-                    <div class="label"
-                      style="margin-top: -7rem; background: rgba(0, 0, 0, 0.4); padding-top: 30px; padding-bottom: 30px">
-                      <div class="title">{{ strtoupper($travel['travel_name']) }}</div>
-                      <div class="price">{{ strtoupper($travel['second_text']) }}<span
-                          style="color: orange">{{ strtoupper($travel['start_price']) }}</span></div>
-                      <a href="{{ route('detail-wisata', $travel['slug']) }}">LEARN MORE</a>
-                    </div>
-                  </div>
-                  {{-- <div class="banner m-2">
-                    <img src="{{ asset('images/destination/' . $travel['thumbnail']) }}"
-                      alt="{{ $travel['thumbnail'] }}" style="filter: brightness(80%);">
-                    <div class="label" style="text-shadow: -4px 4px 10px rgba(0,0,0,0.6);">
-                      <div class="title" style="color: #ff7300">{{ strtoupper($travel['travel_name']) }}</div>
-                      <div class="price">
-                        {{ strtoupper($travel['second_text']) }}<span>{{ $travel['start_price'] }}</span></div>
-                      <a href="{{ route('detail-wisata', $travel['slug']) }}">SELENGKAPNYA</a>
-                    </div> --}}
-              </div>
-              @endforeach
-            </div>
-          </div>
+    <div class="container px-5 pt-2 mb-4">
+      <div class="card mx-2 box-shadow">
+        <div class="card-body">
+          <h3 class="text-center mx-2 pt-4 mb-2">OUR SERVICES</h3>
         </div>
-        <div class="label text-center mb-4">
-          <a href="{{ route('paket-wisata') }}" class="btn-cta-link">LIHAT SEMUA PAKET</a>
-        </div>
-      </div>
-    </div>
-  </div>
-  {{-- end destinasi wisata --}}
-
-  {{-- oleh-oleh khas batam --}}
-  <div class="container_12 my-4">
-    <h3 class="text-center mx-2">OLEH-OLEH KHAS BATAM</h3>
-    <div>
-      <div class="container_12">
-        <div class="owl-carousel text-center" id="owl-carousel-1">
-          @foreach ($suvenirs as $suvenir)
-            <div class="mx-3 mb-4 pt-2">
-              <div class="rounded-circle services"
-                style="background-image: url('{{ asset('images/suvenirs/' . $suvenir['thumbnail']) }}'); background-size: cover;">
+        <div class="d-flex justify-content-center d-flex justify-content-center flex-wrap">
+          @foreach ($ourServices as $ourService)
+            <div class="mx-3 mb-5">
+              <div class="rounded-circle services">
+                <div class="align-middle text-center text-white">
+                  <i class="{{ $ourService['icon'] }}" style="font-size: 75px;"></i>
+                </div>
               </div>
-              <h5 class="text-center" style="margin-top: -100px;">
-                <a href="#">{{ strtoupper($suvenir['suvenir_name']) }}</a>
-              </h5>
+              <h5 class="text-center mt-3" style="color: #f3aa29;">
+                {{ strtoupper($ourService['service_name']) }}</h5>
             </div>
           @endforeach
         </div>
       </div>
     </div>
-    {{-- end oleh-oleh khas batam --}}
-  </div>
 
-  {{-- section testimoni --}}
-  <div>
-    <div class="container_12">
-      <div class="grid_12"
-        style="padding: 0 10px; box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3); -webkit-box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3); -moz-box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3);">
-        <h3 class="head1 pt-5" style="text-align: center; color: #f3aa29;">
-          Testimoni Pelanggan
-        </h3>
-        <div style="text-align: center; margin-top: -30px; margin-bottom: 10px;">
-          <div class="owl-carousel text-center" id="owl-carousel-2">
-            {{-- <div class="container bg-light p-4">
-                <div class="rounded-circle testimoni">
-                  <div class="align-middle text-center text-white">
-                    <img src="{{ asset('images/suvenirs/1671369288VC673mHGzhq2y62qIgc9783EXC6g2X9ldOzYgahu.jpg') }}"
-                      alt="">
+    {{-- destinasi wisata --}}
+    <div class="container px-5 pt-2 mb-4">
+      <div class="card mx-2 box-shadow">
+        <div class="card-body">
+          <h3 class="text-center mx-0 mb-4 mt-2 py-0" style="padding-top: 30px; color: #f3aa29;">PAKET LAINNYA</h3>
+          <div class="d-flex justify-content-center flex-wrap w-100">
+            @foreach ($travels as $travel)
+              <div class="card m-2 std-shadow"
+                style="width: 270px; height: 360px; background: rgba(0, 0, 0, .25) url('{{ asset('images/destination/' . $travel['thumbnail']) }}'); background-size: cover; background-blend-mode: darken;">
+                <div class="text-center mt-4 pt-5">
+                  <div class="pb-4 text-shadow" style="color: #ff7300; font-size: 1.9rem">
+                    {{ strtoupper($travel['travel_name']) }}</div>
+                  <h6 class="text-white pb-2">{{ strtoupper($travel['second_text']) }}</h6>
+                  <h4 class="text-white mb-3">{{ strtoupper($travel['start_price']) }}</h4>
+                  <a class="button-cta" href="{{ route('detail-wisata', $travel['slug']) }}">SELENGKAPNYA</a>
+                </div>
+              </div>
+            @endforeach
+          </div>
+          <div class="label text-center my-4">
+            <a href="{{ route('paket-wisata') }}" class="btn-cta-link">LIHAT SEMUA PAKET</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    {{-- end destinasi wisata --}}
+
+    {{-- oleh-oleh khas batam --}}
+    <div class="container px-5 pt-2 mb-4">
+      <div class="card mx-2 box-shadow">
+        <div class="card-body">
+          <h3 class="text-center mx-0 mb-4 mt-2 py-0" style="padding-top: 30px;">OLEH-OLEH KHAS BATAM</h3>
+          <div class="owl-carousel text-center" id="owl-carousel-1">
+            @foreach ($suvenirs as $suvenir)
+              <div class="mx-3 mb-4 pt-2">
+                <div class="rounded-circle services"
+                  style="background-image: url('{{ asset('images/suvenirs/' . $suvenir['thumbnail']) }}'); background-size: cover;">
+                </div>
+                <h5 class="text-center mt-3">
+                  <a href="#" style="color: #f3aa29;">{{ strtoupper($suvenir['suvenir_name']) }}</a>
+                </h5>
+              </div>
+            @endforeach
+          </div>
+        </div>
+      </div>
+    </div>
+    {{-- oleh-oleh khas batam --}}
+
+    {{-- section testimoni --}}
+    <div class="container px-5 pt-2 mb-4">
+      <div class="card mx-2 box-shadow">
+        <div class="card-body">
+          <h3 class="text-center mt-3" style="color: #f3aa29;">
+            TESTIMONI PELANGGAN
+          </h3>
+          <div class="text-center mt-3">
+            <div class="owl-carousel text-center" id="owl-carousel-2">
+              @if (sizeof($testimonies) > 0)
+                @foreach ($testimonies as $testimoni)
+                  <div class="container pt-3 px-4">
+                    <h6 class="text-center pt-0" style="letter-spacing: 2px; font-weight: 600">{{ $testimoni['name'] }}
+                    </h6>
+                    <blockquote class="mt-2"><i>{{ $testimoni['content'] }}</i></blockquote>
                   </div>
+                @endforeach
+              @else
+                <div class="container p-4">
+                  <h5 class="text-center pt-2">Belum ada testimoni</h5>
+                  <p><i>Jadilah orang pertama yang memberikan testimoni</i></p>
                 </div>
-                <h5 class="text-center pt-2"><i>John Doe</i></h5>
-                <p style="margin-top: -5px"><i>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                    tempor incididunt ut labore etdolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                    exercitation ullamco laboris nisi ut aliquip ex</i></p>
-              </div> --}}
-            @if (sizeof($testimonies) > 0)
-              @foreach ($testimonies as $testimoni)
-                <div class="container bg-light pt-2 px-4">
-                  <h6 class="text-center pt-0" style="letter-spacing: 2px; font-weight: 600">{{ $testimoni['name'] }}
-                  </h6>
-                  <blockquote style="margin-top: -5px"><i>{{ $testimoni['content'] }}</i></blockquote>
-                </div>
-              @endforeach
-            @else
-              <div class="container bg-light p-4">
-                <h5 class="text-center pt-2">Belum ada testimoni</h5>
-                <p style="margin-top: -5px"><i>Jadilah orang pertama yang memberikan testimoni</i></p>
-              </div>
-            @endif
+              @endif
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  {{-- end section testimoni --}}
+    {{-- section testimoni --}}
 
-  {{-- form testimoni --}}
-  <div class="container_12 mt-4" style="margin-bottom: -50px">
-    <div class="grid_12"
-      style="background-color: #fff3e6; padding: 0 10px; box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3); -webkit-box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3); -moz-box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3);">
-      <div class="container">
-        <div class="row">
-          <div class="col">
-            <h3 class="text-center mt-4 pt-4">Tulis Testimoni Anda</h3>
-            <form method="POST" action="{{ route('home.store') }}">
-              @csrf
-              <div class="form-row">
-                <div class="form-group col-md-6">
-                  <input type="email" class="form-control @error('email') is-invalid @enderror" id="email"
-                    name="email" placeholder="Email" value="{{ old('email') }}">
-                  @error('email')
+    {{-- form testimoni --}}
+    <div class="container px-5 pt-2 mb-4">
+      <div class="card mx-2 box-shadow">
+        <div class="card-body">
+          <div class="container">
+            <div class="row">
+              <div class="col">
+                <h3 class="text-center mt-3 mb-4">Tulis Testimoni Anda</h3>
+                <form method="POST" action="{{ route('home.store') }}">
+                  @csrf
+                  <div class="form-row">
+                    <div class="form-group col-md-6">
+                      <input type="email" class="form-control @error('email') is-invalid @enderror" id="email"
+                        name="email" placeholder="Email" value="{{ old('email') }}">
+                      @error('email')
+                        <span class="error invalid-feedback" role="alert">
+                          <strong>{{ $message }}</strong>
+                        </span>
+                      @enderror
+                    </div>
+                    <div class="form-group col-md-6">
+                      <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama"
+                        name="nama" placeholder="Nama" value="{{ old('nama') }}">
+                      @error('nama')
+                        <span class="error invalid-feedback" role="alert">
+                          <strong>{{ $message }}</strong>
+                        </span>
+                      @enderror
+                    </div>
+                  </div>
+                  <div class="form-group mt-1">
+                    <textarea class="form-control @error('testimoni') is-invalid @enderror" id="testimoni" name="testimoni"
+                      rows="6" placeholder="Tulis testimoni anda" maxlength="300">{{ old('testimoni') }}</textarea>
+                  </div>
+                  @error('testimoni')
                     <span class="error invalid-feedback" role="alert">
                       <strong>{{ $message }}</strong>
                     </span>
                   @enderror
-                </div>
-                <div class="form-group col-md-6">
-                  <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama"
-                    name="nama" placeholder="Nama" value="{{ old('nama') }}">
-                  @error('nama')
-                    <span class="error invalid-feedback" role="alert">
-                      <strong>{{ $message }}</strong>
-                    </span>
-                  @enderror
-                </div>
+                  <button type="submit" class="btn btn-cta-link mb-4">Buat Testimoni</button>
+                  <br>
+                  <br>
+                </form>
               </div>
-              <div class="form-group mt-1">
-                <textarea class="form-control @error('testimoni') is-invalid @enderror" id="testimoni" name="testimoni"
-                  rows="6" placeholder="Tulis testimoni anda" maxlength="300">{{ old('testimoni') }}</textarea>
-              </div>
-              @error('testimoni')
-                <span class="error invalid-feedback" role="alert">
-                  <strong>{{ $message }}</strong>
-                </span>
-              @enderror
-              <button type="submit" class="btn btn-cta-link mb-4">Buat Testimoni</button>
-              <br>
-              <br>
-            </form>
+            </div>
           </div>
         </div>
       </div>
     </div>
+    {{-- form testimoni --}}
   </div>
-  {{-- end form testimoni --}}
   </div>
 @endsection
 
@@ -360,4 +319,148 @@
       })
     @endif
   </script>
+@endpush
+
+@push('addon-css')
+  <style>
+    .box-shadow {
+      box-shadow: -1px 1px 28px 0px rgba(0, 0, 0, 0.3);
+      -webkit-box-shadow: -1px 1px 28px 0px rgba(0, 0, 0, 0.3);
+      -moz-box-shadow: -1px 1px 28px 0px rgba(0, 0, 0, 0.3);
+    }
+
+    .card {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .std-shadow {
+      box-shadow: -1px 1px 28px 0px rgba(0, 0, 0, 0.2);
+      -webkit-box-shadow: -1px 1px 28px 0px rgba(0, 0, 0, 0.2);
+      -moz-box-shadow: -1px 1px 28px 0px rgba(0, 0, 0, 0.2);
+    }
+
+    .main-description {
+      text-transform: none;
+    }
+
+    .main-description h1 {
+      text-transform: none;
+    }
+
+    .main-description h2 {
+      text-transform: none;
+    }
+
+    .main-description h3 {
+      text-transform: none;
+    }
+
+    .main-description h4 {
+      text-transform: none;
+    }
+
+    .main-description h5 {
+      text-transform: none;
+    }
+
+    .main-description h6 {
+      text-transform: none;
+    }
+
+    .card h1 {
+      text-transform: none;
+      padding: 0px;
+      margin: 0px;
+    }
+
+    .card h2 {
+      text-transform: none;
+      padding: 0px;
+      margin: 0px;
+    }
+
+    .card h3 {
+      text-transform: none;
+      padding: 0px;
+      margin: 0px;
+    }
+
+    .card h4 {
+      text-transform: none;
+      padding: 0px;
+      margin: 0px;
+    }
+
+    .card h5 {
+      text-transform: none;
+      padding: 0px;
+      margin: 0px;
+    }
+
+    .card h6 {
+      text-transform: none;
+      padding: 0px;
+      margin: 0px;
+    }
+
+    .card div h3 {
+      text-transform: none;
+      padding: 0px;
+      margin: 0px;
+    }
+
+    .badge {
+      width: 45px;
+      height: 45px;
+      margin-top: 5px;
+      margin-bottom: 5px;
+      background-image: linear-gradient(to right top, #ffb100, #f0c000, #dccf00, #c5de00, #a8eb12);
+    }
+
+    .badge hr {
+      margin: 4px 0px 2px 0px;
+      border-color: aliceblue;
+    }
+
+    .badge span {
+      font-size: 0.6rem;
+      font-weight: 300;
+    }
+
+    .destinasi h5 {
+      text-transform: none;
+      padding: 0px;
+      margin: 0px;
+    }
+
+    .destinasi span {
+      text-transform: none;
+      font-weight: 300
+    }
+
+    .button-cta {
+      font-size: 14px;
+      line-height: 20px;
+      color: #c73430;
+      text-transform: uppercase;
+      display: inline-block;
+      background-color: #e5e5e5;
+      padding: 5px 18px 4px;
+      margin-top: 25px;
+      border-radius: 13px;
+    }
+
+    .button-cta:hover {
+      color: #e5e5e5;
+      background-color: #c73430;
+    }
+
+    .text-shadow {
+      text-shadow: -4px 4px 10px rgba(0,0,0,0.6);
+    }
+
+    .content {
+      padding-bottom: 5px !important;
+    }
+  </style>
 @endpush

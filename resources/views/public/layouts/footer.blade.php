@@ -1,4 +1,4 @@
-<footer style="background-color: #001c35;">
+<footer style="background-color: #001c35;" class="p-0 m-0">
   <div class="container">
     <div class="row p-4">
       @php
