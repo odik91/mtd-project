@@ -749,14 +749,14 @@
       const summernote_height = 400;
       const summernote_toolbar = [
         ['style', ['style']],
-        ['font', ['bold', 'italic', 'underline', 'clear']],
+        ['font', ['clear', 'fontname', 'fontsize', 'fontsizeunit' , 'forecolor' , 'backcolor' , 'strikethrough', 'superscript', 'subscript']],
         ['fontname', ['fontname']],
         ['color', ['color']],
         ['para', ['ul', 'ol', 'paragraph']],
         ['height', ['height']],
         ['insert', ['link', 'picture', 'hr', 'video']],
         ['view', ['fullscreen', 'codeview']],
-        ['help', ['help']]
+        ['help', ['help']],        
       ];
       const summernote_popover = {
         image: [
@@ -772,12 +772,12 @@
           ['font', ['bold', 'underline', 'clear']],
           ['para', ['ul', 'paragraph']],
           ['insert', ['link', 'picture']]
-        ]
+        ],
       }
 
       const summernote_toolbar_2 = [
         ['style', ['style']],
-        ['font', ['bold', 'italic', 'underline', 'clear']],
+        ['font', ['clear', 'fontname', 'fontsize', 'fontsizeunit' , 'forecolor' , 'backcolor' , 'strikethrough', 'superscript', 'subscript']],
         ['fontname', ['fontname']],
         ['color', ['color']],
         ['para', ['ul', 'ol', 'paragraph']],
