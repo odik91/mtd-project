@@ -32,7 +32,7 @@
                 <span>Travel</span>
               </div>
               <div class="px-2 py-1 destinasi">
-                <h5 class="py-0" style="text-transform: none; color: orange">INDONESIA</h5>
+                <h5 class="py-0" style="text-transform: none; color: orange">{{ strtoupper($travel['country']) }}</h5>
                 <span>Destinasi wisata:</span> <b class="text-info">{{ ucwords($travel['region']) }}</b>
               </div>
             </div>

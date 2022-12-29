@@ -749,7 +749,7 @@
       const summernote_height = 400;
       const summernote_toolbar = [
         ['style', ['style']],
-        ['font', ['clear', 'fontname', 'fontsize', 'fontsizeunit' , 'forecolor' , 'backcolor' , 'strikethrough', 'superscript', 'subscript']],
+        ['font', ['bold', 'italic', 'underline', 'clear']],
         ['fontname', ['fontname']],
         ['color', ['color']],
         ['para', ['ul', 'ol', 'paragraph']],
@@ -777,7 +777,7 @@
 
       const summernote_toolbar_2 = [
         ['style', ['style']],
-        ['font', ['clear', 'fontname', 'fontsize', 'fontsizeunit' , 'forecolor' , 'backcolor' , 'strikethrough', 'superscript', 'subscript']],
+        ['font', ['bold', 'italic', 'underline', 'clear']],
         ['fontname', ['fontname']],
         ['color', ['color']],
         ['para', ['ul', 'ol', 'paragraph']],
