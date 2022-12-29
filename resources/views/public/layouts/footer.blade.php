@@ -4,6 +4,10 @@
       @php
         $detail = App\Models\About::first();
         $contacts = App\Models\ContactPerson::get();
+        $was = App\Models\ContactPerson::where('contact_media', 'wa')->get();
+        $hps = App\Models\ContactPerson::where('contact_media', 'hp')->get();
+        $tgs = App\Models\ContactPerson::where('contact_media', 'telegram')->get();
+        $emails = App\Models\ContactPerson::where('contact_media', 'email')->get();
       @endphp
       <div class="col-sm p-4">
         <div class="text-center">
@@ -16,18 +20,41 @@
           <p class="text-center" style="margin-top: -25px">
             {{ ucwords($detail['alamat']) . ' ' . ucwords($detail['kelurahan']) . ' ' . ucwords($detail['kecamatan']) . ' ' . ucwords($detail['kabupaten']) . ' ' . ucwords($detail['provinsi']) }}
           </p>
-          <div class="text-center">
-            @if (sizeof($contacts) > 0)
-              @foreach ($contacts as $contact)
-                <strong>{{ ucwords($contact['contact_media']) }}: </strong>{{ $contact['contact'] }}<br>
-              @endforeach
-            @endif
-            {{-- <div class="socials text-center" style="float: none; display: flex; justify-content: center">
-                  <a href="#" class="fa-brands fa-whatsapp"></a>
-                  <a href="#" class="fa-brands fa-facebook"></a>
-                  <a href="#" class="fa-brands fa-twitter"></a>
-                  <a href="#" class="fa-brands fa-google"></a>
-                </div> --}}
+          <div class="text-center mt-0">
+            <span>
+              @if (isset($hps) && sizeof($hps) > 0)
+                {{ 'HP: ' }}
+                @foreach ($hps as $hp)
+                  {{ ' ' . $hp['contact'] . ', ' }}
+                @endforeach
+              @endif
+            </span>
+            <br>
+            <span>
+              @if (isset($was) && sizeof($was) > 0)
+                {{ 'WA: ' }}
+                @foreach ($was as $wa)
+                  {{ ' ' . $wa['contact'] . ', ' }}
+                @endforeach
+              @endif
+            </span>
+            <br>
+            <span>
+              @if (isset($telegram) && sizeof($telegram) > 0)
+                {{ 'Telegram: ' }}
+                @foreach ($telegram as $tg)
+                  {{ ' ' . $tg['contact'] . ', ' }}
+                @endforeach
+              @endif
+            </span>
+            <span>
+              @if (isset($emails) && sizeof($emails) > 0)
+                {{ 'Email: ' }}
+                @foreach ($emails as $email)
+                  {{ ' ' . $email['contact'] . ', ' }}
+                @endforeach
+              @endif
+            </span>
           </div>
         </div>
       </div>

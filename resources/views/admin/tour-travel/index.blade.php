@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('content')
-<meta name="csrf-token" content="{{ csrf_token() }}" />
+  <meta name="csrf-token" content="{{ csrf_token() }}" />
   <div class="content-header">
     <div class="container-fluid">
       <div class="row mb-2">
@@ -192,10 +192,12 @@
                         </td>
                         <td>{!! strip_tags(substr($travel['description'], 0, 100)) !!}...</td>
                         <td>{{ count(App\Models\TravelPackage::where('travel_id', $travel['id'])->get()) }}</td>
-                        <td>                          
+                        <td>
                           <select name="select_wisata[]" class="form-control">
-                            <option value="active,{{ $travel['id'] }}" {{ $travel['is_active'] == 'active' ? 'selected' : '' }}>Ya</option>
-                            <option value="inactive,{{ $travel['id'] }}" {{ $travel['is_active'] == 'inactive' ? 'selected' : '' }}>Tidak</option>
+                            <option value="active,{{ $travel['id'] }}"
+                              {{ $travel['is_active'] == 'active' ? 'selected' : '' }}>Ya</option>
+                            <option value="inactive,{{ $travel['id'] }}"
+                              {{ $travel['is_active'] == 'inactive' ? 'selected' : '' }}>Tidak</option>
                           </select>
                         </td>
                         <td>
@@ -384,9 +386,9 @@
                           {{-- modal warning hapus slider --}}
 
                           {{-- modal tambah paket direct --}}
-                          <div class="modal fade" id="modal-direct-add-package-{{ $travel['id'] }}" data-backdrop="static"
-                            data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
-                            aria-hidden="true">
+                          <div class="modal fade" id="modal-direct-add-package-{{ $travel['id'] }}"
+                            data-backdrop="static" data-keyboard="false" tabindex="-1"
+                            aria-labelledby="staticBackdropLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered">
                               <div class="modal-content">
                                 <div class="modal-header">
@@ -401,15 +403,18 @@
                                     <div class="card-body">
                                       <div class="form-group">
                                         <select name="travel_id" class="form-control">
-                                          <option value="{{ $travel['id'] }}" selected>{{ ucwords($travel['travel_name']) }}</option>
+                                          <option value="{{ $travel['id'] }}" selected>
+                                            {{ ucwords($travel['travel_name']) }}</option>
                                         </select>
                                       </div>
                                       <div class="row">
                                         <div class="col-sm col-lg-6 col-md-6 mb-3">
-                                          <input type="text" class="form-control" placeholder="Nama Paket" name="package_name">
+                                          <input type="text" class="form-control" placeholder="Nama Paket"
+                                            name="package_name">
                                         </div>
                                         <div class="col-sm col-lg-6 col-md-6 mb-3">
-                                          <input type="text" class="form-control" placeholder="Harga" name="package_price">
+                                          <input type="text" class="form-control" placeholder="Harga"
+                                            name="package_price">
                                         </div>
                                       </div>
                                       <div class="form-group">
@@ -561,8 +566,10 @@
                         <td>{!! strip_tags(substr($travelPackage['description'], 0, 100)) !!}...</td>
                         <td>
                           <select name="select_package[]" class="form-control">
-                            <option value="active,{{ $travelPackage['id'] }}" {{ $travelPackage['is_active'] == 'active' ? 'selected' : '' }}>Ya</option>
-                            <option value="inactive,{{ $travelPackage['id'] }}" {{ $travelPackage['is_active'] == 'inactive' ? 'selected' : '' }}>Tidak</option>
+                            <option value="active,{{ $travelPackage['id'] }}"
+                              {{ $travelPackage['is_active'] == 'active' ? 'selected' : '' }}>Ya</option>
+                            <option value="inactive,{{ $travelPackage['id'] }}"
+                              {{ $travelPackage['is_active'] == 'inactive' ? 'selected' : '' }}>Tidak</option>
                           </select>
                         </td>
                         <td>
@@ -716,7 +723,9 @@
 
 @push('addon-css')
   <!-- summernote -->
-  <link rel="stylesheet" href="{{ asset('temp-adm/plugins/summernote/summernote-bs4.min.css') }}">
+  {{-- <link rel="stylesheet" href="{{ asset('temp-adm/plugins/summernote/summernote-bs4.min.css') }}"> --}}
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
 @endpush
 
@@ -727,7 +736,14 @@
   {{-- sweet alert --}}
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <!-- Summernote -->
-  <script src="{{ asset('temp-adm/plugins/summernote/summernote-bs4.min.js') }}"></script>
+  {{-- <script src="{{ asset('temp-adm/plugins/summernote/summernote-bs4.min.js') }}"></script> --}}
+  <!-- include summernote css/js -->
+  {{-- <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script> --}}
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
   <script>
     @if ($message = Session::get('success'))
       Swal.fire({
@@ -748,15 +764,15 @@
       const summernote_tabsize = 2;
       const summernote_height = 400;
       const summernote_toolbar = [
-        ['style', ['style']],
-        ['font', ['bold', 'italic', 'underline', 'clear']],
-        ['fontname', ['fontname']],
+        ['style', ['bold', 'italic', 'underline', 'clear']],
+        ['font', ['strikethrough', 'superscript', 'subscript']],
+        ['fontsize', ['fontsize']],
         ['color', ['color']],
         ['para', ['ul', 'ol', 'paragraph']],
         ['height', ['height']],
         ['insert', ['link', 'picture', 'hr', 'video']],
         ['view', ['fullscreen', 'codeview']],
-        ['help', ['help']],        
+        ['help', ['help']],
       ];
       const summernote_popover = {
         image: [
@@ -776,9 +792,9 @@
       }
 
       const summernote_toolbar_2 = [
-        ['style', ['style']],
-        ['font', ['bold', 'italic', 'underline', 'clear']],
-        ['fontname', ['fontname']],
+        ['style', ['bold', 'italic', 'underline', 'clear']],
+        ['font', ['strikethrough', 'superscript', 'subscript']],
+        ['fontsize', ['fontsize']],
         ['color', ['color']],
         ['para', ['ul', 'ol', 'paragraph']],
         ['height', ['height']],
@@ -924,11 +940,11 @@
     let testiElement = $('select[name="select_wisata[]"]')
     let origin = window.location.origin
     let target = origin + '/admin/activate-tour/'
-    changeStatus(testiElement, target) 
+    changeStatus(testiElement, target)
 
     // ajax package 
     let packageElement = $('select[name="select_package[]"]')
     let packagetarget = origin + '/admin/activate-package/'
-    changeStatus(packageElement, packagetarget) 
+    changeStatus(packageElement, packagetarget)
   </script>
 @endpush
