@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
 
 <head>
 
@@ -10,11 +11,11 @@
   {{-- {!! SEO::generate() !!} --}}
 
   {!! SEOMeta::generate() !!}
-    {!! OpenGraph::generate() !!}
-    {!! Twitter::generate() !!}
-    {!! JsonLd::generate() !!}
-    {{-- // OR with multi --}}
-    {!! JsonLdMulti::generate() !!}
+  {!! OpenGraph::generate() !!}
+  {!! Twitter::generate() !!}
+  {!! JsonLd::generate() !!}
+  {{-- // OR with multi --}}
+  {!! JsonLdMulti::generate() !!}
 
 
   {{-- {!! seo() !!} --}}

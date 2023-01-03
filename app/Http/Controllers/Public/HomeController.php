@@ -44,7 +44,7 @@ class HomeController extends Controller
         $suvenirs = Suvenir::where('is_active', 'active')->get();
         $testimonies = Testimoni::where('publish', 'yes')->get();
 
-        SEOTools::setTitle('Home', false);
+        SEOTools::setTitle($title, false);
         SEOTools::setDescription('mame tirta dewata tour and travel dan pusat oleh-oleh batam', false);
         SEOTools::opengraph()->setUrl('https://mtd-travel-batam.com/home');
         SEOTools::setCanonical('https://mtd-travel-batam.com');
