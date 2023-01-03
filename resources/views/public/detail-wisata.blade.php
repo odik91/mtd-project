@@ -22,7 +22,7 @@
       <div class="col-sm-12 col-md-8 col-lg-8 p-2">
         <div class="card">
           <div class="mb-0 px-4 pt-4">
-            <h3 class="py-0 my-0">Mame Tirta Dewata Wisata {{ ucwords($title) }}</h3>
+            <h3 class="py-0 my-0">Mame Tirta Dewata Wisata {{ ucwords($travel['travel_name']) }}</h3>
           </div>
           <div class="card-body">
             <div class="d-flex justify-content-start mb-2">
