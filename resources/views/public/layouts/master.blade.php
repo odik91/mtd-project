@@ -20,7 +20,7 @@
 
   {{-- {!! seo() !!} --}}
 
-  <meta name="google-site-verification" content="e3VCKG6fcp-ZlurawHmUWKhzNbpHfRU5-T1l5G4qHQGU" />
+  <meta name="google-site-verification" content="3VCKG6fcp-ZlurawHmUWKhzNbpHfRU5-T1l5G4qHQGU" />
   <meta name="author" content="Mame Tirta Dewata Official">
   <meta name="robots" content="index, follow" />
   <meta name="publisher" content="Hamba Allah - Website ini dilindungi Allah SWT" />
