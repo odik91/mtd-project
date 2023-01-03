@@ -2,8 +2,8 @@
 <html lang="en">
 
 <head>
-  
-  <title>MTD | {{ $title ? $title : 'Home'}}</title>
+
+  <title>MTD | {{ $title ? $title : 'Home' }}</title>
   <meta charset="utf-8">
   {{-- <meta name="title" content="home - mame tirta dewata">
   <meta name="description" content="mame tirta dewata tour and travel dan pusat oleh-oleh batam"> --}}
@@ -12,6 +12,7 @@
 
   {{-- {!! seo() !!} --}}
 
+  <meta name="google-site-verification" content="e3VCKG6fcp-ZlurawHmUWKhzNbpHfRU5-T1l5G4qHQGU" />
   <meta name="format-detection" content="telephone=no" />
   <link rel="icon" href="{{ asset('template/images/favicon.ico') }}">
   {{-- <link rel="shortcut icon" href="{{ asset('template/images/favicon.ico') }}" /> --}}
@@ -79,21 +80,21 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
     integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
-      
+
   @stack('addon-css')
 </head>
 
 <body class="page1" id="top">
   <!--==============================header=================================-->
   @include('public.layouts.header')
-  
+
   @yield('content')
 
   @include('public.layouts.sosmed')
 
   <!--==============================footer=================================-->
   @include('public.layouts.footer')
-  
+
   <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
     integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
@@ -101,7 +102,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
-  @stack('addon-js')  
+  @stack('addon-js')
 </body>
 
 </html>

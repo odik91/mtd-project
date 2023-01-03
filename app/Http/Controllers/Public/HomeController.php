@@ -146,6 +146,10 @@ class HomeController extends Controller
     {
         $title = "Paket Wisata";
         $destinations = Travel::where('is_active', 'active')->get();
+        SEOTools::setTitle('Paket Wisata');
+        SEOTools::setDescription('mame tirta dewata tour and travel batam paket wisata');
+        SEOTools::opengraph()->setUrl('https://mtd-travel-batam.com/paket-wisata');
+        SEOTools::setCanonical('https://mtd-travel-batam.com');
         return view('public.paket-wisata', compact('title', 'destinations'));
     }
 
