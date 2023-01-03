@@ -250,7 +250,6 @@
     </div>
     {{-- form testimoni --}}
   </div>
-  </div>
 @endsection
 
 @push('addon-js')
@@ -456,7 +455,7 @@
     }
 
     .text-shadow {
-      text-shadow: -4px 4px 10px rgba(0,0,0,0.6);
+      text-shadow: -4px 4px 10px rgba(0, 0, 0, 0.6);
     }
 
     .content {

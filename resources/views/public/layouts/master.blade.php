@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1" />
 
 <head>
 
   {{-- <title>MTD | {{ $title ? $title : 'Home' }}</title> --}}
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   {{-- <meta name="title" content="home - mame tirta dewata">
   <meta name="description" content="mame tirta dewata tour and travel dan pusat oleh-oleh batam"> --}}
   {{-- {!! SEO::generate() !!} --}}
