@@ -44,8 +44,8 @@ class HomeController extends Controller
         $suvenirs = Suvenir::where('is_active', 'active')->get();
         $testimonies = Testimoni::where('publish', 'yes')->get();
 
-        SEOTools::setTitle('Home');
-        SEOTools::setDescription('mame tirta dewata tour and travel dan pusat oleh-oleh batam');
+        SEOTools::setTitle('Home', false);
+        SEOTools::setDescription('mame tirta dewata tour and travel dan pusat oleh-oleh batam', false);
         SEOTools::opengraph()->setUrl('https://mtd-travel-batam.com/home');
         SEOTools::setCanonical('https://mtd-travel-batam.com');
 
@@ -161,8 +161,8 @@ class HomeController extends Controller
             array_push($keywords, 'paket wisata ' . $destination['travel_name']);
         }
 
-        SEOTools::setTitle('Paket Wisata');
-        SEOTools::setDescription('mame tirta dewata tour and travel batam paket wisata');
+        SEOTools::setTitle($title, false);
+        SEOTools::setDescription('mame tirta dewata tour and travel batam paket wisata', false);
         SEOTools::opengraph()->setUrl('https://mtd-travel-batam.com/paket-wisata');
         SEOTools::setCanonical('https://mtd-travel-batam.com');
         SEOMeta::addKeyword($keywords);
@@ -188,7 +188,7 @@ class HomeController extends Controller
         $about = About::first();
         $elevatorPitch = ElevatorPitch::first();
         SEOTools::setTitle($title, false);
-        SEOTools::setDescription("PT Mame Tirta Dewata $elevatorPitch->content");
+        SEOTools::setDescription("PT Mame Tirta Dewata $elevatorPitch->content", false);
         SEOTools::opengraph()->setUrl('https://mtd-travel-batam.com/about');
         SEOTools::setCanonical('https://mtd-travel-batam.com');
         SEOMeta::addKeyword(['pt mame tirta dewata', 'mtd tour and travel batam', 'pt mame tirta dewata tour and travel', 'mame tirta dewata pusat oleh-oleh batam']);
@@ -209,8 +209,8 @@ class HomeController extends Controller
         array_push($keywords, 'mame tirta dewata wisata ' . $travel['travel_name'] . ' ' . $travel['second_text'] . ' ' . $travel['start_price']);
         array_push($keywords, 'mame tirta dewata wisata ' . $travel['travel_name'] . ' ' . $travel['region'] . ' ' . $travel['country']);
 
-        SEOTools::setTitle($title);
-        SEOTools::setDescription($description);
+        SEOTools::setTitle($title, false);
+        SEOTools::setDescription($description, false);
         SEOTools::opengraph()->setUrl('https://mtd-travel-batam.com/detail-wisata/' . $travel['slug']);
         SEOTools::setCanonical('https://mtd-travel-batam.com');
         // SEOMeta::addKeyword(["$description", 'pt mame tirta dewata', 'mtd tour and travel batam', 'pt mame tirta dewata tour and travel', 'mame tirta dewata pusat oleh-oleh batam']);
@@ -232,8 +232,8 @@ class HomeController extends Controller
             array_push($keywords, $suvenir['suvenir_name']);
         }
 
-        SEOTools::setTitle('Oleh oleh');
-        SEOTools::setDescription('mame tirta dewata tour and travel oleh-oleh batam');
+        SEOTools::setTitle($title, false);
+        SEOTools::setDescription('mame tirta dewata tour and travel oleh-oleh batam', false);
         SEOTools::opengraph()->setUrl('https://mtd-travel-batam.com/paket-wisata');
         SEOTools::setCanonical('https://mtd-travel-batam.com');
         SEOMeta::addKeyword($keywords);
@@ -255,8 +255,8 @@ class HomeController extends Controller
         $description = strip_tags($suvenir['description']);
         $description = substr($description, 0, 150);
 
-        SEOTools::setTitle($title);
-        SEOTools::setDescription($description);
+        SEOTools::setTitle($title, false);
+        SEOTools::setDescription($description, false);
         SEOTools::opengraph()->setUrl('https://mtd-travel-batam.com/detail-wisata/' . $suvenir['slug']);
         SEOTools::setCanonical('https://mtd-travel-batam.com');
         // SEOMeta::addKeyword(["$description", 'pt mame tirta dewata', 'mtd tour and travel batam', 'pt mame tirta dewata tour and travel', 'mame tirta dewata pusat oleh-oleh batam']);
