@@ -15,6 +15,15 @@ use App\Models\Travel;
 use App\Models\TravelPackage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+
+use Artesaos\SEOTools\Facades\SEOMeta;
+use Artesaos\SEOTools\Facades\OpenGraph;
+use Artesaos\SEOTools\Facades\TwitterCard;
+use Artesaos\SEOTools\Facades\JsonLd;
+// OR with multi
+use Artesaos\SEOTools\Facades\JsonLdMulti;
+
+// OR
 use Artesaos\SEOTools\Facades\SEOTools;
 
 class HomeController extends Controller
@@ -170,6 +179,11 @@ class HomeController extends Controller
         $title = "About";
         $about = About::first();
         $elevatorPitch = ElevatorPitch::first();
+        SEOTools::setTitle('Paket Wisata');
+        SEOTools::setDescription("PT Mame Tirta Dewata $elevatorPitch->content");
+        SEOTools::opengraph()->setUrl('https://mtd-travel-batam.com/about');
+        SEOTools::setCanonical('https://mtd-travel-batam.com');
+        SEOMeta::addKeyword(['pt mame tirta dewata', 'mtd tour and travel batam', 'pt mame tirta dewata tour and travel', 'mame tirta dewata pusat oleh-oleh batam']);
         return view('public.contact', compact('title', 'elevatorPitch', 'about'));
     }
 

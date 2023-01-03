@@ -13,6 +13,15 @@
   {{-- {!! seo() !!} --}}
 
   <meta name="google-site-verification" content="e3VCKG6fcp-ZlurawHmUWKhzNbpHfRU5-T1l5G4qHQGU" />
+  <meta name="author" content="Mame Tirta Dewata Official">
+  <meta name="robots" content="index, follow" />
+  <meta name="publisher" content="Hamba Allah - Website ini dilindungi Allah SWT" />
+  <meta name="google-site-verification" content="e-XrDEWlCcr4twwW_ncYKKxYCZ8Mwmne2BZpEsod_Kg" />
+  <meta property="language" content="Indonesia" />
+  <meta property="webcrawlers" content="all" />
+  <meta property="rating" content="general" />
+  <meta property="spiders" content="all" />
+
   <meta name="format-detection" content="telephone=no" />
   <link rel="icon" href="{{ asset('template/images/favicon.ico') }}">
   {{-- <link rel="shortcut icon" href="{{ asset('template/images/favicon.ico') }}" /> --}}

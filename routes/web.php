@@ -27,7 +27,7 @@ Route::get('/', function () {
 Route::resource('/home', HomeController::class);
 Route::get('/paket-wisata', [HomeController::class, 'travelPackages'])->name('paket-wisata');
 Route::get('/paket-detail', [HomeController::class, 'singlePage'])->name('paket-detail');
-Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
+Route::get('/about', [HomeController::class, 'contact'])->name('contact');
 Route::get('/detail-wisata/{slug}', [HomeController::class, 'travelDetail'])->name('detail-wisata');
 
 // oleh-oleh
