@@ -35,7 +35,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $title = "Home";
+        $title = "MTD | Home";
         $mainSliders = HomeSlider::where('is_active', 'active')->get();
         $services = HomeFirstThreeItem::get();
         $elevatorPitch = ElevatorPitch::first();
@@ -153,7 +153,7 @@ class HomeController extends Controller
 
     public function travelPackages()
     {
-        $title = "Paket Wisata";
+        $title = "MTD | Paket Wisata";
         $destinations = Travel::where('is_active', 'active')->get();
         $keywords = ['pt mame tirta dewata', 'mtd tour and travel batam', 'pt mame tirta dewata tour and travel', ];
 
@@ -184,7 +184,7 @@ class HomeController extends Controller
 
     public function contact()
     {
-        $title = "About";
+        $title = "MTD | About";
         $about = About::first();
         $elevatorPitch = ElevatorPitch::first();
         SEOTools::setTitle($title, false);
@@ -200,7 +200,7 @@ class HomeController extends Controller
         $travel = Travel::where('slug', $slug)->first();
         $sugests = Travel::whereNotIn('slug', [$slug])->inRandomOrder()->limit(4)->get();
         $packages = TravelPackage::where('travel_id', $travel['id'])->get();
-        $title = ucwords($travel['travel_name']);
+        $title = ucwords('MTD | ' . $travel['travel_name']);
         $description = strip_tags($travel['description']);
         $description = substr($description, 0, 150);
         $keywords = ['pt mame tirta dewata', 'mtd tour and travel batam', 'pt mame tirta dewata tour and travel', ];
@@ -223,7 +223,7 @@ class HomeController extends Controller
 
     public function suvenirs()
     {
-        $title = 'Oleh-oleh';
+        $title = 'MTD | Oleh-oleh';
         $suvenirs = Suvenir::where('is_active', 'active')->get();
         $suvenirCategories = SuvenirCategory::get();
         $keywords = ['mtd travel batam oleh-oleh', 'oleh-oleh', 'suvenir', 'oleh-oleh khas batam', 'suvenir khas batam',];
@@ -244,7 +244,7 @@ class HomeController extends Controller
     public function detailSuvenir($slug)
     {
         $suvenir = Suvenir::where('slug', $slug)->first();
-        $title = 'Oleh-oleh';
+        $title = 'MTD | Oleh-oleh';
         $suvenirCategories = SuvenirCategory::get();
 
         $keywords = ['pt mame tirta dewata', 'pusat oleh-oleh batam', ];
