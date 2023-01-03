@@ -7,7 +7,14 @@
   <meta charset="utf-8">
   {{-- <meta name="title" content="home - mame tirta dewata">
   <meta name="description" content="mame tirta dewata tour and travel dan pusat oleh-oleh batam"> --}}
-  {!! SEO::generate() !!}
+  {{-- {!! SEO::generate() !!} --}}
+
+  {!! SEOMeta::generate() !!}
+    {!! OpenGraph::generate() !!}
+    {!! Twitter::generate() !!}
+    {!! JsonLd::generate() !!}
+    {{-- // OR with multi --}}
+    {!! JsonLdMulti::generate() !!}
 
 
   {{-- {!! seo() !!} --}}
