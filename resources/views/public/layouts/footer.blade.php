@@ -13,7 +13,7 @@
         <div class="text-center">
           <img
             src="{{ !empty($detail['logo_footer']) ? asset('images/logo/' . $detail['logo_footer']) : asset('template/images/logo-mtd-logo.png') }}"
-            alt="Your Happy Family" width="50px">
+            alt="Your Happy Family" style="width: 50px;">
         </div>
         <div style="margin-top: -60px">
           <h3 class="text-center">MAME TIRTA DEWATA</h3>
