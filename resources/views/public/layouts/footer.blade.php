@@ -86,5 +86,4 @@
       TemplateMonster.com
     </div>
   </div>
-  </div>
 </footer>
