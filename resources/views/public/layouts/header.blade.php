@@ -26,21 +26,21 @@
         <div class="collapse navbar-collapse justify-content-md-center" id="navbarsExample10">
           <ul class="navbar-nav">
             <li class="nav-item active">
-              <a class="nav-link text-light custom-nav px-2 {{ isset($title) && $title == 'Home' ? 'current' : '' }}"
+              <a class="nav-link text-light custom-nav px-2 {{ isset($title) && $title == 'MTD | Home' ? 'current' : '' }}"
                 href="{{ route('home.index') }}">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-light custom-nav px-2 {{ isset($title) && $title == 'Paket Wisata' ? 'current' : '' }}"
+              <a class="nav-link text-light custom-nav px-2 {{ isset($title) && $title == 'MTD | Paket Wisata' ? 'current' : '' }}"
                 href="{{ route('paket-wisata') }}">Tour & Travel</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-light custom-nav px-2 {{ isset($title) && $title == 'Oleh-oleh' ? 'current' : '' }}" href="{{ route('oleh-oleh') }}">Oleh-oleh</a>
+              <a class="nav-link text-light custom-nav px-2 {{ isset($title) && $title == 'MTD | Oleh-oleh' ? 'current' : '' }}" href="{{ route('oleh-oleh') }}">Oleh-oleh</a>
             </li>
             {{-- <li class="nav-item">
               <a class="nav-link text-light custom-nav px-2" href="#">Berita</a>
             </li> --}}
             <li class="nav-item">
-              <a class="nav-link text-light custom-nav px-2 {{ isset($title) && $title == 'About' ? 'current' : '' }}" href="{{ route('contact') }}">About</a>
+              <a class="nav-link text-light custom-nav px-2 {{ isset($title) && $title == 'MTD | About' ? 'current' : '' }}" href="{{ route('contact') }}">About</a>
             </li>
           </ul>
         </div>
