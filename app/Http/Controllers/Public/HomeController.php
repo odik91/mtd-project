@@ -15,6 +15,7 @@ use App\Models\Travel;
 use App\Models\TravelPackage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Artesaos\SEOTools\Facades\SEOTools;
 
 class HomeController extends Controller
 {
@@ -33,6 +34,11 @@ class HomeController extends Controller
         $travels = Travel::where('is_active', 'active')->get();
         $suvenirs = Suvenir::where('is_active', 'active')->get();
         $testimonies = Testimoni::where('publish', 'yes')->get();
+
+        SEOTools::setTitle('Home');
+        SEOTools::setDescription('mame tirta dewata tour and travel dan pusat oleh-oleh batam');
+        SEOTools::opengraph()->setUrl('https://mtd-travel-batam.com/home');
+        SEOTools::setCanonical('https://mtd-travel-batam.com');
 
         return view('public.index', compact('title', 'mainSliders', 'services', 'elevatorPitch', 'ourServices', 'travels', 'suvenirs', 'testimonies'));
     }

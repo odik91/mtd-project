@@ -5,14 +5,16 @@
   
   <title>MTD | {{ $title ? $title : 'Home'}}</title>
   <meta charset="utf-8">
-  <meta name="title" content="home - mame tirta dewata">
-  <meta name="description" content="mame tirta dewata tour and travel dan pusat oleh-oleh batam">
+  {{-- <meta name="title" content="home - mame tirta dewata">
+  <meta name="description" content="mame tirta dewata tour and travel dan pusat oleh-oleh batam"> --}}
+  {!! SEO::generate() !!}
 
-  {!! seo() !!}
+
+  {{-- {!! seo() !!} --}}
 
   <meta name="format-detection" content="telephone=no" />
   <link rel="icon" href="{{ asset('template/images/favicon.ico') }}">
-  <link rel="shortcut icon" href="{{ asset('template/images/favicon.ico') }}" />
+  {{-- <link rel="shortcut icon" href="{{ asset('template/images/favicon.ico') }}" /> --}}
 
   <link rel="stylesheet" href="{{ asset('template/booking/css/booking.css') }}">
   <link rel="stylesheet" href="{{ asset('template/css/camera.css') }}">

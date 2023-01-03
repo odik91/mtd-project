@@ -749,7 +749,7 @@
       Swal.fire({
         icon: 'success',
         title: 'Success',
-        text: "{!! $message !!}",
+        text: "{!! $message !!}" 
       })
     @elseif ($message = Session::get('error'))
       Swal.fire({
