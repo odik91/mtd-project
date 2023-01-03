@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1" />
-
-<head>
+  
+  <head>
+  <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1" />
 
   {{-- <title>MTD | {{ $title ? $title : 'Home' }}</title> --}}
   <meta charset="utf-8" />
