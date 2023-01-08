@@ -125,14 +125,40 @@
                           @enderror
                         </div>
                       </div>
-                      <div class="form-group">
+                      <div class="card">
+                        <div class="card-header">
+                          <h6 class="text-center">SEO Content</h6>
+                        </div>
+                        <div class="card-body">
+                          <div class="form-group">
+                            <label for="meta_description" style="font-size: 14px">Meta Description</label>
+                            <input type="text" class="form-control" name="meta_description" id="meta_description"
+                              value="{{ old('meta_description') }}"
+                              placeholder="Meta description (Deskripsi singkat kontent)" required>
+                          </div>
+                          <div class="form-group">
+                            <label for="meta_keywords" style="font-size: 14px">Meta Keywords</label>
+                            <input type="text" class="form-control" name="meta_keywords" id="meta_keywords"
+                              value="{{ old('meta_keywords') }}"
+                              placeholder="Meta keywords (jika kata kunci lebih dari 1 pisahkan dengan ',' koma)"
+                              required>
+                          </div>
+                          <div class="form-group">
+                            <label for="seo_title" style="font-size: 14px">SEO Title</label>
+                            <input type="text" class="form-control" name="seo_title" id="seo_title"
+                              value="{{ old('seo_title') }}"
+                              placeholder="Judul untuk seo (minimal 5 kali disebutkan di artikel dan dibold)" required>
+                          </div>
+                        </div>
+                      </div>
+                      {{-- <div class="form-group">
                         <textarea id="summernote" name="description" class="@error('description') is-invalid @enderror" required></textarea>
                         @error('description')
                           <span class="error invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                           </span>
                         @enderror
-                      </div>
+                      </div> --}}
                       <div class="form-group">
                         <select name="is_active" class="form-control @error('is_active') is-invalid @enderror" required>
                           <option selected disabled>Ditampilkan?</option>
@@ -141,6 +167,14 @@
                         </select>
                         @error('is_active')
                           <span class="error invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                          </span>
+                        @enderror
+                      </div>
+                      <div class="form-group">
+                        <textarea name="travel_description" class="ckeditor shadow-lg @error('travel_description') is-invalid @enderror"></textarea>
+                        @error('travel_description')
+                          <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                           </span>
                         @enderror
@@ -724,8 +758,9 @@
 @push('addon-css')
   <!-- summernote -->
   {{-- <link rel="stylesheet" href="{{ asset('temp-adm/plugins/summernote/summernote-bs4.min.css') }}"> --}}
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
 @endpush
 
@@ -739,17 +774,26 @@
   {{-- <script src="{{ asset('temp-adm/plugins/summernote/summernote-bs4.min.js') }}"></script> --}}
   <!-- include summernote css/js -->
   {{-- <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script> --}}
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+    
+    {{-- ckeditor --}}
+    {{-- <script src="//cdn.ckeditor.com/4.20.0/standard/ckeditor.js"></script> --}}
+    <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+    <script src="{{ asset('ckeditor/plugins/embed/plugin.js') }}"></script>
+    <script src="{{ asset('ckeditor/plugins/colorbutton/plugin.js') }}"></script>
+    <script src="{{ asset('ckeditor/plugins/panelbutton/plugin.js') }}"></script>
   <script>
     @if ($message = Session::get('success'))
       Swal.fire({
         icon: 'success',
         title: 'Success',
-        text: "{!! $message !!}" 
+        text: "{!! $message !!}"
       })
     @elseif ($message = Session::get('error'))
       Swal.fire({
@@ -946,5 +990,9 @@
     let packageElement = $('select[name="select_package[]"]')
     let packagetarget = origin + '/admin/activate-package/'
     changeStatus(packageElement, packagetarget)
+
+    $(document).ready(function() {
+      $('.ckeditor').ckeditor()      
+    })
   </script>
 @endpush

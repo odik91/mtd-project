@@ -67,7 +67,8 @@
 <!-- ./wrapper -->
 
 <!-- jQuery -->
-<script src="{{asset('temp-adm/plugins/jquery/jquery.min.js')}}"></script>
+{{-- <script src="{{asset('temp-adm/plugins/jquery/jquery.min.js')}}"></script> --}}
+<script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
 <!-- jQuery UI 1.11.4 -->
 <script src="{{asset('temp-adm/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
