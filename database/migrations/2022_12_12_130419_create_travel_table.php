@@ -23,6 +23,9 @@ return new class extends Migration
             $table->string('thumbnail');
             $table->string('image');
             $table->longText('description');
+            $table->string('meta_description')->nullable();
+            $table->string('meta_keywords')->nullable();
+            $table->string('seo_title')->nullable();
             $table->enum('is_active', ['active', 'inactive']);
             $table->string('slug');
             $table->timestamps();

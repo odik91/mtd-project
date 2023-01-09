@@ -36,5 +36,5 @@ CKEDITOR.editorConfig = function( config ) {
 	// Simplify the dialog windows.
 	config.removeDialogTabs = 'image:advanced;link:advanced';
 	
-	config.extraPlugins = 'videoembed,base64image,colorbutton,panelbutton,font';
+	config.extraPlugins = 'videoembed,base64image,colorbutton,panelbutton,font,justify';
 };

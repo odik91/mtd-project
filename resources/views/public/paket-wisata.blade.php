@@ -27,7 +27,7 @@
         <div class="d-flex justify-content-center flex-wrap">
           @foreach ($destinations as $destination)
             <div class="banner m-2"
-              style="width: 250px; height: 340px; background-image: url('{{ asset('images/destination/' . $destination['thumbnail']) }}'); background-size: fit; box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3); -webkit-box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3); -moz-box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3);">
+              style="width: 250px; height: 340px; background-image: url('{{ asset('images/destination/' . $destination['thumbnail']) }}'); background-size: cover; box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3); -webkit-box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3); -moz-box-shadow: -1px 1px 28px 0px rgba(0,0,0,0.3);">
               {{-- <img src="{{ asset('images/destination/' . $destination['thumbnail']) }}" alt="{{ $destination['thumbnail'] }}"> --}}
               <div class="label"
                 style="margin-top: -7rem; background: rgba(0, 0, 0, 0.4); padding-top: 30px; padding-bottom: 30px">

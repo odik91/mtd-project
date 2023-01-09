@@ -132,22 +132,37 @@
                         <div class="card-body">
                           <div class="form-group">
                             <label for="meta_description" style="font-size: 14px">Meta Description</label>
-                            <input type="text" class="form-control" name="meta_description" id="meta_description"
-                              value="{{ old('meta_description') }}"
+                            <input type="text" class="form-control @error('meta_description') is-invalid @enderror"
+                              name="meta_description" id="meta_description" value="{{ old('meta_description') }}"
                               placeholder="Meta description (Deskripsi singkat kontent)" required>
+                            @error('image')
+                              <span class="error invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                              </span>
+                            @enderror
                           </div>
                           <div class="form-group">
                             <label for="meta_keywords" style="font-size: 14px">Meta Keywords</label>
-                            <input type="text" class="form-control" name="meta_keywords" id="meta_keywords"
-                              value="{{ old('meta_keywords') }}"
+                            <input type="text" class="form-control @error('meta_keywords') is-invalid @enderror"
+                              name="meta_keywords" id="meta_keywords" value="{{ old('meta_keywords') }}"
                               placeholder="Meta keywords (jika kata kunci lebih dari 1 pisahkan dengan ',' koma)"
                               required>
+                            @error('image')
+                              <span class="error invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                              </span>
+                            @enderror
                           </div>
                           <div class="form-group">
                             <label for="seo_title" style="font-size: 14px">SEO Title</label>
-                            <input type="text" class="form-control" name="seo_title" id="seo_title"
-                              value="{{ old('seo_title') }}"
+                            <input type="text" class="form-control @error('seo_title') is-invalid @enderror"
+                              name="seo_title" id="seo_title" value="{{ old('seo_title') }}"
                               placeholder="Judul untuk seo (minimal 5 kali disebutkan di artikel dan dibold)" required>
+                            @error('image')
+                              <span class="error invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                              </span>
+                            @enderror
                           </div>
                         </div>
                       </div>
@@ -160,7 +175,8 @@
                         @enderror
                       </div> --}}
                       <div class="form-group">
-                        <select name="is_active" class="form-control @error('is_active') is-invalid @enderror" required>
+                        <select name="is_active" class="form-control @error('is_active') is-invalid @enderror"
+                          required>
                           <option selected disabled>Ditampilkan?</option>
                           <option value="active">Ya</option>
                           <option value="inactive">Tidak</option>
@@ -211,11 +227,21 @@
                     @foreach ($travels as $key => $travel)
                       <tr>
                         <td>{{ ++$key }}</td>
-                        <td>{{ ucwords($travel['travel_name']) }}</td>
-                        <td>{{ ucwords($travel['second_text']) }}</td>
-                        <td>{{ ucwords($travel['start_price']) }}</td>
-                        <td>{{ ucwords($travel['country']) }}</td>
-                        <td>{{ ucwords($travel['region']) }}</td>
+                        <td>
+                          {{ isset($travel['travel_name']) ? ucwords($travel['travel_name']) : '' }}
+                        </td>
+                        <td>
+                          {{ isset($travel['second_text']) ? ucwords($travel['second_text']) : '' }}
+                        </td>
+                        <td>
+                          {{ isset($travel['start_price']) ? ucwords($travel['start_price']) : '' }}
+                        </td>
+                        <td>
+                          {{ isset($travel['country']) ? ucwords($travel['country']) : '' }}
+                        </td>
+                        <td>
+                          {{ isset($travel['region']) ? ucwords($travel['region']) : '' }}
+                        </td>
                         <td>
                           <img src="{{ asset('images/destination/' . $travel['thumbnail']) }}" alt="img1"
                             width="70px">
@@ -356,9 +382,50 @@
                                           @enderror
                                         </div>
                                       </div>
+                                      <div class="card">
+                                        <div class="card-header">
+                                          <h6 class="text-center">SEO Content</h6>
+                                        </div>
+                                        <div class="card-body">
+                                          <div class="form-group">
+                                            <label for="meta_description_edit" style="font-size: 14px">Meta Description</label>
+                                            <input type="text" class="form-control @error('meta_description_edit') is-invalid @enderror"
+                                              name="meta_description_edit" id="meta_description_edit" value="{{ $travel['meta_description'] }}"
+                                              placeholder="Meta description (Deskripsi singkat kontent)" required>
+                                            @error('meta_description_edit')
+                                              <span class="error invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                              </span>
+                                            @enderror
+                                          </div>
+                                          <div class="form-group">
+                                            <label for="meta_keywords_edit" style="font-size: 14px">Meta Keywords</label>
+                                            <input type="text" class="form-control @error('meta_keywords_edit') is-invalid @enderror"
+                                              name="meta_keywords_edit" id="meta_keywords_edit" value="{{ $travel['meta_keywords'] }}"
+                                              placeholder="Meta keywords (jika kata kunci lebih dari 1 pisahkan dengan ',' koma)"
+                                              required>
+                                            @error('meta_keywords_edit')
+                                              <span class="error invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                              </span>
+                                            @enderror
+                                          </div>
+                                          <div class="form-group">
+                                            <label for="seo_title_edit" style="font-size: 14px">SEO Title</label>
+                                            <input type="text" class="form-control @error('seo_title_edit') is-invalid @enderror"
+                                              name="seo_title_edit" id="seo_title_edit" value="{{ $travel['seo_title'] }}"
+                                              placeholder="Judul untuk seo (minimal 5 kali disebutkan di artikel dan dibold)" required>
+                                            @error('seo_title_edit')
+                                              <span class="error invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                              </span>
+                                            @enderror
+                                          </div>
+                                        </div>
+                                      </div>
                                       <div class="form-group">
-                                        <textarea id="summernote-{{ $travel['id'] }}" name="edit_description"
-                                          class="@error('edit_description') is-invalid @enderror" required>
+                                        <textarea id="edit_description" name="edit_description"
+                                          class="ckeditor shadow-lg @error('edit_description') is-invalid @enderror" required>
                                           {{ $travel['description'] }}
                                         </textarea>
                                         @error('edit_description')
@@ -423,7 +490,7 @@
                           <div class="modal fade" id="modal-direct-add-package-{{ $travel['id'] }}"
                             data-backdrop="static" data-keyboard="false" tabindex="-1"
                             aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-dialog modal-lg modal-dialog-centered">
                               <div class="modal-content">
                                 <div class="modal-header">
                                   <h5 class="modal-title" id="staticBackdropLabel">Tambah paket</h5>
@@ -452,7 +519,7 @@
                                         </div>
                                       </div>
                                       <div class="form-group">
-                                        <textarea id="package-description-direct-{{ $travel['id'] }}" name="package_description"></textarea>
+                                        <textarea id="package-description-direct-{{ $travel['id'] }}" name="package_description" class="ckeditor shadow-lg"></textarea>
                                       </div>
                                       <div class="form-group">
                                         <select name="package_active" class="form-control">
@@ -546,7 +613,7 @@
                       </div>
                       <div class="form-group">
                         <textarea id="package_description" name="package_description"
-                          class="@error('package_description') is-invalid @enderror" required>{{ old('package_description') }}</textarea>
+                          class="ckeditor shadow-lg @error('package_description') is-invalid @enderror" required>{{ old('package_description') }}</textarea>
                         @error('package_description')
                           <span class="error invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -619,7 +686,7 @@
                           <div class="modal fade" id="modal-package-{{ $travelPackage['id'] }}" data-backdrop="static"
                             data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
                             aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-dialog modal-lg modal-dialog-centered">
                               <div class="modal-content">
                                 <div class="modal-header">
                                   <h5 class="modal-title" id="staticBackdropLabel">Edit Paket</h5>
@@ -674,7 +741,7 @@
                                       </div>
                                       <div class="form-group">
                                         <textarea id="edit_package_description_{{ $travelPackage['id'] }}" name="edit_package_description"
-                                          class="@error('edit_package_description') is-invalid @enderror" required>{{ $travelPackage['description'] }}</textarea>
+                                          class="ckeditor shadow-lg @error('edit_package_description') is-invalid @enderror" required>{{ $travelPackage['description'] }}</textarea>
                                         @error('edit_package_description')
                                           <span class="error invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -776,18 +843,18 @@
   {{-- <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script> --}}
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
     integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
     integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-    
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
-    
-    {{-- ckeditor --}}
-    {{-- <script src="//cdn.ckeditor.com/4.20.0/standard/ckeditor.js"></script> --}}
-    <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
-    <script src="{{ asset('ckeditor/plugins/embed/plugin.js') }}"></script>
-    <script src="{{ asset('ckeditor/plugins/colorbutton/plugin.js') }}"></script>
-    <script src="{{ asset('ckeditor/plugins/panelbutton/plugin.js') }}"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+
+  {{-- ckeditor --}}
+  {{-- <script src="//cdn.ckeditor.com/4.20.0/standard/ckeditor.js"></script> --}}
+  <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+  <script src="{{ asset('ckeditor/plugins/embed/plugin.js') }}"></script>
+  <script src="{{ asset('ckeditor/plugins/colorbutton/plugin.js') }}"></script>
+  <script src="{{ asset('ckeditor/plugins/panelbutton/plugin.js') }}"></script>
   <script>
     @if ($message = Session::get('success'))
       Swal.fire({
@@ -803,121 +870,121 @@
       })
     @endif
 
-    $(function() {
-      // Summernote
-      const summernote_tabsize = 2;
-      const summernote_height = 400;
-      const summernote_toolbar = [
-        ['style', ['bold', 'italic', 'underline', 'clear']],
-        ['font', ['strikethrough', 'superscript', 'subscript']],
-        ['fontsize', ['fontsize']],
-        ['color', ['color']],
-        ['para', ['ul', 'ol', 'paragraph']],
-        ['height', ['height']],
-        ['insert', ['link', 'picture', 'hr', 'video']],
-        ['view', ['fullscreen', 'codeview']],
-        ['help', ['help']],
-      ];
-      const summernote_popover = {
-        image: [
-          ['image', ['resizeFull', 'resizeHalf', 'resizeQuarter', 'resizeNone']],
-          ['float', ['floatLeft', 'floatRight', 'floatNone']],
-          ['remove', ['removeMedia']]
-        ],
-        link: [
-          ['link', ['linkDialogShow', 'unlink']]
-        ],
-        air: [
-          ['color', ['color']],
-          ['font', ['bold', 'underline', 'clear']],
-          ['para', ['ul', 'paragraph']],
-          ['insert', ['link', 'picture']]
-        ],
-      }
+    // $(function() {
+    //   // Summernote
+    //   const summernote_tabsize = 2;
+    //   const summernote_height = 400;
+    //   const summernote_toolbar = [
+    //     ['style', ['bold', 'italic', 'underline', 'clear']],
+    //     ['font', ['strikethrough', 'superscript', 'subscript']],
+    //     ['fontsize', ['fontsize']],
+    //     ['color', ['color']],
+    //     ['para', ['ul', 'ol', 'paragraph']],
+    //     ['height', ['height']],
+    //     ['insert', ['link', 'picture', 'hr', 'video']],
+    //     ['view', ['fullscreen', 'codeview']],
+    //     ['help', ['help']],
+    //   ];
+    //   const summernote_popover = {
+    //     image: [
+    //       ['image', ['resizeFull', 'resizeHalf', 'resizeQuarter', 'resizeNone']],
+    //       ['float', ['floatLeft', 'floatRight', 'floatNone']],
+    //       ['remove', ['removeMedia']]
+    //     ],
+    //     link: [
+    //       ['link', ['linkDialogShow', 'unlink']]
+    //     ],
+    //     air: [
+    //       ['color', ['color']],
+    //       ['font', ['bold', 'underline', 'clear']],
+    //       ['para', ['ul', 'paragraph']],
+    //       ['insert', ['link', 'picture']]
+    //     ],
+    //   }
 
-      const summernote_toolbar_2 = [
-        ['style', ['bold', 'italic', 'underline', 'clear']],
-        ['font', ['strikethrough', 'superscript', 'subscript']],
-        ['fontsize', ['fontsize']],
-        ['color', ['color']],
-        ['para', ['ul', 'ol', 'paragraph']],
-        ['height', ['height']],
-        ['insert', ['link', 'picture', 'hr', 'video']],
-        ['view', ['fullscreen', 'codeview']],
-        ['help', ['help']]
-      ];
-      const summernote_popover_2 = {
-        image: [
-          ['image', ['resizeFull', 'resizeHalf', 'resizeQuarter', 'resizeNone']],
-          ['float', ['floatLeft', 'floatRight', 'floatNone']],
-          ['remove', ['removeMedia']]
-        ],
-        link: [
-          ['link', ['linkDialogShow', 'unlink']]
-        ],
-        air: [
-          ['color', ['color']],
-          ['font', ['bold', 'underline', 'clear']],
-          ['para', ['ul', 'paragraph']],
-          ['insert', ['link', 'picture']]
-        ]
-      }
-      $('#summernote').summernote({
-        placeholder: 'Detail informasi destinasi...',
-        tabsize: summernote_tabsize,
-        height: summernote_height,
-        toolbar: summernote_toolbar,
-        popover: summernote_popover
-      })
-      $('#package_description').summernote({
-        placeholder: 'Detail informasi paket wisata...',
-        tabsize: summernote_tabsize,
-        height: summernote_height,
-        toolbar: summernote_toolbar_2,
-        popover: summernote_popover_2
-      })
-      $('#package-description-edit').summernote({
-        placeholder: 'Detail informasi paket wisata...',
-        tabsize: summernote_tabsize,
-        height: summernote_height,
-        toolbar: summernote_toolbar_2,
-        popover: summernote_popover_2
-      })
-      $('#package-description-direct').summernote({
-        placeholder: 'Detail informasi paket wisata...',
-        tabsize: summernote_tabsize,
-        height: summernote_height,
-        toolbar: summernote_toolbar_2,
-        popover: summernote_popover_2
-      })
+    //   const summernote_toolbar_2 = [
+    //     ['style', ['bold', 'italic', 'underline', 'clear']],
+    //     ['font', ['strikethrough', 'superscript', 'subscript']],
+    //     ['fontsize', ['fontsize']],
+    //     ['color', ['color']],
+    //     ['para', ['ul', 'ol', 'paragraph']],
+    //     ['height', ['height']],
+    //     ['insert', ['link', 'picture', 'hr', 'video']],
+    //     ['view', ['fullscreen', 'codeview']],
+    //     ['help', ['help']]
+    //   ];
+    //   const summernote_popover_2 = {
+    //     image: [
+    //       ['image', ['resizeFull', 'resizeHalf', 'resizeQuarter', 'resizeNone']],
+    //       ['float', ['floatLeft', 'floatRight', 'floatNone']],
+    //       ['remove', ['removeMedia']]
+    //     ],
+    //     link: [
+    //       ['link', ['linkDialogShow', 'unlink']]
+    //     ],
+    //     air: [
+    //       ['color', ['color']],
+    //       ['font', ['bold', 'underline', 'clear']],
+    //       ['para', ['ul', 'paragraph']],
+    //       ['insert', ['link', 'picture']]
+    //     ]
+    //   }
+    //   $('#summernote').summernote({
+    //     placeholder: 'Detail informasi destinasi...',
+    //     tabsize: summernote_tabsize,
+    //     height: summernote_height,
+    //     toolbar: summernote_toolbar,
+    //     popover: summernote_popover
+    //   })
+    //   $('#package_description').summernote({
+    //     placeholder: 'Detail informasi paket wisata...',
+    //     tabsize: summernote_tabsize,
+    //     height: summernote_height,
+    //     toolbar: summernote_toolbar_2,
+    //     popover: summernote_popover_2
+    //   })
+    //   $('#package-description-edit').summernote({
+    //     placeholder: 'Detail informasi paket wisata...',
+    //     tabsize: summernote_tabsize,
+    //     height: summernote_height,
+    //     toolbar: summernote_toolbar_2,
+    //     popover: summernote_popover_2
+    //   })
+    //   $('#package-description-direct').summernote({
+    //     placeholder: 'Detail informasi paket wisata...',
+    //     tabsize: summernote_tabsize,
+    //     height: summernote_height,
+    //     toolbar: summernote_toolbar_2,
+    //     popover: summernote_popover_2
+    //   })
 
-      @foreach ($travels as $key => $travel)
-        $("#summernote-{{ $travel->id }}").summernote({
-          placeholder: '',
-          tabsize: summernote_tabsize,
-          height: summernote_height,
-          toolbar: summernote_toolbar,
-          popover: summernote_popover
-        })
-        $("#package-description-direct-{{ $travel['id'] }}").summernote({
-          placeholder: '',
-          tabsize: summernote_tabsize,
-          height: summernote_height,
-          toolbar: summernote_toolbar,
-          popover: summernote_popover
-        })
-      @endforeach
+    //   @foreach ($travels as $key => $travel)
+    //     $("#summernote-{{ $travel->id }}").summernote({
+    //       placeholder: '',
+    //       tabsize: summernote_tabsize,
+    //       height: summernote_height,
+    //       toolbar: summernote_toolbar,
+    //       popover: summernote_popover
+    //     })
+    //     $("#package-description-direct-{{ $travel['id'] }}").summernote({
+    //       placeholder: '',
+    //       tabsize: summernote_tabsize,
+    //       height: summernote_height,
+    //       toolbar: summernote_toolbar,
+    //       popover: summernote_popover
+    //     })
+    //   @endforeach
 
-      @foreach ($travelPackages as $key => $travelPackage)
-        $("#edit_package_description_{{ $travelPackage['id'] }}").summernote({
-          placeholder: '',
-          tabsize: summernote_tabsize,
-          height: summernote_height,
-          toolbar: summernote_toolbar,
-          popover: summernote_popover
-        })
-      @endforeach
-    })
+    //   @foreach ($travelPackages as $key => $travelPackage)
+    //     $("#edit_package_description_{{ $travelPackage['id'] }}").summernote({
+    //       placeholder: '',
+    //       tabsize: summernote_tabsize,
+    //       height: summernote_height,
+    //       toolbar: summernote_toolbar,
+    //       popover: summernote_popover
+    //     })
+    //   @endforeach
+    // })
 
     $(document).ready(function() {
       bsCustomFileInput.init();
@@ -992,7 +1059,7 @@
     changeStatus(packageElement, packagetarget)
 
     $(document).ready(function() {
-      $('.ckeditor').ckeditor()      
+      $('.ckeditor').ckeditor()
     })
   </script>
 @endpush

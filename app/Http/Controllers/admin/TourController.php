@@ -63,9 +63,12 @@ class TourController extends Controller
                 'start_price' => 'required',
                 'country' => 'required|min:3|',
                 'region' => 'required|min:3|',
+                'meta_description' => 'required|min:3|',
+                'meta_keywords' => 'required|min:3|',
+                'seo_title' => 'required|min:3|',
                 'thumbnail' => 'required|mimes:jpg,bmp,png',
                 'image' => 'required|mimes:jpg,bmp,png',
-                'description' => 'required',
+                'travel_description' => 'required',
                 'is_active' => 'required',
             ],
             [
@@ -77,16 +80,22 @@ class TourController extends Controller
                 'second_text.max' => 'Middle text melebihi jumlah karakter yang diperbolehkan',
                 'country.required' => 'Negara tidak boleh kosong',
                 'region.required' => 'Region tidak boleh kosong',
+                'meta_description.required' => 'Meta description tidak boleh kosong',
+                'meta_description.min' => 'Minimal 3 karakter',
+                'meta_keywords.required' => 'Meta keyword tidak boleh kosong',
+                'meta_keywords.min' => 'Minimal 3 karakter',
+                'seo_title.required' => 'Seo title tidak boleh kosong',
+                'seo_title.min' => 'Minimal 3 karakter',
                 'thumbnail.required' => 'Thumbnail tidak boleh kosong',
                 'thumbnail.mimes' => 'Format thumbnail tidak sesuai',
                 'image.required' => 'Background tidak boleh kosong',
                 'image.mimes' => 'Format background tidak sesuai',
-                'description.required' => 'Deskripsi tidak boleh kosong',
-                'is_active.required' => 'Status pilihan ditampilkan wajib diisi'
+                'travel_description.required' => 'Deskripsi tidak boleh kosong',
+                'is_active.required' => 'Status pilihan ditampilkan wajib diisi',
             ]
         );
 
-        $content = $request['description'];
+        $content = $request['travel_description'];
 
         $dom = new \DOMDocument();
         $dom->loadHTML($content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD | libxml_use_internal_errors(true));
@@ -133,6 +142,9 @@ class TourController extends Controller
             'thumbnail' => $thumbnail,
             'image' => $image,
             'description' => $content,
+            'meta_description' => $request['meta_description'],
+            'meta_keywords' => $request['meta_keywords'],
+            'seo_title' => $request['seo_title'],
             'is_active' => $request['is_active'],
             'slug' => Str::slug($slug)
         ];
@@ -187,6 +199,9 @@ class TourController extends Controller
                 'edit_start_price' => 'required',
                 'edit_country' => 'required|min:3|',
                 'edit_region' => 'required|min:3|',
+                'meta_description_edit' => 'required|min:3|',
+                'meta_keywords_edit' => 'required|min:3|',
+                'seo_title_edit' => 'required|min:3|',
                 'edit_thumbnail' => 'mimes:jpg,bmp,png',
                 'edit_image' => 'mimes:jpg,bmp,png',
                 'edit_description' => 'required',
@@ -201,6 +216,12 @@ class TourController extends Controller
                 'edit_second_text.max' => 'Middle text melebihi jumlah karakter yang diperbolehkan',
                 'edit_country.required' => 'Negara tidak boleh kosong',
                 'edit_region.required' => 'Region tidak boleh kosong',
+                'meta_description_edit.required' => 'Meta description tidak boleh kosong',
+                'meta_description_edit.min' => 'Minimal 3 karakter',
+                'meta_keywords_edit.required' => 'Meta keyword tidak boleh kosong',
+                'meta_keywords_edit.min' => 'Minimal 3 karakter',
+                'seo_title_edit.required' => 'Seo title tidak boleh kosong',
+                'seo_title_edit.min' => 'Minimal 3 karakter',
                 'edit_thumbnail.mimes' => 'Format thumbnail tidak sesuai',
                 'edit_image.mimes' => 'Format background tidak sesuai',
                 'edit_description.required' => 'Deskripsi tidak boleh kosong',
@@ -291,6 +312,9 @@ class TourController extends Controller
             'thumbnail' => $thumbnail,
             'image' => $image,
             'description' => $content,
+            'meta_description' => $request['meta_description_edit'],
+            'meta_keywords' => $request['meta_keywords_edit'],
+            'seo_title' => $request['seo_title_edit'],
             'is_active' => $request['edit_is_active'],
             'slug' => Str::slug($slug)
         ];
