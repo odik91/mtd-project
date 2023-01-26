@@ -272,7 +272,7 @@
                           </a>
 
                           <a href="#" class="btn btn-sm btn-danger m-1" style="width: 35px" data-toggle="modal"
-                            data-target="#modal-slider-delete-1" title="hapus destinasi">
+                            data-target="#modal-slider-delete-{{ $travel['id'] }}" title="hapus destinasi">
                             <i class="fas fa-trash"></i>
                           </a>
 
@@ -459,7 +459,7 @@
                           {{-- modal edit travel --}}
 
                           {{-- modal warning hapus slider --}}
-                          <div class="modal fade" id="modal-slider-delete-1" data-backdrop="static"
+                          <div class="modal fade" id="modal-slider-delete-{{ $travel['id'] }}" data-backdrop="static"
                             data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
                             aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered">
