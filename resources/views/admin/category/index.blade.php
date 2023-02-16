@@ -34,7 +34,8 @@
                 </div>
                 <div class="col-sm-12 col-md-6 col-lg-6 mb-2"></div>
                 <div class="col-sm-12 col-md-3 col-lg-3 text-right mb-2">
-                  <button class="btn btn-block btn-outline-danger badge-pill">Tong Sampah
+                  <button class="btn btn-block btn-outline-danger badge-pill" data-toggle="modal"
+                  data-target="#trash" id="trashButton">Tong Sampah
                     Kategori</button>
                 </div>
               </div>
@@ -103,12 +104,13 @@
   </div>
   {{-- end modal tambah kategori --}}
 
+  {{-- modal edit kategori --}}
   <div class="modal fade" id="editCategory" tabindex="-1" role="dialog" aria-labelledby="editCategoryLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
-      <form action="" method="post" class="w-100 mx-auto" id="form-category">
+      <form action="" method="post" class="w-100 mx-auto" id="form-edit-category">
         @csrf
-				@method('PUT')
+        @method('PUT')
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="editCategoryLabel">Edit Kategori</h5>
@@ -131,7 +133,7 @@
             </div>
             <div class="form-group">
               <label for="status-edit">Status <span class="text-danger">*</span></label>
-              <select name="status-edit" id="status" class="form-control">
+              <select name="status-edit" id="status-edit" class="form-control">
                 <option value="" selected disabled>Pilih status</option>
                 <option value="active">Aktif</option>
                 <option value="inactive">Tidak Aktif</option>
@@ -141,12 +143,46 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" id="saveCategoryEdit" class="btn btn-primary" disabled>Simpan</button>
+            <button type="submit" id="saveCategoryEdit" class="btn btn-primary">Simpan</button>
           </div>
         </div>
       </form>
     </div>
   </div>
+  {{-- end modal edit kategori --}}
+
+  {{-- modal tong sampah --}}
+  <div class="modal fade" id="trash" tabindex="-1" role="dialog" aria-labelledby="trashLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="trashLabel">Tong sampah</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="table-responsive">
+            <table class="table table-striped table-hover w-100" id="table-trash-category">
+              <thead class="table-info">
+                <tr>
+                  <th>#</th>
+                  <th>Kategori</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+            </table>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          {{-- <button type="button" id="saveCategoryEdit" class="btn btn-primary">Simpan</button> --}}
+        </div>
+      </div>
+    </div>
+  </div>
+  {{-- end modal tong sampah --}}
 @endsection
 
 @push('addon-js')

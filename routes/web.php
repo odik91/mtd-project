@@ -85,6 +85,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
     // category
     Route::resource('category', CategoryController::class);
     Route::get('categories/data-table', [CategoryController::class, 'dataTableCategory'])->name('category.data-table');
+    Route::get('categories/data-table-trash-category', [CategoryController::class, 'dataTableTrashCategory'])->name('category.data-table-trash-category');
+    Route::get('restore-category/{id}', [CategoryController::class, 'restoreCategory'])->name('category.restore-category');
+    Route::delete('category-destroy/{id}', [CategoryController::class, 'removeCategory'])->name('category.destroying-category');
 });
 
 Auth::routes([
