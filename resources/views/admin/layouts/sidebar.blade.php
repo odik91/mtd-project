@@ -77,6 +77,14 @@
           </a>
         </li>
         <li class="nav-header mt-2">HALAMAN TAMBAHAN</li>
+        <li class="nav-item">
+          <a href="{{ route('category.index') }}" class="nav-link">
+            <i class="nav-icon fas fa-cog"></i>
+            <p>
+              Kategori
+            </p>
+          </a>
+        </li>
       </ul>
     </nav>
     <!-- /.sidebar-menu -->

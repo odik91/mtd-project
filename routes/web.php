@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\admin\AboutController;
+use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\dashboardController;
 use App\Http\Controllers\admin\PengaturanHalamanUtama;
 use App\Http\Controllers\admin\SuvenirController;
@@ -80,6 +81,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
     Route::post('add-social-media', [AboutController::class, 'addSocialMedia'])->name('about.add-sosmed');
     Route::match(['PUT', 'PATCH'],'edit-social-media/{id}', [AboutController::class, 'editSocialMedia'])->name('about.edit-sosmed');
     Route::delete('delete-social-media/{id}', [AboutController::class, 'deleteSocialMedia'])->name('about.delete-sosmed');
+
+    // category
+    Route::resource('category', CategoryController::class);
+    Route::get('categories/data-table', [CategoryController::class, 'dataTableCategory'])->name('category.data-table');
 });
 
 Auth::routes([
