@@ -7,6 +7,7 @@ use App\Http\Controllers\admin\dashboardController;
 use App\Http\Controllers\admin\PengaturanHalamanUtama;
 use App\Http\Controllers\admin\SuvenirController;
 use App\Http\Controllers\admin\TourController;
+use App\Http\Controllers\Public\ExtraPageController;
 use App\Http\Controllers\Public\HomeController;
 use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
@@ -36,6 +37,9 @@ Route::get('/detail-wisata/{slug}', [HomeController::class, 'travelDetail'])->na
 // oleh-oleh
 Route::get('/oleh-oleh', [HomeController::class, 'suvenirs'])->name('oleh-oleh');
 Route::get('/oleh-oleh/{slug}', [HomeController::class, 'detailSuvenir'])->name('oleh-oleh.single');
+
+// extra page
+Route::get('feature/{id}/{slug}', [ExtraPageController::class, 'getExtraPage'])->name('public-extra.index');
 
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
