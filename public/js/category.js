@@ -65,6 +65,27 @@ document.getElementById("form-category").addEventListener("submit", (e) => {
     contentType: false,
     processData: false,
     success: (data) => {
+      const extraMenu = document.getElementById("extra-menu");
+      extraMenu.innerHTML = "";
+
+      const menu = data.menu;
+      let menuData = "";
+
+      menu.map((item, key) => {
+        let setTag = `
+        <li class="nav-item">
+          <a href="/admin/extra-pages/${item.id}" class="nav-link">
+            <i class="nav-icon fas fa-book"></i>
+            <p>
+              ${item.category}
+            </p>
+          </a>
+        </li>`;
+        return (menuData += setTag);
+      });
+
+      extraMenu.innerHTML += menuData;
+
       $("#form-category")[0].reset();
       tableCategory.ajax.reload();
       $("#addCategory").modal("hide");
@@ -133,6 +154,27 @@ document
         contentType: false,
         processData: false,
         success: (data) => {
+          const extraMenu = document.getElementById("extra-menu");
+          extraMenu.innerHTML = "";
+
+          const menu = data.menu;
+          let menuData = "";
+
+          menu.map((item, key) => {
+            let setTag = `
+              <li class="nav-item">
+                <a href="/admin/extra-pages/${item.id}" class="nav-link">
+                  <i class="nav-icon fas fa-book"></i>
+                  <p>
+                    ${item.category}
+                  </p>
+                </a>
+              </li>`;
+            return (menuData += setTag);
+          });
+
+          extraMenu.innerHTML += menuData;
+
           $("#form-edit-category")[0].reset();
           tableCategory.ajax.reload();
           $("#editCategory").modal("hide");
@@ -175,6 +217,27 @@ const deleteCategory = ($id) => {
           _token: csrf_token,
         },
         success: (data) => {
+          const extraMenu = document.getElementById("extra-menu");
+          extraMenu.innerHTML = "";
+
+          const menu = data.menu;
+          let menuData = "";
+
+          menu.map((item, key) => {
+            let setTag = `
+              <li class="nav-item">
+                <a href="/admin/extra-pages/${item.id}" class="nav-link">
+                  <i class="nav-icon fas fa-book"></i>
+                  <p>
+                    ${item.category}
+                  </p>
+                </a>
+              </li>`;
+            return (menuData += setTag);
+          });
+
+          extraMenu.innerHTML += menuData;
+
           tableCategory.ajax.reload();
           Swal.fire("Terhapus!", data.message, "success");
         },
@@ -226,6 +289,27 @@ const restoreCategory = (id) => {
     url,
     type: "GET",
     success: (data) => {
+      const extraMenu = document.getElementById("extra-menu");
+      extraMenu.innerHTML = "";
+
+      const menu = data.menu;
+      let menuData = "";
+
+      menu.map((item, key) => {
+        let setTag = `
+              <li class="nav-item">
+                <a href="/admin/extra-pages/${item.id}" class="nav-link">
+                  <i class="nav-icon fas fa-book"></i>
+                  <p>
+                    ${item.category}
+                  </p>
+                </a>
+              </li>`;
+        return (menuData += setTag);
+      });
+
+      extraMenu.innerHTML += menuData;
+
       trashTable.ajax.reload();
       tableCategory.ajax.reload();
       Swal.fire({

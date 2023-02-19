@@ -94,16 +94,18 @@
           </a>
         </li>
         <li class="nav-header mt-2">HALAMAN EXTRA</li>
-        @foreach (App\Models\Category::orderBy('category', 'asc')->get() as $category)
-          <li class="nav-item">
-            <a href="{{ route('extra-pages.main', $category->id) }}" class="nav-link">
-              <i class="nav-icon fas fa-book"></i>
-              <p>
-                {{ ucwords($category['category']) }}
-              </p>
-            </a>
-          </li>
-        @endforeach
+        <span id="extra-menu">
+          @foreach (App\Models\Category::orderBy('category', 'asc')->get() as $category)
+            <li class="nav-item">
+              <a href="{{ route('extra-pages.main', $category->id) }}" class="nav-link">
+                <i class="nav-icon fas fa-book"></i>
+                <p>
+                  {{ ucwords($category['category']) }}
+                </p>
+              </a>
+            </li>
+          @endforeach
+        </span>
       </ul>
     </nav>
     <!-- /.sidebar-menu -->

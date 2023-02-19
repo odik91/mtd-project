@@ -35,8 +35,7 @@
                 <div class="col-sm-12 col-md-6 col-lg-6 mb-2"></div>
                 <div class="col-sm-12 col-md-3 col-lg-3 text-right mb-2">
                   <button class="btn btn-block btn-outline-danger badge-pill" data-toggle="modal"
-                  data-target="#trash" id="trashButton">Tong Sampah
-                    Kategori</button>
+                  data-target="#trash" id="trashButton"><i class="fas fa-dumpster pr-1"></i>Tong Sampah</button>
                 </div>
               </div>
               <div class="table-responsive">

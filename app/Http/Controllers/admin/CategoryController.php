@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Subcategory;
 use Exception;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
@@ -52,8 +53,10 @@ class CategoryController extends Controller
 
 		try {
 			Category::create($data);
+			$categories = Category::orderBy('category', 'asc')->get();
 			return response()->json([
-				'message' => ucfirst($request['kategori']) . ' berhasil ditambahkan'
+				'message' => ucfirst($request['kategori']) . ' berhasil ditambahkan',
+				'menu' => $categories
 			], 200);
 		} catch (Exception $error) {
 			return response()->json([
@@ -109,8 +112,10 @@ class CategoryController extends Controller
 
 		try {
 			$category->update($data);
+			$categories = Category::orderBy('category', 'asc')->get();
 			return response()->json([
-				'message' => ucwords($request['kategori-edit']) . ' berhasil diperbarui'
+				'message' => ucwords($request['kategori-edit']) . ' berhasil diperbarui',
+				'menu' => $categories
 			], 201);
 		} catch (Exception $error) {
 			return response()->json($error, 422);
@@ -129,8 +134,11 @@ class CategoryController extends Controller
 		$categoryName = $category['category'];
 		try {
 			$category->delete();
+			Subcategory::where('category_id', $id)->update(['is_active' => 'inactive']);
+			$categories = Category::orderBy('category', 'desc')->get();
 			return response()->json([
-				'message' => ucfirst($categoryName) . ' berhasil dihapus'
+				'message' => ucfirst($categoryName) . ' berhasil dihapus',
+				'menu' => $categories
 			], 201);
 		} catch (Exception $error) {
 			return response()->json($error, 422);
@@ -179,8 +187,10 @@ class CategoryController extends Controller
 		$category = Category::onlyTrashed()->where('id', $id)->first();
 		try {
 			Category::onlyTrashed()->where('id', $id)->restore();
+			$categories = Category::orderBy('category', 'asc')->get();
 			return response()->json([
-				'message' => ucfirst($category['category']) . ' berhasil direstore'
+				'message' => ucfirst($category['category']) . ' berhasil direstore',
+				'menu' => $categories
 			], 201);
 		} catch (Exception $error) {
 			return response()->json($error, 422);
