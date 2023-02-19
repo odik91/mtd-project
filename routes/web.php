@@ -8,6 +8,7 @@ use App\Http\Controllers\admin\PengaturanHalamanUtama;
 use App\Http\Controllers\admin\SuvenirController;
 use App\Http\Controllers\admin\TourController;
 use App\Http\Controllers\Public\HomeController;
+use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -93,6 +94,13 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
     // category content management
     Route::get('extra-pages/{id}', [CategoryManagementController::class, 'mainPageCategory'])->name('extra-pages.main');
     Route::post('extra-pages/{id}/ajax-store-item', [CategoryManagementController::class, 'ajaxStoreItem'])->name('extra-pages.ajax-store-item');
+    Route::get('extra-pages/{id}/data-table-item', [CategoryManagementController::class, 'dataTableItem'])->name('extra-pages.data-table');
+    Route::get('extra-pages/{id}/edit', [CategoryManagementController::class, 'editItem'])->name('extra-pages.edit-item');
+    Route::match(['PUT', 'PATCH'], 'extra-pages/{id}/edit',[CategoryManagementController::class, 'updateItem'])->name('extra-pages.update-item');
+    Route::delete('extra-pages/{id}', [CategoryManagementController::class, 'ajaxDeleteItem'])->name('extra-pages.delete-item'); 
+    Route::get('extra-pages/{id}/restore', [CategoryManagementController::class, 'ajaxRestoreItem'])->name('extra-pages.restore-item');
+    Route::delete('extra-pages/{id}/destroy', [CategoryManagementController::class, 'ajaxDestroyItem'])->name('extra-pages.destroy-item');
+    Route::get('extra-pages/{id}/trash-data-table',[CategoryManagementController::class, 'dataTableTrashItem'])->name('extra-pages.trash-data-table');
 });
 
 Auth::routes([
