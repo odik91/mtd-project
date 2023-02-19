@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\admin\AboutController;
 use App\Http\Controllers\admin\CategoryController;
+use App\Http\Controllers\admin\CategoryManagementController;
 use App\Http\Controllers\admin\dashboardController;
 use App\Http\Controllers\admin\PengaturanHalamanUtama;
 use App\Http\Controllers\admin\SuvenirController;
@@ -88,6 +89,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
     Route::get('categories/data-table-trash-category', [CategoryController::class, 'dataTableTrashCategory'])->name('category.data-table-trash-category');
     Route::get('restore-category/{id}', [CategoryController::class, 'restoreCategory'])->name('category.restore-category');
     Route::delete('category-destroy/{id}', [CategoryController::class, 'removeCategory'])->name('category.destroying-category');
+
+    // category content management
+    Route::get('extra-pages/{id}', [CategoryManagementController::class, 'mainPageCategory'])->name('extra-pages.main');
+    Route::post('extra-pages/{id}/ajax-store-item', [CategoryManagementController::class, 'ajaxStoreItem'])->name('extra-pages.ajax-store-item');
 });
 
 Auth::routes([
