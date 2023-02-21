@@ -40,6 +40,7 @@ Route::get('/oleh-oleh/{slug}', [HomeController::class, 'detailSuvenir'])->name(
 
 // extra page
 Route::get('feature/{id}/{slug}', [ExtraPageController::class, 'getExtraPage'])->name('public-extra.index');
+Route::get('feature/{category}/{subcategories}/{slugCategory}/{slugSubcategory}', [ExtraPageController::class, 'detailExtraPage'])->name('public-extra.detail');
 
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {

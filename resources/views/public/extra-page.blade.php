@@ -35,7 +35,7 @@
                     <div class="title" style="font-size: 1.5rem">{{ strtoupper($subcategory['subcategory']) }}</div>
                     <div class="price">{{ strtoupper($subcategory['first_text']) }}<span
                         style="color: orange">{{ strtoupper($subcategory['second_text']) }}</span></div>
-                    <a href="#">LEARN MORE</a>
+                    <a href="{{ route('public-extra.detail', [$category['id'], $subcategory['id'], $subcategory['slug'], str_replace(' ', '-', $subcategory['subcategory'])]) }}">LEARN MORE</a>
                   </div>
                 </div>
               </div>

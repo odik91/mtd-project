@@ -262,7 +262,6 @@ const removeItem = (id) => {
 };
 
 document.getElementById("form-add-subitem").addEventListener("input", () => {
-  console.log(document.getElementById("subitem_description").value);
   if (
     document.getElementById("item_id").value === "" ||
     document.getElementById("package_name").value === "" ||
