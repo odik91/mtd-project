@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('subcategory_id');
             $table->string('package_name');
             $table->string('price');
+            $table->string('thumbnail')->nullable();
             $table->longText('description');
             $table->enum('is_active', ['active', 'inactive']);
             $table->timestamps();

@@ -105,6 +105,14 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
     Route::get('extra-pages/{id}/restore', [CategoryManagementController::class, 'ajaxRestoreItem'])->name('extra-pages.restore-item');
     Route::delete('extra-pages/{id}/destroy', [CategoryManagementController::class, 'ajaxDestroyItem'])->name('extra-pages.destroy-item');
     Route::get('extra-pages/{id}/trash-data-table',[CategoryManagementController::class, 'dataTableTrashItem'])->name('extra-pages.trash-data-table');
+    Route::post('extra-pages/subitem/store', [CategoryManagementController::class, 'storeSubitems'])->name('extra-pages.subitem.store');
+    Route::get('extra-pages/subitem/data-table/{subcat}', [CategoryManagementController::class, 'dataTableSubitem'])->name('extra-pages.subitem.data-table');
+    Route::get('extra-pages/subitem/edit/{id}', [CategoryManagementController::class, 'editPackage'])->name('extra-pages.subitem.edit');
+    Route::match(['PUT', 'PATCH'], 'extra-pages/subitem/update/{id}', [CategoryManagementController::class, 'updatePackage'])->name('extra-pages.subitem.update');
+    Route::delete('extra-pages/subitem/delete/{id}', [CategoryManagementController::class, 'deletePackage'])->name('extra-pages.subitem.delete');
+    Route::get('extra-pages/subitem/data-table-trash/{subcat}', [CategoryManagementController::class, 'dataTableTrashSubitem'])->name('extra-pages.subitem.data-table-trash');
+    Route::get('extra-pages/subitem/restore/{id}', [CategoryManagementController::class, 'restoreSubitem'])->name('extra-pages.subitem.restore');
+    Route::delete('extra-pages/subitem/destroy/{id}', [CategoryManagementController::class, 'destroySubitem'])->name('extra-pages.subitem.destroy');
 });
 
 Auth::routes([

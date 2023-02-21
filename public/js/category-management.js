@@ -260,3 +260,207 @@ const removeItem = (id) => {
     }
   });
 };
+
+document.getElementById("form-add-subitem").addEventListener("input", () => {
+  console.log(document.getElementById("subitem_description").value);
+  if (
+    document.getElementById("item_id").value === "" ||
+    document.getElementById("package_name").value === "" ||
+    document.getElementById("image_subitem").value === "" ||
+    document.getElementById("is_active_subitem").value === ""
+  ) {
+    document.getElementById("saveSubitem").disabled = true;
+  } else {
+    document.getElementById("saveSubitem").disabled = false;
+  }
+});
+
+let tableSubitemList;
+$(() => {
+  let id = document.getElementById("category_id").value;
+  let url = `/admin/extra-pages/subitem/data-table/${id}`;
+
+  tableSubitemList = $("#table-subitem-list").DataTable({
+    processing: true,
+    serverSide: true,
+    ajax: url,
+    responsive: true,
+    columns: [
+      {
+        data: "DT_RowIndex",
+        name: "DT_RowIndex",
+      },
+      {
+        data: "subname",
+        name: "subname",
+      },
+      {
+        data: "package_name",
+        name: "package_name",
+      },
+      {
+        data: "price",
+        name: "price",
+      },
+      {
+        data: "image",
+        name: "image",
+      },
+      {
+        data: "status",
+        name: "status",
+      },
+      {
+        data: "aksi",
+        name: "aksi",
+      },
+    ],
+  });
+});
+
+const deletePackage = (id) => {
+  let url = `/admin/extra-pages/subitem/delete/${id}`;
+  let csrf_token = $('meta[name="csrf-token"]').attr("content");
+
+  Swal.fire({
+    title: "Apakah anda yakin?",
+    text: "Item akan dihapus",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonText: "Ya, hapus!",
+    cancelButtonText: "Tidak, batalkan!",
+    reverseButtons: true,
+  }).then((result) => {
+    if (result.isConfirmed) {
+      $.ajax({
+        url,
+        type: "POST",
+        data: {
+          _method: "DELETE",
+          _token: csrf_token,
+        },
+        success: (data) => {
+          tableSubitemList.ajax.reload();
+          Swal.fire("Terhapus!", data.message, "success");
+        },
+        error: (data) => {
+          Swal.fire("Gagal!", data.responseJSON.message, "error");
+        },
+      });
+    } else if (
+      /* Read more about handling dismissals below */
+      result.dismiss === Swal.DismissReason.cancel
+    ) {
+      Swal.fire("Dibatalkan", "Item tidak dihapus", "error");
+    }
+  });
+};
+
+let tableTrashSubitem;
+document
+  .getElementById("button-trash-subitem")
+  .addEventListener("click", () => {
+    $("#modalTrashSubitem").modal("show");
+    let id = document.getElementById("category_id").value;
+    let url = `/admin/extra-pages/subitem/data-table-trash/${id}`;
+    tableTrashSubitem = $("#talbe-trash-subitem").DataTable({
+      destroy: true,
+      processing: true,
+      serverSide: true,
+      ajax: url,
+      responsive: true,
+      columns: [
+        {
+          data: "DT_RowIndex",
+          name: "DT_RowIndex",
+        },
+        {
+          data: "subcategory",
+          name: "subcategory",
+        },
+        {
+          data: "package_name",
+          name: "package_name",
+        },
+        {
+          data: "aksi",
+          name: "aksi",
+        },
+      ],
+    });
+  });
+
+const restorePackage = (id) => {
+  let url = `/admin/extra-pages/subitem/restore/${id}`;
+
+  Swal.fire({
+    title: "Apakah anda yakin?",
+    text: "Semua paket yang berhubungan dengan item ini akan diaktifkan dan item akan dipulihkan",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonText: "Ya, pulihkan!",
+    cancelButtonText: "Tidak, batalkan!",
+    reverseButtons: true,
+  }).then((result) => {
+    if (result.isConfirmed) {
+      $.ajax({
+        url,
+        type: "GET",
+        contentType: false,
+        processData: false,
+        success: (data) => {
+          tableSubitemList.ajax.reload();
+          tableTrashSubitem.ajax.reload();
+          Swal.fire("Dipulihkan!", data.message, "success");
+        },
+        error: (data) => {
+          Swal.fire("Error", data.responseJSON.message, "error");
+        },
+      });
+    } else if (
+      /* Read more about handling dismissals below */
+      result.dismiss === Swal.DismissReason.cancel
+    ) {
+      Swal.fire("Dibatalkan", "Item tidak dipulihkan", "error");
+    }
+  });
+};
+
+const destroyPackage = (id) => {
+  let url = `/admin/extra-pages/subitem/destroy/${id}`;
+  let csrf_token = $('meta[name="csrf-token"]').attr("content");
+
+  Swal.fire({
+    title: "Apakah anda yakin?",
+    text: "Item akan dimusnaahkan selamanya",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonText: "Ya, hapus!",
+    cancelButtonText: "Tidak, batalkan!",
+    reverseButtons: true,
+  }).then((result) => {
+    if (result.isConfirmed) {
+      $.ajax({
+        url,
+        type: "POST",
+        data: {
+          _method: "DELETE",
+          _token: csrf_token,
+        },
+        success: (data) => {
+          tableSubitemList.ajax.reload();
+          tableTrashSubitem.ajax.reload();
+          Swal.fire("Musnah!", data.message, "success");
+        },
+        error: (data) => {
+          Swal.fire("Error", data.responseJSON.message, "error");
+        },
+      });
+    } else if (
+      /* Read more about handling dismissals below */
+      result.dismiss === Swal.DismissReason.cancel
+    ) {
+      Swal.fire("Dibatalkan", "Item tidak dimusnahkan", "error");
+    }
+  });
+};

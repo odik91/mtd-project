@@ -12,4 +12,8 @@ class SubcategoryPackage extends Model
     use HasFactory, Notifiable, SoftDeletes;
 
     protected $guarded = [];
+
+    public function getSubcategory() {
+        return $this->hasOne(Subcategory::class, 'id', 'subcategory_id');
+    }
 }
