@@ -133,7 +133,7 @@
                       <div class="card-footer text-right">
                         <a href="{{ route('extra-pages.main', $subcategory->getCategory['id']) }}"
                           class="btn btn-secondary close-custom-modal">Batal</a>
-                        <button type="submit" id="editItem" class="btn btn-primary" disabled>Simpan</button>
+                        <button type="submit" id="editItem" class="btn btn-primary">Simpan</button>
                       </div>
                     </div>
                   </form>
