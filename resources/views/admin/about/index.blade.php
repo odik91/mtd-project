@@ -39,7 +39,7 @@
                 <img src="{{ asset('template/images/mtd-color.png') }}" alt="mtd-color.png" style="width: 180px">
                 <br>
                 <div class="mt-2 mb-4">
-                  {{ $elevatorPitch['content'] }}
+                  {{ !empty($elevatorPitch['content']) && $elevatorPitch['content'] }}
                 </div>
               </div>
               <figure class="" id="maps">
@@ -60,7 +60,7 @@
               </div>
               <div class="my-4 text-center">
                 <p>
-                  <b>{{ ucwords($about['alamat']) . ' ' . ucwords($about['kelurahan']) . ' ' . ucwords($about['kecamatan']) . ' ' . ucwords($about['kabupaten']) . ' ' . ucwords($about['provinsi']) }}
+                  <b>{{ !empty($about['alamat']) && ucwords($about['alamat']) . ' ' . !empty($about['kelurahan']) && ucwords($about['kelurahan']) . ' ' . !empty($about['kecamatan']) && ucwords($about['kecamatan']) . ' ' . !empty($about['kabupaten']) && ucwords($about['kabupaten']) . ' ' . !empty($about['provinsi']) && ucwords($about['provinsi']) }}
                   </b>
                 </p>
               </div>
@@ -90,7 +90,7 @@
                 <div class="mb-3">
                   <h5 class="text-warning">Logo Footer
                   </h5>
-                  @if ($about['logo_footer'])
+                  @if (isset($about['logo_footer']))
                     <img src="{{ asset('images/' . $about['logo_footer']) }}" alt="Your Happy Family" height="50px">
                   @else
                     <img src="{{ asset('template/images/logo-mtd-logo.png') }}" alt="Your Happy Family" height="50px">
@@ -109,13 +109,13 @@
                   </div>
                   <!-- /.card-header -->
                   <div class="card-body">
-                    <form action="{{ route('about.update', $about['id']) }}" method="post"
+                    <form action="{{ route('about.update', !empty($about['id']) && $about['id']) }}" method="post"
                       enctype="multipart/form-data">
                       @csrf
                       @method('PUT')
                       <div class="form-body mb-3">
                         <textarea id="gmap" name="gmap" class="form-control" cols="30" rows="10"
-                          placeholder="Masukkan frame peta dari google map <iframe src='https://www.google.com/maps/embed?>....</iframe>">{!! $about['maps'] !!}</textarea>
+                          placeholder="Masukkan frame peta dari google map <iframe src='https://www.google.com/maps/embed?>....</iframe>">{!! !empty($about['maps']) && $about['maps'] !!}</textarea>
                       </div>
                       <div class="form-group mb-3">
                         <div class="input-group">
@@ -125,8 +125,7 @@
                             <label class="custom-file-label text-muted"
                               for="logo_about-01">{{ !empty($about['logo_about'])
                                   ? $about['logo_about']
-                                  : 'Logo utama halaman
-                                                                                                                                                                                                                                                                              about' }}</label>
+                                  : 'Logo utama halaman about' }}</label>
                             @error('logo_about')
                               <span class="error invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -143,8 +142,7 @@
                             <label class="custom-file-label text-muted"
                               for="logo_slider">{{ !empty($about['logo_slider'])
                                   ? $about['logo_slider']
-                                  : 'Logo header setiap
-                                                                                                                                                                                                                                                                              halaman' }}</label>
+                                  : 'Logo header setiap halaman' }}</label>
                           </div>
                           @error('logo_slider')
                             <span class="error invalid-feedback" role="alert">
@@ -161,8 +159,7 @@
                             <label class="custom-file-label text-muted"
                               for="logo_footer">{{ !empty($about['logo_footer'])
                                   ? $about['logo_footer']
-                                  : 'Logo footer setiap
-                                                                                                                                                                                                                                                                              halaman' }}</label>
+                                  : 'Logo footer setiap halaman' }}</label>
                             @error('logo_footer')
                               <span class="error invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -175,7 +172,7 @@
                         <div class="col-sm col-lg-6 col-md-6 mb-3">
                           <input type="text" name="alamat"
                             class="form-control @error('alamat') is-invalid @enderror" placeholder="Alamat"
-                            value="{{ $about['alamat'] }}" required>
+                            value="{{ !empty($about['alamat']) && $about['alamat'] }}" required>
                           @error('alamat')
                             <span class="error invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>
@@ -185,7 +182,7 @@
                         <div class="col-sm col-lg-6 col-md-6 mb-3">
                           <input type="text" name="kelurahan"
                             class="form-control @error('kelurahan') is-invalid @enderror" placeholder="Kelurahan"
-                            value="{{ $about['kelurahan'] }}" required>
+                            value="{{ !empty($about['kelurahan']) && $about['kelurahan'] }}" required>
                           @error('kelurahan')
                             <span class="error invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>
@@ -197,7 +194,7 @@
                         <div class="col-sm col-lg-4 col-md-4 mb-3">
                           <input type="text" name="kecamatan"
                             class="form-control @error('kecamatan') is-invalid @enderror" placeholder="Kecamatan"
-                            value="{{ $about['kecamatan'] }}" required>
+                            value="{{ !empty($about['kecamatan']) && $about['kecamatan'] }}" required>
                           @error('kecamatan')
                             <span class="error invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>
@@ -207,7 +204,7 @@
                         <div class="col-sm col-lg-4 col-md-4 mb-3">
                           <input type="text" name="kabupaten"
                             class="form-control @error('kabupaten') is-invalid @enderror" placeholder="Kota"
-                            value="{{ $about['kabupaten'] }}" required>
+                            value="{{ !empty($about['kabupaten']) && $about['kabupaten'] }}" required>
                           @error('kabupaten')
                             <span class="error invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>
@@ -217,7 +214,7 @@
                         <div class="col-sm col-lg-4 col-md-4 mb-3">
                           <input type="text" name="provinsi"
                             class="form-control @error('provinsi') is-invalid @enderror" placeholder="Provinsi"
-                            value="{{ $about['provinsi'] }}" required>
+                            value="{{ !empty($about['provinsi']) && $about['provinsi'] }}" required>
                           @error('provinsi')
                             <span class="error invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>

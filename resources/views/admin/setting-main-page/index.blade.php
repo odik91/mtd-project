@@ -431,8 +431,8 @@
                   </h3>
                 </div>
                 <div class="card-body text-center">
-                  <h2 class="text-warning">{{ strtoupper($elevatorPitch['title']) }}</h2>
-                  <p>{{ $elevatorPitch['content'] }}</p>
+                  <h2 class="text-warning">{{ strtoupper(!empty($elevatorPitch['title']) && $elevatorPitch['title']) }}</h2>
+                  <p>{{ !empty($elevatorPitch['content']) && $elevatorPitch['content'] }}</p>
                   <button class="mt-4 btn btn-block btn-outline-info" data-toggle="modal"
                     data-target="#modal-ev">Edit</button>
                 </div>
@@ -446,7 +446,7 @@
                           <span aria-hidden="true">&times;</span>
                         </button>
                       </div>
-                      <form method="POST" action="{{ route('main-settings.edit-ev', $elevatorPitch['id']) }}">
+                      <form method="POST" action="{{ route('main-settings.edit-ev', !empty($elevatorPitch['id']) && $elevatorPitch['id']) }}">
                         @csrf
                         @method('PATCH')
                         <div class="modal-body">
@@ -454,7 +454,7 @@
                             <label for="elevator-pitch">Judul Elevator Pitch</label>
                             <input type="text" name="ev-title"
                               class="form-control @error('ev-title') is-invalid @enderror" id="link"
-                              placeholder="Masukkan judul.." required value="{{ $elevatorPitch['title'] }}">
+                              placeholder="Masukkan judul.." required value="{{ !empty($elevatorPitch['title']) && $elevatorPitch['title'] }}">
                             @error('ev-title')
                               <span class="error invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -464,7 +464,7 @@
                           <div class="form-group">
                             <label for="elevator-pitch">Isi Elevator Pitch</label>
                             <textarea name="ev-desc" class="form-control @error('ev-desc') is-invalid @enderror" id="elevator-pitch"
-                              rows="4" required>{{ $elevatorPitch['content'] }}</textarea>
+                              rows="4" required>{{ !empty($elevatorPitch['content']) && $elevatorPitch['content'] }}</textarea>
                             @error('ev-desc')
                               <span class="error invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
